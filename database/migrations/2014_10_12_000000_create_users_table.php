@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('nim')->nullable();
+            $table->string('nim')->nullable();
             $table->foreignId('study_program_id')->constrained('study_programs')->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('vote_status')->default(false);
             $table->foreignId('election_id')->nullable()->constrained('elections')->restrictOnDelete()->cascadeOnUpdate();

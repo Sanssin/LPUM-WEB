@@ -26,7 +26,8 @@
                     <div class="d-flex align-items-center">
                         <span class="flex-shrink-0"><i class="mdi mdi-timer-alert-outline display-6 text-info"></i></span>
                         <div class="ms-4">
-                            <h4 class="card-title text-dark">Sisa waktu : <b id="days"></b> hari <b id="hours"></b>
+                            <h4 class="card-title text-dark waktu-mundur">Sisa waktu : <b id="days"></b> hari <b
+                                    id="hours"></b>
                                 jam <b id="minutes"></b> menit <b id="seconds"></b> detik</h4>
                             <h6 class="card-subtitle mb-0 fs-2 fw-normal">
                                 Tidak melakukan pemilihan akan dihitung sebagai golput.
@@ -41,22 +42,25 @@
     </div>
 
     <div class="row justify-content-center">
-        @for ($i = 0; $i < 4; $i++)
+        @foreach ($candidates as $candidate)
             <div class="col-md-4">
                 <div class="card text-center card-hover">
                     <div class="card-body">
                         <img src="https://source.unsplash.com/random/500x500/?ferrari" class="rounded-3 img-responsive"
                             style="width: 240px; height:180px">
                         <div class="mt-n2">
-                            <span class="badge bg-primary">No {{ $i + 1 }}</span>
-                            <h4 class="mt-3">Joko widodo</h4>
-                            <h6 class="card-subtitle">Basuki</h6>
+                            <span class="badge bg-primary">No {{ $candidate->number }}</span>
+                            <h4 class="mt-3">{{ $candidate->leader->first_name . ' ' . $candidate->leader->last_name }}
+                            </h4>
+                            @if ($candidate->coleader)
+                                <h6 class="card-subtitle">Basuki</h6>
+                            @endif
                         </div>
                         <div class="row mt-3 justify-content-between">
                             <div class="col-6">
                                 <button type="button"
                                     class="justify-content-between w-100 btn btn-rounded btn-light text-dark font-weight-medium d-flex text-dark align-items-center"
-                                    data-bs-toggle="modal" data-bs-target="#paslon-1-modal">
+                                    data-bs-toggle="modal" data-bs-target="#paslon-{{ $candidate->number }}-modal">
                                     <span class="mdi mdi-comment-text"></span>
                                     <span>
                                         Visi & Misi
@@ -64,67 +68,61 @@
                                 </button>
                                 <span class="text-muted" style="font-size: 12px">Klik untuk lebih detail</span>
                             </div>
-                            <div class="col-6">
-                                <button type="button" value="1"
-                                    class="justify-content-center w-100 btn btn-rounded btn-primary font-weight-medium d-flex align-items-center coblos-button">
-                                    <span class="mdi mdi-pin"></span>
-                                    <span>
-                                        Coblos
-                                    </span>
-                                </button>
-                            </div>
+                            @if (now() > $endTime)
+                                <div class="col-6">
+                                    <button type="button" value="{{ $candidate->number }}"
+                                        class="justify-content-center w-100 btn btn-rounded btn-primary font-weight-medium d-flex align-items-center coblos-button">
+                                        <span class="mdi mdi-pin"></span>
+                                        <span>
+                                            Coblos
+                                        </span>
+                                    </button>
+                                </div>
+                            @else
+                                <div class="col-6"><button class="btn btn-purple text-white" disabled>Bukan
+                                        periode</button></div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 
-
-    <div id="paslon-1-modal" class="modal fade" tabindex="-1" aria-labelledby="paslon-1-modalLabel" aria-hidden="true"
-        style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div
-                    class="
-                modal-header modal-colored-header
-                bg-info
-                text-white
-              ">
-                    <h4 class="modal-title" id="paslon-1-modalLabel">
-                        Calon nomor urut 1
-                    </h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    @foreach ($candidates as $candidate)
+        <div id="paslon-{{ $candidate->number }}-modal" class="modal fade" tabindex="-1"
+            aria-labelledby="paslon-{{ $candidate->number }}-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header bg-info text-white">
+                        <h4 class="modal-title" id="paslon-{{ $candidate->number }}-modalLabel">
+                            Calon nomor urut {{ $candidate->number }}
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>{{ $candidate->leader->first_name }} {{ $candidate->leader->last_name }}</h5>
+                        <h5 class="mt-0">Visi</h5>
+                        <p>
+                            {{ $candidate->vision }}
+                        </p>
+                        <h5 class="mt-0">Misi</h5>
+                        <p>
+                            {{ $candidate->mission }}
+                        </p>
+                        <blockquote class="blockquote text-center">"{{ $candidate->slogan }}"</blockquote>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            Tutup
+                        </button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <h5>Jokowi - basuki</h5>
-                    <h5 class="mt-0">Visi</h5>
-                    <p>
-                        Cras mattis consectetur purus sit amet fermentum.
-                        Cras justo odio, dapibus ac facilisis in, egestas
-                        eget quam. Morbi leo risus, porta ac consectetur
-                        ac, vestibulum at eros.
-                    </p>
-                    <h5 class="mt-0">Misi</h5>
-                    <p>
-                    <ul>
-                        <li>Merdeka</li>
-                        <li>sanpapa murah</li>
-                        <li>harga bbm turun</li>
-                    </ul>
-                    </p>
-                    <blockquote class="blockquote text-center">"Akan maju sendirinya!"</blockquote>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                        Tutup
-                    </button>
-                </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
+    @endforeach
 @endsection
 
 @push('vendorScript')
@@ -155,13 +153,8 @@
                 dd = String(today.getDate()).padStart(2, "0"),
                 mm = String(today.getMonth() + 1).padStart(2, "0"),
                 yyyy = today.getFullYear(),
-                nextYear = yyyy + 1,
-                dayMonth = "10/7/",
-                birthday = dayMonth + yyyy + " 20:16:00";
-            today = mm + "/" + dd + "/" + yyyy;
-            if (today > birthday) {
-                birthday = dayMonth + nextYear;
-            }
+                birthday = "{{ $endTime->isoFormat('M/D/Y HH:mm:ss') }}";
+            // birthday = "4/28/2023 22:59:00";
             //end
             const countDown = new Date(birthday).getTime(),
                 x = setInterval(function() {
@@ -179,12 +172,9 @@
                     ));
                     //do something later when date is reached
                     if (distance < 0) {
+                        $(".waktu-mundur").removeClass("text-dark");
+                        $(".waktu-mundur").addClass("text-danger");
                         $(".waktu-mundur").html("Pemilunya dah selesai");
-                        if ({{ auth()->user()->vote_status }} == 1) {
-                            $(".subtext-waktu").html("Makasih ya &#128516;");
-                        } else {
-                            $(".subtext-waktu").html("Kamu malah golput anj &#128545;");
-                        }
                         clearInterval(x);
                     }
                     //seconds

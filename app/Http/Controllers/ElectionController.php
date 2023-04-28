@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
 use App\Models\Election;
 use Illuminate\Http\Request;
 
@@ -39,11 +40,18 @@ class ElectionController extends Controller
     {
         $title = "Pemilihan ketua poster";
 
-        $data = Election::where('id', $id)->with('voteTime')->first()->voteTime->first()->agenda->end_event->isoFormat('M/d/Y HH:mm:ss');
+        $endTime = Election::where('id', $id)->with('voteTime')
+            ->first()->voteTime->first()->agenda->end_event;
 
-        dd($data);
+        if (now() < $endTime) :
+            abort(401);
+        endif;
 
-        return view('Election.vote-page', compact('title'));
+        $candidates = Candidate::where('election_id', $id)
+            ->with('leader:id,first_name,last_name', 'coleader:id,first_name,last_name')
+            ->orderBy('number')->get();
+
+        return view('Election.vote-page', compact('title', 'endTime', 'candidates'));
     }
 
     public function result()

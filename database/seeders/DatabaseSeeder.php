@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Imports\UsersImport;
 use App\Models\Candidate;
 use Illuminate\Database\Seeder;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,7 +27,10 @@ class DatabaseSeeder extends Seeder
             // OrganizationsSeeder::class,
             ElectionsSeeder::class,
             EventsSeeder::class,
-            // CandidateSeeder::class
         ]);
+
+        Excel::import(new UsersImport, 'laravel-lpum-test.csv');
+
+        $this->call(CandidateSeeder::class);
     }
 }
