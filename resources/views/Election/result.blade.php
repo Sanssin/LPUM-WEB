@@ -12,11 +12,11 @@
                     <h4 class="text-muted">Pemilu terbaru</h4>
                     <div class="row">
                         <div class="col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
-                            <div class="card w-100">
+                            <div class="card w-100 border-success">
                                 <div class="p-3 d-flex align-items-stretch h-100">
                                     <div class="row">
                                         <div class="col-4 col-xl-2 col-md-3 d-flex align-items-center">
-                                            <img src="{{ asset('assets/images/naruto-sasuke.jpg') }}"
+                                            <img src="{{ asset('assets/images/contoh-poster.jpg') }}"
                                                 class="rounded img-fluid">
                                         </div>
                                         <div class="col-8 col-xl-10 col-md-9 d-flex align-items-center">
@@ -27,6 +27,7 @@
                                                 <h6 class="card-subtitle mt-2 mb-0 fw-normal">
                                                     23 september 2023 - 30 september 2023
                                                 </h6>
+                                                <span class="badge bg-light-success text-success">Berlangsung</span>
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +65,7 @@
                                     <div class="p-3 d-flex align-items-stretch h-100">
                                         <div class="row">
                                             <div class="col-4 col-xl-2 col-md-3 d-flex align-items-center">
-                                                <img src="{{ asset('assets/images/naruto-sasuke.jpg') }}"
+                                                <img src="{{ asset('assets/images/contoh-poster.jpg') }}"
                                                     class="rounded img-fluid">
                                             </div>
                                             <div class="col-8 col-xl-10 col-md-9 d-flex align-items-center">
@@ -75,6 +76,7 @@
                                                     <h6 class="card-subtitle mt-2 mb-0 fw-normal">
                                                         23 september 2023 - 30 september 2023
                                                     </h6>
+                                                    <span class="badge bg-light-secondary text-secondary">Selesai</span>
                                                 </div>
                                             </div>
                                         </div>

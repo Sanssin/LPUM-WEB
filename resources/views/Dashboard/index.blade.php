@@ -1,6 +1,7 @@
 @extends('Template.Dashboard.layouts')
 
 @push('vendorScript')
+    <script src="{{ asset('dist/js/jquery.sparkline.min.js') }}"></script>
     <!--This page JavaScript -->
     <script src="{{ asset('dist/js/apexcharts.min.js') }}"></script>
     <!-- Chart JS -->

@@ -41,75 +41,43 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card text-center card-hover">
-                <div class="card-body">
-                    <img src="https://source.unsplash.com/random/500x500/?ferrari" class="rounded-3 img-responsive"
-                        style="width: 230px; height:120px">
-                    <div class="mt-n2">
-                        <span class="badge bg-primary">No 1</span>
-                        <h4 class="mt-3">Joko widodo</h4>
-                        <h6 class="card-subtitle">Basuki</h6>
-                    </div>
-                    <div class="row mt-3 justify-content-between">
-                        <div class="col-6">
-                            <button type="button"
-                                class="justify-content-between w-100 btn btn-rounded btn-light text-dark font-weight-medium d-flex text-dark align-items-center"
-                                data-bs-toggle="modal" data-bs-target="#paslon-1-modal">
-                                <span class="mdi mdi-comment-text"></span>
-                                <span>
-                                    Visi & Misi
-                                </span>
-                            </button>
-                            <span class="text-muted" style="font-size: 12px">Klik untuk lebih detail</span>
+        @for ($i = 0; $i < 4; $i++)
+            <div class="col-md-4">
+                <div class="card text-center card-hover">
+                    <div class="card-body">
+                        <img src="https://source.unsplash.com/random/500x500/?ferrari" class="rounded-3 img-responsive"
+                            style="width: 240px; height:180px">
+                        <div class="mt-n2">
+                            <span class="badge bg-primary">No {{ $i + 1 }}</span>
+                            <h4 class="mt-3">Joko widodo</h4>
+                            <h6 class="card-subtitle">Basuki</h6>
                         </div>
-                        <div class="col-6">
-                            <button type="button" value="1"
-                                class="justify-content-center w-100 btn btn-rounded btn-primary font-weight-medium d-flex align-items-center coblos-button">
-                                <span class="mdi mdi-pin"></span>
-                                <span>
-                                    Coblos
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center card-hover">
-                <div class="card-body">
-                    <img src="https://source.unsplash.com/random/500x500/?bugatti" class="rounded-3 img-fluid"
-                        style="width: 230px; height:120px">
-                    <div class="mt-n2">
-                        <span class="badge bg-primary">No 1</span>
-                        <h4 class="mt-3">Joko widodo</h4>
-                        <h6 class="card-subtitle">Basuki</h6>
-                    </div>
-                    <div class="row mt-3 justify-content-between">
-                        <div class="col-6">
-                            <button type="button"
-                                class="justify-content-between w-100 btn btn-rounded btn-light text-dark font-weight-medium d-flex text-dark align-items-center">
-                                <span class="mdi mdi-comment-text"></span>
-                                <span>
-                                    Visi & Misi
-                                </span>
-                            </button>
-                            <span class="text-muted" style="font-size: 12px">Klik untuk lebih detail</span>
-                        </div>
-                        <div class="col-6">
-                            <button type="button"
-                                class="justify-content-center w-100 btn btn-rounded btn-primary font-weight-medium d-flex align-items-center">
-                                <span class="mdi mdi-pin"></span>
-                                <span>
-                                    Coblos
-                                </span>
-                            </button>
+                        <div class="row mt-3 justify-content-between">
+                            <div class="col-6">
+                                <button type="button"
+                                    class="justify-content-between w-100 btn btn-rounded btn-light text-dark font-weight-medium d-flex text-dark align-items-center"
+                                    data-bs-toggle="modal" data-bs-target="#paslon-1-modal">
+                                    <span class="mdi mdi-comment-text"></span>
+                                    <span>
+                                        Visi & Misi
+                                    </span>
+                                </button>
+                                <span class="text-muted" style="font-size: 12px">Klik untuk lebih detail</span>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" value="1"
+                                    class="justify-content-center w-100 btn btn-rounded btn-primary font-weight-medium d-flex align-items-center coblos-button">
+                                    <span class="mdi mdi-pin"></span>
+                                    <span>
+                                        Coblos
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endfor
     </div>
 
 

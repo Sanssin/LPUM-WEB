@@ -28,7 +28,7 @@
                         <div class="col-12 col-md-4">
                             <div class="card">
                                 <img class="card-img-top img-responsive mw-50"
-                                    src="https://source.unsplash.com/random/500x500/?fruit" alt="Card image cap">
+                                    src="{{ asset('assets/images/contoh-poster.jpg') }}" alt="Card image cap">
                                 <div class="card-body">
                                     <h4 class="card-title">Pemilihan Ketua Poster 2023</h4>
                                     <p class="card-text">
@@ -36,7 +36,7 @@
                                         voluptatum totam
                                         amet expedita?
                                     </p>
-                                    <a href="#" class="btn btn-info my-1 d-block">Detail</a>
+                                    <a href="{{ route('election.show') }}" class="btn btn-info my-1 d-block">Detail</a>
                                     <a href="{{ route('election.votePage') }}" class="btn btn-primary d-block">Coblos
                                         sekarang</a>
                                 </div>

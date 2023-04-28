@@ -20,7 +20,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index2.html"
                         aria-expanded="false">
-                        <i data-feather="shopping-bag"></i><span class="hide-menu">Profil</span>
+                        <i class="mdi mdi-home-account"></i><span class="hide-menu">Profil</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -57,17 +57,18 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('election.coblos') }}"
-                        aria-expanded="false"><i data-feather="calendar"></i><span class="hide-menu">Coblosan</span></a>
+                        aria-expanded="false"><i class="mdi mdi-pin"></i><span class="hide-menu">Coblosan</span></a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="{{ route('election.result.index') }}" aria-expanded="false"><i
-                            data-feather="message-circle"></i><span class="hide-menu">Hasil
+                            class="mdi mdi-chart-box"></i><span class="hide-menu">Hasil
                             Pemilu</span></a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('election.index') }}"
-                        aria-expanded="false"><i data-feather="phone"></i><span class="hide-menu">Semua
+                        aria-expanded="false"><i class="mdi mdi-calendar-account-outline"></i><span
+                            class="hide-menu">Semua
                             Pemilu</span></a>
                 </li>
                 <li class="nav-small-cap">
@@ -75,22 +76,19 @@
                     <span class="hide-menu">Penting</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-invoice.html"
-                        aria-expanded="false"><i data-feather="file-text"></i><span
-                            class="hide-menu">Postingan</span></a>
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('agenda') }}"
+                        aria-expanded="false"><i class="mdi mdi-calendar-clock"></i><span
+                            class="hide-menu">Agenda</span></a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-notes.html"
-                        aria-expanded="false"><i data-feather="copy"></i><span class="hide-menu">Info KM</span></a>
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('km.index') }}"
+                        aria-expanded="false"><i class="mdi mdi-account-group"></i><span class="hide-menu">Info
+                            KM</span></a>
                 </li>
 
                 <li class="nav-small-cap">
                     <i class="nav-small-line"></i>
                     <span class="hide-menu">Lainnya</span>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-todo.html"
-                        aria-expanded="false"><i data-feather="trello"></i><span class="hide-menu">Bantuan</span></a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-taskboard.html"

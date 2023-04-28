@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ElectionController;
+use App\Http\Controllers\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +35,9 @@ Route::get('/', function () {
 
 // Menu dashboard polos
 Route::middleware('auth')->controller(DashboardController::class)->group(function () {
-    Route::get('/dashboard', 'index')->name('pagu');
+    Route::get('dashboard', 'index')->name('pagu');
+    Route::get('agenda', 'agenda')->name('agenda');
+    Route::get('contact', 'contact')->name('contact');
 });
 
 // Menu admin
@@ -54,4 +57,9 @@ Route::middleware('auth')->controller(ElectionController::class)->name('election
     Route::get('result', 'result')->name('result.index');
     Route::get('result/1', 'showResult')->name('result.show');
     Route::get('election', 'index')->name('index');
+    Route::get('election/1', 'show')->name('show');
+});
+
+Route::middleware('auth')->controller(OrganizationController::class)->prefix('km')->name('km.')->group(function () {
+    Route::get('/', 'index')->name('index');
 });

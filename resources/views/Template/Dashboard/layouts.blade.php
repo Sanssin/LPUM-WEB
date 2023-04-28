@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     {{-- FontAwesom --}}
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> --}}
-    <script src="https://kit.fontawesome.com/21c1c2d6a2.js" crossorigin="anonymous"></script>
+    {{-- <script src="https://kit.fontawesome.com/21c1c2d6a2.js" crossorigin="anonymous"></script> --}}
 
     @stack('vendorStyle')
 </head>
@@ -85,7 +85,7 @@
 
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="{{ asset('dist/js/perfect-scrollbar.jquery.js') }}"></script>
-    <script src="{{ asset('dist/js/jquery.sparkline.min.js') }}"></script>
+
     <!--Wave Effects -->
     <script src="{{ asset('dist/js/waves.js') }}"></script>
     <!--Menu sidebar -->

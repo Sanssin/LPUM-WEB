@@ -12,4 +12,11 @@ class DashboardController extends Controller
 
         return view('Dashboard.index', compact('title'));
     }
+
+    public function agenda()
+    {
+        $title = "Jadwal";
+
+        return view('Dashboard.agenda', compact('title'));
+    }
 }

@@ -9,10 +9,10 @@
                 </div>
                 <div class="card-body">
                     <div class="row justify-content-center">
-                        <div class="col-8">
+                        <div class="col-12 col-lg-8">
                             <div class="card">
                                 <img class="card-img-top img-responsive mw-50"
-                                    src="https://source.unsplash.com/random/500x500/?fruit" alt="Card image cap">
+                                    src="{{ asset('assets/images/contoh-poster.jpg') }}" alt="Card image cap">
                                 <div class="card-body">
                                     <h4 class="card-title">Pemilihan Ketua Poster 2023</h4>
                                     <p class="card-text">
@@ -20,9 +20,9 @@
                                         voluptatum totam
                                         amet expedita?
                                     </p>
-                                    <a href="#" class="btn btn-info my-1 d-block">Detail</a>
-                                    <a href="{{ route('election.votePage') }}" class="btn btn-primary d-block">Coblos
-                                        sekarang</a>
+                                    <a href="{{ route('election.show') }}" class="btn btn-info my-1 d-block">Detail</a>
+                                    <a href="{{ route('election.result.show') }}" class="btn btn-primary d-block">Lihat
+                                        hasil</a>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 200
+                            width: 340
                         },
                         legend: {
                             position: 'bottom'

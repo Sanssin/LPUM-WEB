@@ -14,6 +14,13 @@ class ElectionController extends Controller
         return view('Election.index', compact('title'));
     }
 
+    public function show()
+    {
+        $title = 'Pemilihan Ketua POSTER 2023';
+
+        return view('Election.show', compact('title'));
+    }
+
     public function coblos()
     {
         $title = "Info Pencoblosan";
