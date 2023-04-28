@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Election;
 use Illuminate\Http\Request;
 
 class ElectionController extends Controller
@@ -10,8 +11,10 @@ class ElectionController extends Controller
     public function index()
     {
         $title = 'Informasi Pemilu';
+        $latests = Election::orderByDesc('end_election')->limit(3)->get();
+        $oldests = Election::orderByDesc('end_election')->offset(2)->limit(99)->get();
 
-        return view('Election.index', compact('title'));
+        return view('Election.index', compact('title', 'latests', 'oldests'));
     }
 
     public function show()
@@ -25,7 +28,9 @@ class ElectionController extends Controller
     {
         $title = "Info Pencoblosan";
 
-        return view('Election.coblos', compact('title'));
+        $elections = Election::ofStatus('active');
+
+        return view('Election.coblos', compact('title', 'elections'));
     }
 
     public function votePage()
@@ -38,8 +43,9 @@ class ElectionController extends Controller
     public function result()
     {
         $title = 'Hasil pemilu';
+        $elections = Election::ofStatus('active');
 
-        return view('Election.result', compact('title'));
+        return view('Election.result', compact('title', 'elections'));
     }
 
     public function showResult()

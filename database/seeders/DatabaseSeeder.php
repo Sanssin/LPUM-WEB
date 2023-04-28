@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
             // OrganizationsSeeder::class,
-            // ElectionsSeeder::class,
-            // EventsSeeder::class,
+            ElectionsSeeder::class,
+            EventsSeeder::class,
             // CandidateSeeder::class
         ]);
     }

@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('election_period');
             $table->dateTime('start_election');
             $table->dateTime('end_election');
-            $table->boolean('election_status')->default(false);
+            $table->string('description')->nullable();
+            $table->string('election_status')->default('inactive');
             $table->boolean('result_visibility')->default(false);
             $table->string('election_image')->nullable();
         });
