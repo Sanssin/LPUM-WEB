@@ -52,7 +52,7 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
 
 Route::middleware('auth')->controller(ElectionController::class)->name('election.')->group(function () {
     Route::get('coblos', 'coblos')->name('coblos');
-    Route::get('coblos/1', 'votePage')->name('votePage');
+    Route::get('coblos/{id}', 'votePage')->name('votePage');
 
     Route::get('result', 'result')->name('result.index');
     Route::get('result/1', 'showResult')->name('result.show');

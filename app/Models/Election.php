@@ -44,6 +44,15 @@ class Election extends Model
             ->as('agenda');
     }
 
+    public function resultTime()
+    {
+        return $this->belongsToMany(Event::class)
+            ->using(ElectionEvent::class)
+            ->withPivot(['start_event', 'end_event'])
+            ->wherePivot('event_id', '=', 10)
+            ->as('agenda');
+    }
+
     public function candidate()
     {
         return $this->hasMany(Candidate::class);

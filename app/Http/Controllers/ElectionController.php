@@ -21,7 +21,7 @@ class ElectionController extends Controller
     {
         $title = 'Pemilihan Ketua POSTER 2023';
 
-        $election = Election::where('id', $id)->with('voteTime')->first();
+        $election = Election::where('id', $id)->with('event')->first();
 
         return view('Election.show', compact('title', 'election'));
     }
@@ -35,9 +35,13 @@ class ElectionController extends Controller
         return view('Election.coblos', compact('title', 'elections'));
     }
 
-    public function votePage()
+    public function votePage(string $id)
     {
         $title = "Pemilihan ketua poster";
+
+        $data = Election::where('id', $id)->with('voteTime')->first()->voteTime->first()->agenda->end_event->isoFormat('M/d/Y HH:mm:ss');
+
+        dd($data);
 
         return view('Election.vote-page', compact('title'));
     }
@@ -45,7 +49,7 @@ class ElectionController extends Controller
     public function result()
     {
         $title = 'Hasil pemilu';
-        $elections = Election::ofStatus('active');
+        $elections = Election::with('resultTime')->get();
 
         return view('Election.result', compact('title', 'elections'));
     }
