@@ -52,5 +52,6 @@ Route::middleware('auth')->controller(ElectionController::class)->name('election
     Route::get('coblos/1', 'votePage')->name('votePage');
 
     Route::get('result', 'result')->name('result.index');
-    Route::get('election', 'election')->name('index');
+    Route::get('result/1', 'showResult')->name('result.show');
+    Route::get('election', 'index')->name('index');
 });

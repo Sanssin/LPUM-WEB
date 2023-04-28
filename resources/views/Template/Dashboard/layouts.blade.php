@@ -99,4 +99,6 @@
     @stack('vendorScript')
 </body>
 
+@yield('scripts')
+
 </html>
