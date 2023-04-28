@@ -5,10 +5,6 @@
     src: url(icons/material-design-iconic-font/fonts/materialdesignicons-webfont.eot?v=1.8.36);
     src: url(icons/material-design-iconic-font/fonts/materialdesignicons-webfont.eot?#iefix&v=1.8.36)
             format("embedded-opentype"),
-        url(icons/material-design-iconic-font/fonts/materialdesignicons-webfont.woff2?v=1.8.36)
-            format("woff2"),
-        url(icons/material-design-iconic-font/fonts/materialdesignicons-webfont.woff?v=1.8.36)
-            format("woff"),
         url(icons/material-design-iconic-font/fonts/materialdesignicons-webfont.ttf?v=1.8.36)
             format("truetype"),
         url(icons/material-design-iconic-font/fonts/materialdesignicons-webfont.svg?v=1.8.36#materialdesigniconsregular)
@@ -10689,9 +10685,6 @@
     src: url(icons/remix-icons/remixicon.eot?t=1590207869815);
     src: url(icons/remix-icons/remixicon.eot?t=1590207869815#iefix)
             format("embedded-opentype"),
-        url(icons/remix-icons/remixicon.woff2?t=1590207869815) format("woff2"),
-        url(icons/remix-icons/remixicon.woff?t=1590207869815) format("woff"),
-        url(icons/remix-icons/remixicon.ttf?t=1590207869815) format("truetype"),
         url(icons/remix-icons/remixicon.svg?t=1590207869815#remixicon)
             format("svg");
     font-display: swap;
@@ -41037,8 +41030,8 @@ ul.list-icons li i {
 }
 .error-box {
     position: fixed;
-    background: url(../../assets/images/background/error-bg.jpg) no-repeat
-        bottom 30% center #fff;
+    background: url(../../assets/images/error-injured.png) no-repeat bottom 30%
+        center #fff;
 }
 .error-box .error-body {
     padding-top: 5%;
@@ -47748,9 +47741,9 @@ html body .jqstooltip {
 .dataTables_wrapper {
     padding: 0;
 }
-.table-responsive {
+/* .table-responsive {
     overflow-x: clip;
-}
+} */
 .table-responsive .dataTables_wrapper .dataTables_length select {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;

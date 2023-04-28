@@ -94,10 +94,7 @@
     <script src="{{ asset('dist/js/feather.min.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
-    <!--This page JavaScript -->
-    <script src="{{ asset('dist/js/apexcharts.min.js') }}"></script>
-    <!-- Chart JS -->
-    <script src="{{ asset('dist/js/dashboard1.js') }}"></script>
+
 
     @stack('vendorScript')
 </body>

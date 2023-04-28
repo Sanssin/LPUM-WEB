@@ -1,5 +1,12 @@
 @extends('Template.Dashboard.layouts')
 
+@push('vendorScript')
+    <!--This page JavaScript -->
+    <script src="{{ asset('dist/js/apexcharts.min.js') }}"></script>
+    <!-- Chart JS -->
+    <script src="{{ asset('dist/js/dashboard1.js') }}"></script>
+@endpush
+
 
 @section('main')
     <!-- Row -->

@@ -56,17 +56,18 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-calendar.html"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('election.coblos') }}"
                         aria-expanded="false"><i data-feather="calendar"></i><span class="hide-menu">Coblosan</span></a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-chats.html"
-                        aria-expanded="false"><i data-feather="message-circle"></i><span class="hide-menu">Hasil
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="{{ route('election.result.index') }}" aria-expanded="false"><i
+                            data-feather="message-circle"></i><span class="hide-menu">Hasil
                             Pemilu</span></a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-contacts.html"
-                        aria-expanded="false"><i data-feather="phone"></i><span class="hide-menu">Riwayat
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('election.index') }}"
+                        aria-expanded="false"><i data-feather="phone"></i><span class="hide-menu">Semua
                             Pemilu</span></a>
                 </li>
                 <li class="nav-small-cap">

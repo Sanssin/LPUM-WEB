@@ -1,0 +1,87 @@
+<!-- Create Modal -->
+<div
+    class="modal fade"
+    id="createmodel"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header d-flex align-items-center">
+                    <h5 class="modal-title" id="createModalLabel">
+                        <i class="ti-marker-alt me-2"></i> Create New Contact
+                    </h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <button type="button" class="btn btn-info">
+                            <i
+                                data-feather="user"
+                                class="feather-sm fil-white"
+                            ></i>
+                        </button>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter Name Here"
+                            aria-label="name"
+                        />
+                    </div>
+                    <div class="input-group mb-3">
+                        <button type="button" class="btn btn-info">
+                            <i
+                                data-feather="more-horizontal"
+                                class="feather-sm fil-white"
+                            ></i>
+                        </button>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter Mobile Number Here"
+                            aria-label="no"
+                        />
+                    </div>
+                    <div class="input-group mb-3">
+                        <button type="button" class="btn btn-info">
+                            <i
+                                data-feather="download"
+                                class="feather-sm fil-white"
+                            ></i>
+                        </button>
+                        <div class="custom-file">
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="inputGroupFile01"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-light-danger text-danger font-weight-medium rounded-pill px-4"
+                        data-bs-dismiss="modal"
+                    >
+                        Close
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-success rounded-pill px-4"
+                    >
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

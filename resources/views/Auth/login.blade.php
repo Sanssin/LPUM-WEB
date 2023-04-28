@@ -8,9 +8,12 @@
             <div class="h-100 d-flex align-items-center justify-content-center">
                 <div class="row justify-content-center text-center">
                     <div class="col-md-7 col-lg-12 col-xl-9">
-                        <div>
-                            <span class="db"><img style="max-width: 80px" src="{{ asset('assets/images/logo-lpum.png') }}"
+                        <div
+                            class="d-flex align-items-center justify-content-center animate__animated animate__bounce animate__infinite">
+                            <span class="db"><img style="max-width: 60px" src="{{ asset('assets/images/logo-lpum.png') }}"
                                     alt="logo" /></span>
+                            <span class="db"><img style="max-height:40px"
+                                    src="{{ asset('assets/images/logo-text-lpum-light.png') }}" alt="logo" /></span>
                         </div>
                         <h2 class="text-white mt-4 fw-light">
                             Web App LPUM <br>
