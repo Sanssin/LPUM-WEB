@@ -57,7 +57,7 @@ Route::middleware('auth')->controller(ElectionController::class)->name('election
     Route::get('result', 'result')->name('result.index');
     Route::get('result/1', 'showResult')->name('result.show');
     Route::get('election', 'index')->name('index');
-    Route::get('election/1', 'show')->name('show');
+    Route::get('election/{id}', 'show')->name('show');
 });
 
 Route::middleware('auth')->controller(OrganizationController::class)->prefix('km')->name('km.')->group(function () {

@@ -17,11 +17,13 @@ class ElectionController extends Controller
         return view('Election.index', compact('title', 'latests', 'oldests'));
     }
 
-    public function show()
+    public function show(string $id)
     {
         $title = 'Pemilihan Ketua POSTER 2023';
 
-        return view('Election.show', compact('title'));
+        $election = Election::where('id', $id)->with('voteTime')->first();
+
+        return view('Election.show', compact('title', 'election'));
     }
 
     public function coblos()

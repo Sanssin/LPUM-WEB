@@ -12,7 +12,7 @@ class Event extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'event_name'
+        'event_name',
     ];
 
     public function election()

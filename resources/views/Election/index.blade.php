@@ -22,10 +22,10 @@
                                             </div>
                                             <div class="col-8 col-xl-10 col-md-9 d-flex align-items-center">
                                                 <div>
-                                                    <a href="{{ route('election.result.show') }}"
+                                                    <a href="{{ route('election.show', ['id' => $latest->id]) }}"
                                                         class="font-weight-medium fs-4 link lh-sm">{{ $latest->election_name . ' ' . $latest->election_period }}</a>
                                                     <h6 class="card-subtitle mt-2 mb-0 fw-normal">
-                                                        {{ $latest->start_election . '-' . $latest->end_election }}
+                                                        {{ $latest->start_election->isoFormat('d MMMM Y') . '-' . $latest->end_election->isoFormat('d MMMM Y') }}
                                                     </h6>
                                                     @if ($latest->election_status == 'active')
                                                         <span class="badge bg-light-success text-success">Berlangsung</span>
