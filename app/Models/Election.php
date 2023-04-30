@@ -62,6 +62,11 @@ class Election extends Model
         return $this->hasMany(Candidate::class);
     }
 
+    public function vote_stats()
+    {
+        return $this->hasOne(VoteStat::class);
+    }
+
     public function scopeOfStatus(Builder $query, string $status)
     {
         return $query->where('election_status', $status);

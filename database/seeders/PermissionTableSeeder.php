@@ -20,7 +20,7 @@ class PermissionTableSeeder extends Seeder
             'manage-voting',
             'verify-users',
             'promote-user',
-            'voting-result'
+            'voting-result',
         ];
 
         foreach ($permissions as $permission) {

@@ -25,12 +25,12 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
             // OrganizationsSeeder::class,
-            ElectionsSeeder::class,
+            // ElectionsSeeder::class,
             EventsSeeder::class,
         ]);
 
         Excel::import(new UsersImport, 'laravel-lpum-test.csv');
 
-        $this->call(CandidateSeeder::class);
+        // $this->call(CandidateSeeder::class);
     }
 }
