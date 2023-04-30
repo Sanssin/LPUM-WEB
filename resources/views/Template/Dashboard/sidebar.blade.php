@@ -23,33 +23,35 @@
                         <i class="mdi mdi-home-account"></i><span class="hide-menu">Profil</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                        aria-expanded="false"><i class="mdi mdi-security"></i><span class="hide-menu">Menu Admin
-                        </span></a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="{{ route('admin.manageUser') }}" class="sidebar-link"><i
-                                    class="mdi mdi-table-account"></i><span class="hide-menu"> Kelola User</span></a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="inbox-email-detail.html" class="sidebar-link"><i
-                                    class="mdi mdi-account-group-outline"></i><span class="hide-menu"> Kelola Organisasi
-                                </span></a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="inbox-email-detail.html" class="sidebar-link"><i
-                                    class="mdi mdi-account-group-outline"></i><span class="hide-menu"> Kelola Postingan
-                                </span></a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('admin.manageElection') }}"><i
-                                    class="mdi mdi-vote"></i><span
-                                    class="hide-menu text-primary font-weight-medium">Kelola
-                                    pemilu </span></a>
-                        </li>
-                    </ul>
-                </li>
+                @role('Admin')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false"><i class="mdi mdi-security"></i><span class="hide-menu">Menu Admin
+                            </span></a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('admin.manageUser') }}" class="sidebar-link"><i
+                                        class="mdi mdi-table-account"></i><span class="hide-menu"> Kelola User</span></a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="inbox-email-detail.html" class="sidebar-link"><i
+                                        class="mdi mdi-account-group-outline"></i><span class="hide-menu"> Kelola Organisasi
+                                    </span></a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="inbox-email-detail.html" class="sidebar-link"><i
+                                        class="mdi mdi-account-group-outline"></i><span class="hide-menu"> Kelola Postingan
+                                    </span></a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('admin.manageElection') }}"><i
+                                        class="mdi mdi-vote"></i><span
+                                        class="hide-menu text-primary font-weight-medium">Kelola
+                                        pemilu </span></a>
+                            </li>
+                        </ul>
+                    </li>
+                @endrole
 
                 <li class="nav-small-cap">
                     <i class="nav-small-line"></i>
@@ -61,9 +63,8 @@
                         aria-expanded="false"><i class="mdi mdi-pin"></i><span class="hide-menu">Coblosan</span></a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="{{ route('election.result.index') }}" aria-expanded="false"><i
-                            class="mdi mdi-chart-box"></i><span class="hide-menu">Hasil
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('vote.result.index') }}"
+                        aria-expanded="false"><i class="mdi mdi-chart-box"></i><span class="hide-menu">Hasil
                             Pemilu</span></a>
                 </li>
                 <li class="sidebar-item">

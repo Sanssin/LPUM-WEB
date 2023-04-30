@@ -116,7 +116,7 @@
                                 <div class="col-6">
                                     <button class="btn btn-purple text-white" disabled>Sudah memilih</button>
                                 </div>
-                            @else
+                            @elseif(now() > $endTime)
                                 <div class="col-6"><button class="btn btn-purple text-white" disabled>Bukan
                                         periode</button></div>
                             @endif

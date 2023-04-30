@@ -124,18 +124,47 @@ class ElectionController extends Controller
         return view('Election.vote-page', compact('title', 'endTime', 'candidates', 'id'));
     }
 
-    public function result()
+    public function end(Request $request)
     {
-        $title = 'Hasil pemilu';
-        $elections = Election::with('resultTime')->ofStatus('active')->get();
+        if (!$request->ajax()) :
+            return response()->json([
+                'message' => 'Method not allowed'
+            ], 404);
+        endif;
 
-        return view('Election.result', compact('title', 'elections'));
+        try {
+            $election = Election::find($request->data);
+
+            $election->election_status = 'done';
+            $election->save();
+        } catch (\Throwable $e) {
+            abort(404);
+        }
+
+        return response()->json([
+            'message' => 'Sukses menghapus pemilu.'
+        ]);
     }
 
-    public function showResult()
+    public function openResult(Request $request)
     {
-        $title = 'Pemilu Ketua poster 2023';
+        if (!$request->ajax()) :
+            return response()->json([
+                'message' => 'Method not allowed'
+            ], 404);
+        endif;
 
-        return view('Election.showResult', compact('title'));
+        try {
+            $election = Election::find($request->data);
+
+            $election->result_visibility = '1';
+            $election->save();
+        } catch (\Throwable $e) {
+            abort(404);
+        }
+
+        return response()->json([
+            'message' => 'Sukses menghapus pemilu.'
+        ]);
     }
 }

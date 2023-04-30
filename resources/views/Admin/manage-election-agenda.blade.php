@@ -125,11 +125,13 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="datetime-local" name="start_event[nourut]"
+                                                value="{{ old('start_event.nourut') }}"
                                                 class="form-control form-control-sm">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="datetime-local" name="end_event[nourut]"
+                                                value="{{ old('end_event.nourut') }}"
                                                 class="form-control form-control-sm @error('end_event.nourut') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>
@@ -173,11 +175,13 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="datetime-local" name="start_event[kampanye]"
+                                                value="{{ old('start_event.kampanye') }}"
                                                 class="form-control form-control-sm">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="datetime-local" name="end_event[kampanye]"
+                                                value="{{ old('end_event.kampanye') }}"
                                                 class="form-control form-control-sm @error('end_event.kampanye') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>
@@ -221,11 +225,13 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="datetime-local" name="start_event[orasi1]"
+                                                value="{{ old('start_event.orasi1') }}"
                                                 class="form-control form-control-sm">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="datetime-local" name="end_event[orasi1]"
+                                                value="{{ old('end_event.orasi1') }}"
                                                 class="form-control form-control-sm @error('end_event.orasi1') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>
@@ -268,12 +274,14 @@
                                             <label for="orasi2">Orasi II</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="orasi2_start"
+                                            <input type="datetime-local" name="start_event[orasi2]"
+                                                value="{{ old('start_event.orasi2') }}"
                                                 class="form-control form-control-sm">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="orasi2_end"
+                                            <input type="datetime-local" name="end_event[orasi2]"
+                                                value="{{ old('end_event.orasi2') }}"
                                                 class="form-control form-control-sm @error('end_event.orasi2') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>
@@ -316,12 +324,14 @@
                                             <label for="debat1">Debat I</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="debat1_start"
+                                            <input type="datetime-local" name="start_event[debat1]"
+                                                value="{{ old('start_event.debat1') }}"
                                                 class="form-control form-control-sm">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="debat1_end"
+                                            <input type="datetime-local" name="end_event[debat1]"
+                                                value="{{ old('end_event.debat1') }}"
                                                 class="form-control form-control-sm @error('end_event.debat1') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>
@@ -364,12 +374,14 @@
                                             <label for="debat2">Debat II</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="debat2_start"
+                                            <input type="datetime-local" name="start_event[debat2]"
+                                                value="{{ old('start_event.debat2') }}"
                                                 class="form-control form-control-sm">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="debat2_end"
+                                            <input type="datetime-local" name="end_event[debat2]"
+                                                value="{{ old('end_event.debat2') }}"
                                                 class="form-control form-control-sm @error('end_event.debat2') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>
@@ -412,12 +424,14 @@
                                             <label for="debat3">Debat III</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="debat3_start"
+                                            <input type="datetime-local" name="start_event[debat3]"
+                                                value="{{ old('start_event.debat3') }}"
                                                 class="form-control form-control-sm">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="debat3_end"
+                                            <input type="datetime-local" name="end_event[debat3]"
+                                                value="{{ old('end_event.debat3') }}"
                                                 class="form-control form-control-sm @error('end_event.debat3') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>
@@ -461,11 +475,13 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="datetime-local" name="start_event[coblosan]"
+                                                value="{{ old('start_event.coblosan') }}"
                                                 class="form-control form-control-sm">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="datetime-local" name="end_event[coblosan]"
+                                                value="{{ old('end_event.coblosan') }}"
                                                 class="form-control form-control-sm @error('end_event.coblosan') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>
@@ -503,17 +519,19 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <input type="checkbox" id="pengumuman" name="event[]" value="10"
-                                                class="material-inputs chk-col-blue-grey">
+                                            <input type="checkbox" id="pengumuman" name="event[pengumuman]"
+                                                value="10" class="material-inputs chk-col-blue-grey">
                                             <label for="pengumuman">Pengumuman</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="pengumuman_start"
-                                                class="form-control form-control-sm">
+                                            <input type="datetime-local" name="start_event[pengumuman]"
+                                                class="form-control form-control-sm @error('start_event.pengumuman') is-invalid @enderror"
+                                                value="{{ old('start_event.pengumuman') }}">
                                             <small class="form-text text-muted">Tanggal mulai</small>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="datetime-local" name="pengumuman_end"
+                                            <input type="datetime-local" name="end_event[pengumuman]"
+                                                value="{{ old('end_event.pengumuman') }}"
                                                 class="form-control form-control-sm @error('end_event.pengumuman') is-invalid @enderror">
                                             <small class="form-text text-muted">Tanggal selesai</small>
                                         </div>

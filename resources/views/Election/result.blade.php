@@ -28,7 +28,7 @@
                                                         pengumuman</button>
                                                 </div>
                                             @else
-                                                <a href="{{ route('election.result.show') }}"
+                                                <a href="{{ route('vote.result.show', ['id' => $election->id]) }}"
                                                     class="btn btn-primary d-block">Lihat
                                                     hasil</a>
                                             @endif

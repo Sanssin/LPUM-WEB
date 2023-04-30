@@ -69,14 +69,13 @@ Route::middleware('auth')->controller(ElectionController::class)->name('election
         Route::delete('election', 'destroy')->name('delete');
         Route::post('change-status', 'changeStatus')->name('changeStatus');
         Route::post('save-election', 'store')->name('store');
+        Route::post('end-election', 'end')->name('end');
+        Route::post('open-result', 'openResult')->name('openResult');
     });
 
     // Vote
     Route::get('coblos', 'coblos')->name('coblos');
     Route::get('coblos/{id}', 'votePage')->name('votePage');
-
-    Route::get('result', 'result')->name('result.index');
-    Route::get('result/1', 'showResult')->name('result.show');
 });
 
 Route::middleware('auth')->prefix('candidate')->name('candidate.')->controller(CandidateController::class)->group(function () {
@@ -97,4 +96,7 @@ Route::middleware('auth')->controller(OrganizationController::class)->prefix('km
 
 Route::middleware('auth')->name('vote.')->controller(VoteController::class)->group(function () {
     Route::post('coblos', 'store')->name('store');
+
+    Route::get('result', 'result')->name('result.index');
+    Route::get('result/{id}', 'showResult')->name('result.show');
 });
