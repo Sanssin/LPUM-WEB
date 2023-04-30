@@ -6,6 +6,7 @@ use App\Http\Requests\StoreElectionRequest;
 use App\Models\Candidate;
 use App\Models\Election;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ElectionController extends Controller
 {
@@ -13,7 +14,7 @@ class ElectionController extends Controller
     public function index()
     {
         $title = 'Informasi Pemilu';
-        $latests = Election::orderByDesc('end_election')->limit(3)->get();
+        $latests = Election::orderByDesc('end_election')->ofStatus('active')->limit(3)->get();
         $oldests = Election::orderByDesc('end_election')->offset(2)->limit(99)->get();
 
         return view('Election.index', compact('title', 'latests', 'oldests'));
@@ -66,6 +67,11 @@ class ElectionController extends Controller
 
         try {
             $election = Election::find($request->data);
+
+            if ($election->election_image && File::exists("storage/$election->election_image")) :
+                File::delete("storage/$election->election_image");
+            endif;
+
             $election->delete();
         } catch (\Throwable $e) {
             abort(404);

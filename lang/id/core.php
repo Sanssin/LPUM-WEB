@@ -5,21 +5,17 @@ return [
     '404' => 'Tidak ditemukan!',
 
     // Ini bagian peralatan
-    'good' => [
-        'text' => 'Baik/Layak',
-        'class' => 'border-success border text-success'
+    'active' => [
+        'text' => 'Aktif',
+        'class' => 'rounded-pill bg-success'
     ],
-    'minor' => [
-        'text' => 'Rusak Ringan',
-        'class' => 'border-warning border text-warning'
+    'inactive' => [
+        'text' => 'Tidak Aktif',
+        'class' => 'rounded-pill bg-orange'
     ],
-    'severe' => [
-        'text' => 'Rusak Berat',
-        'class' => 'border-danger border text-danger'
-    ],
-    'unknown' => [
-        'text' => 'Belum Diketahui',
-        'class' => 'border-dark border text-dark'
+    'done' => [
+        'text' => 'Selesai',
+        'class' => 'rounded-pill bg-purple'
     ],
 
     // Bagian ketersediaan

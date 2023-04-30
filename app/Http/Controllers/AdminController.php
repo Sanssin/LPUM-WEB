@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAgendaRequest;
+use App\Http\Requests\StoreCandidateRequest;
 use App\Models\User;
 use App\Imports\UsersImport;
 use App\Models\Candidate;
@@ -141,6 +142,42 @@ class AdminController extends Controller
         $candidates = Candidate::inElection($id);
 
         return view('Admin.manage-candidates', compact('title', 'candidates'));
+    }
+
+    public function createCandidate()
+    {
+        $title = 'Tambahkan kandidat';
+
+        return view('Candidate.create', compact('title'));
+    }
+
+    public function storeCandidate(StoreCandidateRequest $request)
+    {
+        try {
+            $validated = $request->validated();
+
+            $leader = User::select('id')->where('nim', $validated['leader_nim'])->first()->id;
+            $coleader = User::select('id')->where('nim', $validated['coleader_nim'])->first()->id;
+
+            $file = $request->file('candidate_image');
+            $fileName = $validated['leader_nim'] . $validated['coleader_nim'] . time() . '.' . $file->extension();
+            $filePath = "candidate/$fileName";
+            unset($validated['leader_nim']);
+            unset($validated['coleader_nim']);
+            $validated['leader_id'] = $leader;
+            $validated['coleader_id'] = $coleader;
+            $validated['election_id'] = $request->election;
+
+            $file->storeAs("candidate", $fileName);
+
+            $validated['candidate_image'] = $filePath;
+
+            Candidate::create($validated);
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+
+        return back()->with('success', 'success');
     }
 
     public function deleteCandidate(Request $request)

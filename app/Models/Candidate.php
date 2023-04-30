@@ -13,13 +13,17 @@ class Candidate extends Model
 
     protected $fillable = [
         'election_id',
+        'leader_id',
+        'coleader_id',
         'user_id',
         'number',
         'position',
         'vision',
         'mission',
         'slogan',
-        'candidate_image'
+        'candidate_image',
+        'lead_position',
+        'colead_position'
     ];
 
     public function election()

@@ -41,8 +41,18 @@
                                         <td>{{ $election->election_name }}</td>
                                         <td>{{ $election->start_election->isoFormat('dddd, D MMMM Y H:mm') }}</td>
                                         <td>{{ $election->end_election->isoFormat('dddd, D MMMM Y H:mm') }}</td>
-                                        <td>{{ $election->election_status }}</td>
-                                        <td>{{ $election->result_visibility }}</td>
+                                        <td><span
+                                                class="badge {{ __('core.' . $election->election_status . '.class') }}">{{ __("core.$election->election_status.text") }}</span>
+                                        </td>
+                                        <td>
+                                            @if ($election->result_visibility)
+                                                <span
+                                                    class="badge rounded-pill bg-light-primary text-primary">Terlihat</span>
+                                            @else
+                                                <span
+                                                    class="badge rounded-pill bg-light-secondary text-secondary">Tidak</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="justify-content-center">
                                                 <div class="btn-group">

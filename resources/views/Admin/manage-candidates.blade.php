@@ -11,7 +11,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Kandidat Pejabat</h4>
-                        <button class="btn btn-info"><span class="mdi mdi-plus-circle-outline"></span> Tambah</button>
+                        <a class="btn btn-info" href="{{ route('admin.createCandidate') }}"><span
+                                class="mdi mdi-plus-circle-outline"></span> Tambah</a>
                     </div>
 
                     @if ($candidates->isEmpty())
@@ -29,7 +30,7 @@
                                                 <div class="text-center ">
                                                     <span
                                                         class="badge {{ $candidate->number ? 'bg-primary' : 'bg-warning' }}">
-                                                        Nomor {{ $candidate->number ?? 'Belum ada nomor' }}
+                                                        Nomor : {{ $candidate->number ?? 'Belum ada nomor' }}
                                                     </span>
                                                 </div>
                                                 <div
@@ -46,18 +47,19 @@
                                                 <div>
                                                     <div>
                                                         <strong>Visi</strong>
-                                                        <p>{{ $candidate->vision }}
-                                                        </p>
+                                                        {!! $candidate->vision !!}
                                                     </div>
                                                     <div>
                                                         <strong>Misi</strong>
-                                                        <p>{{ $candidate->mission }}</p>
+                                                        {!! $candidate->mission !!}
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="card-footer d-lg-flex justify-content-lg-between">
-                                                <button class="btn btn-sm btn-primary">Ubah nomor</button>
+                                                <button type="button" class="btn btn-sm btn-primary"
+                                                    onclick="changeNumber()">Ubah
+                                                    nomor</button>
                                                 <button type="button" class="btn btn-sm btn-danger"
                                                     onclick="deleteButton({{ $candidate->id }})">Hapus</button>
                                             </div>
@@ -80,9 +82,40 @@
 
 @section('scripts')
     <script>
+        async function changeNumber() {
+            const {
+                value: newNumber
+            } = await Swal.fire({
+                title: 'Ubah nomor kandidat',
+                icon: 'question',
+                input: 'text',
+                inputLabel: 'Nomor baru',
+                allowOutsideClick: false,
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Tidak boleh kosong!'
+                    } else {
+                        const number = Number(value);
+
+                        if (isNaN(number)) {
+                            return "Masukkan angka!";
+                        }
+                    }
+                }
+            })
+
+            if (newNumber) {
+                Swal.fire(`Mengganti ke nomor ${newNumber}`)
+            }
+        };
+    </script>
+    <script>
         function deleteButton(id) {
             Swal.fire({
                 title: `Hapus kandidat ?`,
+                text: 'Tidak dapat dikembalikan lagi',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Lanjutkan',
                 cancelButtonText: 'Batal'

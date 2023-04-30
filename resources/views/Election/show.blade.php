@@ -20,33 +20,38 @@
                             <p class="text-primary fw-bold">{{ $election->start_election->isoFormat('d MMMM Y') }} sampai
                                 {{ $election->end_election->isoFormat('d MMMM Y') }}</p>
                             {!! $election->description !!}
-                            <p>Agenda yang dilaksanakan antara lain :</p>
-                            <span class="mb-0 text-muted">Geser ke kanan untuk lebih detail</span>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="bg-primary text-white">
-                                        <tr class="text-center">
-                                            <th>No</th>
-                                            <th>Kegiatan</th>
-                                            <th>Periode</th>
-                                            <th>Lokasi</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($election->event as $event)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $event->event_name }}</td>
-                                                <td>{{ $event->agenda->start_event->isoFormat('D MMMM Y') . ' s/d ' . $event->agenda->end_event->isoFormat('D MMMM Y') }}
-                                                </td>
-                                                <td>{{ $event->agenda->location }}</td>
-                                                <td>{{ $event->agenda->method }}</td>
+
+                            @if ($election->event->isEmpty())
+                                <p>Belum ada data agenda</p>
+                            @else
+                                <p>Agenda yang dilaksanakan antara lain :</p>
+                                <span class="mb-0 text-muted">Geser ke kanan untuk lebih detail</span>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr class="text-center">
+                                                <th>No</th>
+                                                <th>Kegiatan</th>
+                                                <th>Periode</th>
+                                                <th>Lokasi</th>
+                                                <th>Status</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($election->event as $event)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $event->event_name }}</td>
+                                                    <td>{{ $event->agenda->start_event->isoFormat('D MMMM Y') . ' s/d ' . $event->agenda->end_event->isoFormat('D MMMM Y') }}
+                                                    </td>
+                                                    <td>{{ $event->agenda->location }}</td>
+                                                    <td>{{ $event->agenda->method }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
                         </div>
                     </div>
 

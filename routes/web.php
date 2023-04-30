@@ -47,10 +47,13 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
     Route::get('manage-election', 'manageElection')->name('manageElection');
     Route::get('election-agenda/{id}', 'manageElectionAgenda')->name('manageElectionAgenda');
     Route::get('election-candidate/{id}', 'manageCandidates')->name('manageCandidates');
+    Route::get('add-candidate', 'createCandidate')->name('createCandidate');
 
     Route::post('upload-user', 'uploadUser')->name('uploadUser');
     Route::post('verify', 'verify')->name('verify');
     Route::post('unverify', 'unverify')->name('unverify');
+    Route::post('save-candidate', 'storeCandidate')->name('storeCandidate');
+
 
     Route::post('sync-agenda', 'syncAgenda')->name('syncAgenda');
 
