@@ -19,6 +19,10 @@
                         <div class="col-lg-8">
                             <p class="text-primary fw-bold">{{ $election->start_election->isoFormat('d MMMM Y') }} sampai
                                 {{ $election->end_election->isoFormat('d MMMM Y') }}</p>
+                            <div>
+                                <a href="{{ route('candidate.show', ['id' => $election->id]) }}" class="btn btn-info">Lihat
+                                    kandidat</a>
+                            </div>
                             {!! $election->description !!}
 
                             @if ($election->event->isEmpty())

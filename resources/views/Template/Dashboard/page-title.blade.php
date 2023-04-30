@@ -25,6 +25,10 @@
                 Add New
             </a>
         </div>
+
+    </div>
+    <div>
+        <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
     </div>
 </div>
 <!-- ============================================================== -->

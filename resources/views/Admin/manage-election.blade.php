@@ -80,7 +80,7 @@
                                                     </ul>
                                                 </div>
                                                 <div>
-                                                    <form action="{{ route('admin.electionStatus') }}" id="activateForm"
+                                                    <form action="{{ route('election.changeStatus') }}" id="activateForm"
                                                         method="post">
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $election->id }}">

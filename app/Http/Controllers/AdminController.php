@@ -87,19 +87,6 @@ class AdminController extends Controller
         return view('Admin.manage-election', compact('title', 'elections'));
     }
 
-    public function changeElectionStatus(Request $request)
-    {
-        try {
-            $election = Election::find($request->id);
-            $election->election_status = $request->status;
-            $election->save();
-        } catch (\Throwable $e) {
-            return $e->getMessage();
-        }
-
-        return back()->with('success', 'success');
-    }
-
     public function manageElectionAgenda(int $id)
     {
         $title = 'Kelola Agenda Pemilihan';

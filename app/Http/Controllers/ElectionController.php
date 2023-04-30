@@ -82,6 +82,19 @@ class ElectionController extends Controller
         ]);
     }
 
+    public function changeStatus(Request $request)
+    {
+        try {
+            $election = Election::find($request->id);
+            $election->election_status = $request->status;
+            $election->save();
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+
+        return back()->with('success', 'success');
+    }
+
     public function coblos()
     {
         $title = "Info Pencoblosan";

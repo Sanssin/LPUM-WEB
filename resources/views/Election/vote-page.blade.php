@@ -74,12 +74,13 @@
         </div>
     </div>
 
+    {{-- Daftar kandidat --}}
     <div class="row justify-content-center">
         @foreach ($candidates as $candidate)
             <div class="col-md-4">
                 <div class="card text-center card-hover">
                     <div class="card-body">
-                        <img src="https://source.unsplash.com/random/500x500/?ferrari" class="rounded-3 img-responsive"
+                        <img src="{{ asset('storage/' . $candidate->candidate_image) }}" class="rounded-3 img-responsive"
                             style="width: 240px; height:180px">
                         <div class="mt-n2">
                             <span class="badge bg-primary">No {{ $candidate->number }}</span>
@@ -93,7 +94,7 @@
                             <div class="col-6">
                                 <button type="button"
                                     class="justify-content-between w-100 btn btn-rounded btn-light text-dark font-weight-medium d-flex text-dark align-items-center"
-                                    data-bs-toggle="modal" data-bs-target="#paslon-{{ $candidate->number }}-modal">
+                                    data-bs-toggle="modal" data-bs-target="#paslon-{{ $candidate->id }}-modal">
                                     <span class="mdi mdi-comment-text"></span>
                                     <span>
                                         Visi & Misi
@@ -101,7 +102,7 @@
                                 </button>
                                 <span class="text-muted" style="font-size: 12px">Klik untuk lebih detail</span>
                             </div>
-                            @if (now() > $endTime)
+                            @if (now() <= $endTime && $candidate->number)
                                 <div class="col-6">
                                     <button type="button" value="{{ $candidate->number }}"
                                         class="justify-content-center w-100 btn btn-rounded btn-primary font-weight-medium d-flex align-items-center coblos-button">
@@ -110,6 +111,11 @@
                                             Coblos
                                         </span>
                                     </button>
+                                </div>
+                            @elseif (!$candidate->number)
+                                <div class="col-6">
+                                    <button class="btn btn-purple text-white" disabled>Belum
+                                        bernomor</button>
                                 </div>
                             @else
                                 <div class="col-6"><button class="btn btn-purple text-white" disabled>Bukan
@@ -123,12 +129,12 @@
     </div>
 
     @foreach ($candidates as $candidate)
-        <div id="paslon-{{ $candidate->number }}-modal" class="modal fade" tabindex="-1"
-            aria-labelledby="paslon-{{ $candidate->number }}-modalLabel" aria-hidden="true" style="display: none;">
+        <div id="paslon-{{ $candidate->id }}-modal" class="modal fade" tabindex="-1"
+            aria-labelledby="paslon-{{ $candidate->id }}-modalLabel" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-colored-header bg-info text-white">
-                        <h4 class="modal-title" id="paslon-{{ $candidate->number }}-modalLabel">
+                        <h4 class="modal-title" id="paslon-{{ $candidate->id }}-modalLabel">
                             Calon nomor urut {{ $candidate->number }}
                         </h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -137,13 +143,17 @@
                         <h5>{{ $candidate->leader->first_name }} {{ $candidate->leader->last_name }}</h5>
                         <h5 class="mt-0">Visi</h5>
                         <p>
-                            {{ $candidate->vision }}
+                            {!! $candidate->vision !!}
                         </p>
                         <h5 class="mt-0">Misi</h5>
                         <p>
-                            {{ $candidate->mission }}
+                            {!! $candidate->mission !!}
                         </p>
-                        <blockquote class="blockquote text-center">"{{ $candidate->slogan }}"</blockquote>
+
+                        @if ($candidate->slogan)
+                            <blockquote class="blockquote text-center">"{{ $candidate->slogan }}"</blockquote>
+                        @endif
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">

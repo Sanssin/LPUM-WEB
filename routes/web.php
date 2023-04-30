@@ -44,42 +44,44 @@ Route::middleware('auth')->controller(DashboardController::class)->group(functio
 
 // Menu admin
 Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->prefix('admin')->name('admin.')->group(function () {
-    Route::get('manage-users', 'manageUser')->name('manageUser');
-    Route::get('manage-election', 'manageElection')->name('manageElection');
-    Route::get('election-agenda/{id}', 'manageElectionAgenda')->name('manageElectionAgenda');
 
+    // Manage User
+    Route::get('manage-users', 'manageUser')->name('manageUser');
     Route::post('upload-user', 'uploadUser')->name('uploadUser');
     Route::post('verify', 'verify')->name('verify');
     Route::post('unverify', 'unverify')->name('unverify');
-
-
-    Route::post('sync-agenda', 'syncAgenda')->name('syncAgenda');
-
-    Route::post('change-election-status', 'changeElectionStatus')->name('electionStatus');
-
     Route::delete('users', 'deleteUsers')->name('deleteUsers');
-    Route::delete('election', 'deleteElection')->name('deleteElection');
+
+    // Manage Election
+    Route::get('manage-election', 'manageElection')->name('manageElection');
+    Route::get('election-agenda/{id}', 'manageElectionAgenda')->name('manageElectionAgenda');
+    Route::post('sync-agenda', 'syncAgenda')->name('syncAgenda');
 });
 
 Route::middleware('auth')->controller(ElectionController::class)->name('election.')->group(function () {
+    Route::get('election', 'index')->name('index');
+    Route::get('election/{id}', 'show')->name('show');
+
+    // Admin privileges
+    Route::middleware('role:Admin')->group(function () {
+        Route::get('add-election', 'create')->name('create');
+        Route::delete('election', 'destroy')->name('delete');
+        Route::post('change-status', 'changeStatus')->name('changeStatus');
+        Route::post('save-election', 'store')->name('store');
+    });
+
+    // Vote
     Route::get('coblos', 'coblos')->name('coblos');
     Route::get('coblos/{id}', 'votePage')->name('votePage');
 
     Route::get('result', 'result')->name('result.index');
     Route::get('result/1', 'showResult')->name('result.show');
-
-    Route::get('election', 'index')->name('index');
-    Route::get('election/{id}', 'show')->name('show');
-    Route::middleware('role:Admin')->group(function () {
-        Route::get('add-election', 'create')->name('create');
-        Route::delete('election', 'destroy')->name('delete');
-    });
-
-    Route::post('save-election', 'store')->name('store');
 });
 
 Route::middleware('auth')->prefix('candidate')->name('candidate.')->controller(CandidateController::class)->group(function () {
     Route::get('/{id}', 'show')->name('show');
+
+    // Admin privileges
     Route::middleware('role:Admin')->group(function () {
         Route::get('add/{id}', 'create')->name('create');
         Route::post('save', 'store')->name('store');
