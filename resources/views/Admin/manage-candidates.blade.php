@@ -5,15 +5,23 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="text-white mb-0">Kelola Kandidat Pemilihan</h4>
+                    <h4 class="text-white mb-0">Data Kandidat Pemilihan</h4>
                 </div>
 
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title">Kandidat Pejabat</h4>
-                        <a class="btn btn-info" href="{{ route('admin.createCandidate') }}"><span
-                                class="mdi mdi-plus-circle-outline"></span> Tambah</a>
+                        @role('Admin')
+                            <a class="btn btn-info" href="{{ route('candidate.create', ['id' => $id]) }}"><span
+                                    class="mdi mdi-plus-circle-outline"></span> Tambah</a>
+                        @endrole
                     </div>
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            Sukses menambahkan kandidat!
+                        </div>
+                    @endif
 
                     @if ($candidates->isEmpty())
                         <p>Belum ada</p>
@@ -56,13 +64,15 @@
                                                 </div>
                                             </div>
 
-                                            <div class="card-footer d-lg-flex justify-content-lg-between">
-                                                <button type="button" class="btn btn-sm btn-primary"
-                                                    onclick="changeNumber()">Ubah
-                                                    nomor</button>
-                                                <button type="button" class="btn btn-sm btn-danger"
-                                                    onclick="deleteButton({{ $candidate->id }})">Hapus</button>
-                                            </div>
+                                            @role('Admin')
+                                                <div class="card-footer d-lg-flex justify-content-lg-between">
+                                                    <button type="button" class="btn btn-sm btn-primary"
+                                                        onclick="changeNumber()">Ubah
+                                                        nomor</button>
+                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                        onclick="deleteButton({{ $candidate->id }})">Hapus</button>
+                                                </div>
+                                            @endrole
                                         </div>
                                     </div>
                                 @endforeach
@@ -124,7 +134,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "delete",
-                        url: "{{ route('admin.deleteCandidate') }}",
+                        url: "{{ route('candidate.delete') }}",
                         data: {
                             _token: "{{ csrf_token() }}",
                             data: id

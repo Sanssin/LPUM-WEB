@@ -24,10 +24,10 @@
                             Data berhasil disimpan!
                         </div>
                     @endif
-                    <form action="{{ route('admin.storeCandidate') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('candidate.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
-                        <input type="hidden" name="election" value="1">
+                        <input type="hidden" name="election" value="{{ $id }}">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="row">

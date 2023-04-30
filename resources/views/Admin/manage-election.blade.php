@@ -68,7 +68,7 @@
                                                                 href="{{ route('admin.manageElectionAgenda', ['id' => $election->id]) }}">Kelola
                                                                 Agenda</a></li>
                                                         <li><a class="dropdown-item"
-                                                                href="{{ route('admin.manageCandidates', ['id' => $election->id]) }}">Kelola
+                                                                href="{{ route('candidate.show', ['id' => $election->id]) }}">Kelola
                                                                 Kandidat</a></li>
                                                         <li>
                                                             <hr class="dropdown-divider">

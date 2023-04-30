@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\OrganizationController;
@@ -46,13 +47,10 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
     Route::get('manage-users', 'manageUser')->name('manageUser');
     Route::get('manage-election', 'manageElection')->name('manageElection');
     Route::get('election-agenda/{id}', 'manageElectionAgenda')->name('manageElectionAgenda');
-    Route::get('election-candidate/{id}', 'manageCandidates')->name('manageCandidates');
-    Route::get('add-candidate', 'createCandidate')->name('createCandidate');
 
     Route::post('upload-user', 'uploadUser')->name('uploadUser');
     Route::post('verify', 'verify')->name('verify');
     Route::post('unverify', 'unverify')->name('unverify');
-    Route::post('save-candidate', 'storeCandidate')->name('storeCandidate');
 
 
     Route::post('sync-agenda', 'syncAgenda')->name('syncAgenda');
@@ -61,7 +59,6 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
 
     Route::delete('users', 'deleteUsers')->name('deleteUsers');
     Route::delete('election', 'deleteElection')->name('deleteElection');
-    Route::delete('candidate', 'deleteCandidate')->name('deleteCandidate');
 });
 
 Route::middleware('auth')->controller(ElectionController::class)->name('election.')->group(function () {
@@ -79,6 +76,15 @@ Route::middleware('auth')->controller(ElectionController::class)->name('election
     });
 
     Route::post('save-election', 'store')->name('store');
+});
+
+Route::middleware('auth')->prefix('candidate')->name('candidate.')->controller(CandidateController::class)->group(function () {
+    Route::get('/{id}', 'show')->name('show');
+    Route::middleware('role:Admin')->group(function () {
+        Route::get('add/{id}', 'create')->name('create');
+        Route::post('save', 'store')->name('store');
+        Route::delete('delete', 'destroy')->name('delete');
+    });
 });
 
 Route::middleware('auth')->controller(OrganizationController::class)->prefix('km')->name('km.')->group(function () {
