@@ -85,6 +85,7 @@ Route::middleware('auth')->prefix('candidate')->name('candidate.')->controller(C
     Route::middleware('role:Admin')->group(function () {
         Route::get('add/{id}', 'create')->name('create');
         Route::post('save', 'store')->name('store');
+        Route::put('number', 'changeNumber')->name('changeNumber');
         Route::delete('delete', 'destroy')->name('delete');
     });
 });

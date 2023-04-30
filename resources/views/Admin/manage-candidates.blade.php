@@ -67,7 +67,7 @@
                                             @role('Admin')
                                                 <div class="card-footer d-lg-flex justify-content-lg-between">
                                                     <button type="button" class="btn btn-sm btn-primary"
-                                                        onclick="changeNumber()">Ubah
+                                                        onclick="changeNumber({{ $candidate->id }})">Ubah
                                                         nomor</button>
                                                     <button type="button" class="btn btn-sm btn-danger"
                                                         onclick="deleteButton({{ $candidate->id }})">Hapus</button>
@@ -92,7 +92,61 @@
 
 @section('scripts')
     <script>
-        async function changeNumber() {
+        async function sendChange(id, number) {
+            $.ajax({
+                type: "put",
+                url: "{{ route('candidate.changeNumber') }}",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    number: number
+                },
+                dataType: "json",
+                beforeSend: () => {
+                    Swal.fire({
+                        title: 'Tunggu...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    })
+                },
+                success: function(response) {
+                    let timerInterval
+                    Swal.fire({
+                        title: 'Sukses!',
+                        icon: 'success',
+                        text: response.message,
+                        html: 'Halaman akan diperbarui dalam <b></b> milliseconds.',
+                        timer: 2500,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                            const b = Swal.getHtmlContainer()
+                                .querySelector('b')
+                            timerInterval = setInterval(() => {
+                                b.textContent = Swal
+                                    .getTimerLeft()
+                            }, 100)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                    }).then((result) => {
+                        location.reload();
+                    })
+                },
+                error: function(response) {
+                    console.log(response.message);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        async function changeNumber(candidate_id) {
             const {
                 value: newNumber
             } = await Swal.fire({
@@ -113,13 +167,16 @@
                         }
                     }
                 }
-            })
+            });
 
             if (newNumber) {
-                Swal.fire(`Mengganti ke nomor ${newNumber}`)
+                sendChange(candidate_id, newNumber);
             }
         };
     </script>
+
+
+
     <script>
         function deleteButton(id) {
             Swal.fire({

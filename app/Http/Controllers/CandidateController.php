@@ -53,6 +53,30 @@ class CandidateController extends Controller
         return to_route('candidate.show', ['id' => $request->election])->with('success', 'sukses');
     }
 
+    public function changeNumber(Request $request)
+    {
+        if (!$request->ajax()) :
+            return response()->json([
+                'message' => 'error',
+            ], 404);
+        endif;
+
+        try {
+            $candidate = Candidate::find($request->id);
+
+            $candidate->number = $request->number;
+            $candidate->save();
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'sukses'
+        ]);
+    }
+
     public function destroy(Request $request)
     {
         if (!$request->ajax()) :
