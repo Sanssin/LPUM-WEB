@@ -121,7 +121,7 @@ class ElectionController extends Controller
             ->with('leader:id,first_name,last_name', 'coleader:id,first_name,last_name')
             ->orderBy('number')->get();
 
-        return view('Election.vote-page', compact('title', 'endTime', 'candidates'));
+        return view('Election.vote-page', compact('title', 'endTime', 'candidates', 'id'));
     }
 
     public function result()

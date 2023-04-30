@@ -102,7 +102,7 @@
                                 </button>
                                 <span class="text-muted" style="font-size: 12px">Klik untuk lebih detail</span>
                             </div>
-                            @if (now() <= $endTime && $candidate->number)
+                            @if (now() <= $endTime && auth()->user()->vote_status == 1)
                                 <div class="col-6">
                                     <button type="button" value="{{ $candidate->number }}"
                                         class="justify-content-center w-100 btn btn-rounded btn-primary font-weight-medium d-flex align-items-center coblos-button">
@@ -112,10 +112,9 @@
                                         </span>
                                     </button>
                                 </div>
-                            @elseif (!$candidate->number)
+                            @elseif (auth()->user()->vote_status == 2)
                                 <div class="col-6">
-                                    <button class="btn btn-purple text-white" disabled>Belum
-                                        bernomor</button>
+                                    <button class="btn btn-purple text-white" disabled>Sudah memilih</button>
                                 </div>
                             @else
                                 <div class="col-6"><button class="btn btn-purple text-white" disabled>Bukan
@@ -176,11 +175,66 @@
             e.preventDefault();
             var opt = $(this).val();
 
-            Swal.fire(
-                `Coblos nomor ${opt} ?`,
-                'Pilihan tidak dapat di ubah',
-                'question'
-            );
+            Swal.fire({
+                title: `Coblos nomor ${opt} ?`,
+                text: 'Pilihan tidak dapat diubah',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Lanjutkan',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "post",
+                        url: "{{ route('vote.store') }}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            data: opt,
+                            election: {{ $id }}
+                        },
+                        dataType: "json",
+                        beforeSend: () => {
+                            Swal.fire({
+                                title: 'Tunggu...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                showConfirmButton: false,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function(response) {
+                            let timerInterval
+                            Swal.fire({
+                                title: 'Sukses!',
+                                icon: 'success',
+                                text: `${response.message}`,
+                                html: 'Halaman akan diperbarui dalam <b></b> milliseconds.',
+                                timer: 2500,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer()
+                                        .querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                        b.textContent = Swal
+                                            .getTimerLeft()
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                location.reload();
+                            })
+                        },
+                        error: function(response) {
+                            console.log(response.message);
+                        }
+                    });
+                }
+            })
         });
     </script>
 

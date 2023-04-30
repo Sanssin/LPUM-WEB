@@ -6,6 +6,7 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,4 +93,8 @@ Route::middleware('auth')->prefix('candidate')->name('candidate.')->controller(C
 
 Route::middleware('auth')->controller(OrganizationController::class)->prefix('km')->name('km.')->group(function () {
     Route::get('/', 'index')->name('index');
+});
+
+Route::middleware('auth')->name('vote.')->controller(VoteController::class)->group(function () {
+    Route::post('coblos', 'store')->name('store');
 });
