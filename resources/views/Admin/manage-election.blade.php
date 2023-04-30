@@ -9,7 +9,11 @@
                 </div>
 
                 <div class="card-body">
-                    <h5>Daftar Agenda Pemilu</h5>
+                    <div class="d-flex justify-content-between">
+                        <h5>Daftar Agenda Pemilu</h5>
+                        <a href="{{ route('election.create') }}" class="btn btn-info"><span
+                                class="mdi mdi-plus-circle-outline"></span> Tambah</a>
+                    </div>
                     @if (session('success'))
                         <div class="alert alert-success">
                             Sukses mengubah status pemilihan
@@ -53,7 +57,9 @@
                                                         <li><a class="dropdown-item"
                                                                 href="{{ route('admin.manageElectionAgenda', ['id' => $election->id]) }}">Kelola
                                                                 Agenda</a></li>
-                                                        <li><a class="dropdown-item" href="#">Kelola Kandidat</a></li>
+                                                        <li><a class="dropdown-item"
+                                                                href="{{ route('admin.manageCandidates', ['id' => $election->id]) }}">Kelola
+                                                                Kandidat</a></li>
                                                         <li>
                                                             <hr class="dropdown-divider">
                                                         </li>
@@ -95,16 +101,58 @@
     <script>
         function deleteButton(id) {
             Swal.fire({
-                title: 'Yakin ingin menghapus agenda?',
+                title: `Hapus data pemilihan ?`,
                 showCancelButton: true,
-                confirmButtonText: 'Yakin',
-                cancelButtonText: 'Batal',
+                confirmButtonText: 'Lanjutkan',
+                cancelButtonText: 'Batal'
             }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
+
                 if (result.isConfirmed) {
-                    Swal.fire('Saved!' + id, '', 'success')
-                } else if (result.isDenied) {
-                    Swal.fire('Changes are not saved', '', 'info')
+                    $.ajax({
+                        type: "delete",
+                        url: "{{ route('election.delete') }}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            data: id
+                        },
+                        dataType: "json",
+                        beforeSend: () => {
+                            Swal.fire({
+                                title: 'Tunggu...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                showConfirmButton: false,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function(response) {
+                            let timerInterval
+                            Swal.fire({
+                                title: 'Sukses!',
+                                icon: 'success',
+                                text: `${response.message}`,
+                                html: 'Halaman akan diperbarui dalam <b></b> milliseconds.',
+                                timer: 2500,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer()
+                                        .querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                        b.textContent = Swal
+                                            .getTimerLeft()
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                location.reload();
+                            })
+                        }
+                    });
                 }
             })
         }

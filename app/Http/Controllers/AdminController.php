@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAgendaRequest;
 use App\Models\User;
 use App\Imports\UsersImport;
+use App\Models\Candidate;
 use App\Models\Election;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -132,5 +133,33 @@ class AdminController extends Controller
         $election->event()->sync($data);
 
         return back()->with('success', 'success');
+    }
+
+    public function manageCandidates(int $id)
+    {
+        $title =  "Kelola Kandidat";
+        $candidates = Candidate::inElection($id);
+
+        return view('Admin.manage-candidates', compact('title', 'candidates'));
+    }
+
+    public function deleteCandidate(Request $request)
+    {
+        if (!$request->ajax()) :
+            return response()->json([
+                'message' => 'Method not allowed'
+            ], 404);
+        endif;
+
+        try {
+            $candidate = Candidate::find($request->data);
+            $candidate->delete();
+        } catch (\Throwable $e) {
+            abort(404);
+        }
+
+        return response()->json([
+            'message' => 'Sukses menghapus kandidat.'
+        ]);
     }
 }

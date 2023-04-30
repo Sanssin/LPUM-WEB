@@ -56,6 +56,26 @@ class ElectionController extends Controller
         return back()->with('success', 'success');
     }
 
+    public function destroy(Request $request)
+    {
+        if (!$request->ajax()) :
+            return response()->json([
+                'message' => 'Method not allowed'
+            ], 404);
+        endif;
+
+        try {
+            $election = Election::find($request->data);
+            $election->delete();
+        } catch (\Throwable $e) {
+            abort(404);
+        }
+
+        return response()->json([
+            'message' => 'Sukses menghapus pemilu.'
+        ]);
+    }
+
     public function coblos()
     {
         $title = "Info Pencoblosan";

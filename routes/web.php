@@ -46,6 +46,7 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
     Route::get('manage-users', 'manageUser')->name('manageUser');
     Route::get('manage-election', 'manageElection')->name('manageElection');
     Route::get('election-agenda/{id}', 'manageElectionAgenda')->name('manageElectionAgenda');
+    Route::get('election-candidate/{id}', 'manageCandidates')->name('manageCandidates');
 
     Route::post('upload-user', 'uploadUser')->name('uploadUser');
     Route::post('verify', 'verify')->name('verify');
@@ -57,6 +58,7 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
 
     Route::delete('users', 'deleteUsers')->name('deleteUsers');
     Route::delete('election', 'deleteElection')->name('deleteElection');
+    Route::delete('candidate', 'deleteCandidate')->name('deleteCandidate');
 });
 
 Route::middleware('auth')->controller(ElectionController::class)->name('election.')->group(function () {
@@ -68,6 +70,10 @@ Route::middleware('auth')->controller(ElectionController::class)->name('election
 
     Route::get('election', 'index')->name('index');
     Route::get('election/{id}', 'show')->name('show');
+    Route::middleware('role:Admin')->group(function () {
+        Route::get('add-election', 'create')->name('create');
+        Route::delete('election', 'destroy')->name('delete');
+    });
 
     Route::post('save-election', 'store')->name('store');
 });

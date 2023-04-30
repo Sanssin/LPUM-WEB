@@ -4,15 +4,48 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card rounded-3 card-hover">
-                <div class="card-body animate__animated animate__pulse animate__infinite">
+                <div class="card-body">
                     <div class="d-flex align-items-center">
-                        <span class="flex-shrink-0"><i class="mdi mdi-alert-box display-6 text-danger"></i></span>
+                        <span class="flex-shrink-0">
+                            @switch(auth()->user()->vote_status)
+                                @case(1)
+                                    <i class="mdi mdi-alert-box display-6 text-danger"></i>
+                                @break
+
+                                @case(2)
+                                    <i class="mdi mdi-bookmark-check display-6 text-success"></i>
+                                @break
+
+                                @default
+                                    <i class="mdi mdi-close-box-multiple display-6 text-orange"></i>
+                            @endswitch
+                        </span>
                         <div class="ms-4">
-                            <h4 class="card-title text-danger">Belum memilih!</h4>
-                            <h6 class="card-subtitle mb-0 fs-2 fw-normal text-danger">
-                                Silakan memilih terlebih dahulu.
-                            </h6>
-                            <span class="fs-2 mt-1 font-weight-medium">Ini tidak akan memakan waktu lama</span>
+                            @switch(auth()->user()->vote_status)
+                                @case(1)
+                                    <h4 class="card-title text-danger">Belum memilih!</h4>
+                                    <h6 class="card-subtitle mb-0 fs-2 fw-normal text-danger">
+                                        Silakan memilih terlebih dahulu.
+                                    </h6>
+                                    <span class="fs-2 mt-1 font-weight-medium">Ini tidak akan memakan waktu lama</span>
+                                @break
+
+                                @case(2)
+                                    <h4 class="card-title text-success">Sudah memilih!</h4>
+                                    <h6 class="card-subtitle mb-0 fs-2 fw-normal text-success">
+                                        Terima kasih atas partisipasi kamu!
+                                    </h6>
+                                    <span class="fs-2 mt-1 font-weight-medium">Tidak dapat memilih kembali</span>
+                                @break
+
+                                @default
+                                    <h4 class="card-title text-orange">Kamu tu gadiajak!</h4>
+                                    <h6 class="card-subtitle mb-0 fs-2 fw-normal text-orange">
+                                        Kamu bukan pemilih pada pemilihan ini
+                                    </h6>
+                            @endswitch
+
+
                         </div>
                     </div>
                 </div>
@@ -147,16 +180,14 @@
                 minute = second * 60,
                 hour = minute * 60,
                 day = hour * 24;
-            //I'm adding this section so I don't have to keep updating this pen every year :-)
-            //remove this if you don't need it
+
             let today = new Date(),
                 dd = String(today.getDate()).padStart(2, "0"),
                 mm = String(today.getMonth() + 1).padStart(2, "0"),
                 yyyy = today.getFullYear(),
-                birthday = "{{ $endTime->isoFormat('M/D/Y HH:mm:ss') }}";
-            // birthday = "4/28/2023 22:59:00";
-            //end
-            const countDown = new Date(birthday).getTime(),
+                endElection = "{{ $endTime->isoFormat('M/D/Y HH:mm:ss') }}";
+
+            const countDown = new Date(endElection).getTime(),
                 x = setInterval(function() {
                     const now = new Date().getTime(),
                         distance = countDown - now;
