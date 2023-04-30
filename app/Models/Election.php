@@ -32,7 +32,11 @@ class Election extends Model
     public function event()
     {
         // return $this->belongsToMany(Event::class)->withPivot('start_event', 'end_event')->as('agenda');
-        return $this->belongsToMany(Event::class)->using(ElectionEvent::class)->withPivot(['start_event', 'end_event', 'method', 'location', 'description'])->as('agenda');
+        return $this->belongsToMany(Event::class)
+            ->using(ElectionEvent::class)
+            ->withPivot(['start_event', 'end_event', 'method', 'location', 'description'])
+            ->as('agenda')
+            ->orderByPivot('event_id', 'asc');
     }
 
     public function voteTime()
@@ -60,6 +64,6 @@ class Election extends Model
 
     public function scopeOfStatus(Builder $query, string $status)
     {
-        return $query->where('election_status', $status)->get();
+        return $query->where('election_status', $status);
     }
 }

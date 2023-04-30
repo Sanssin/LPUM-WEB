@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreElectionRequest;
 use App\Models\Candidate;
 use App\Models\Election;
 use Illuminate\Http\Request;
@@ -27,11 +28,39 @@ class ElectionController extends Controller
         return view('Election.show', compact('title', 'election'));
     }
 
+    public function create()
+    {
+        $title = 'Tambah Pemilu';
+
+        return view('Election.create', compact('title'));
+    }
+
+    public function store(StoreElectionRequest $request)
+    {
+        try {
+            $validated = $request->validated();
+
+            $file = $request->file('election_image');
+            $fileName = $validated['election_name'] . $validated['election_period'] . time() . '.' . $file->extension();
+            $filePath = "election/$fileName";
+
+            $file->storeAs("election", $fileName);
+
+            $validated['election_image'] = $filePath;
+
+            Election::create($validated);
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+
+        return back()->with('success', 'success');
+    }
+
     public function coblos()
     {
         $title = "Info Pencoblosan";
 
-        $elections = Election::ofStatus('active');
+        $elections = Election::ofStatus('active')->get();
 
         return view('Election.coblos', compact('title', 'elections'));
     }
@@ -40,10 +69,12 @@ class ElectionController extends Controller
     {
         $title = "Pemilihan ketua poster";
 
-        $endTime = Election::where('id', $id)->with('voteTime')
-            ->first()->voteTime->first()->agenda->end_event;
+        $agenda = Election::where('id', $id)->with('voteTime')
+            ->first()->voteTime->first()->agenda;
 
-        if (now() < $endTime) :
+        $endTime = $agenda->end_event;
+
+        if (now() < $agenda->start_event) :
             abort(401);
         endif;
 
@@ -57,7 +88,7 @@ class ElectionController extends Controller
     public function result()
     {
         $title = 'Hasil pemilu';
-        $elections = Election::with('resultTime')->get();
+        $elections = Election::with('resultTime')->ofStatus('active')->get();
 
         return view('Election.result', compact('title', 'elections'));
     }

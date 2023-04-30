@@ -36,6 +36,7 @@ Route::get('/', function () {
 // Menu dashboard polos
 Route::middleware('auth')->controller(DashboardController::class)->group(function () {
     Route::get('dashboard', 'index')->name('pagu');
+    Route::get('profile', 'profile')->name('profile');
     Route::get('agenda', 'agenda')->name('agenda');
     Route::get('contact', 'contact')->name('contact');
 });
@@ -43,11 +44,19 @@ Route::middleware('auth')->controller(DashboardController::class)->group(functio
 // Menu admin
 Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->prefix('admin')->name('admin.')->group(function () {
     Route::get('manage-users', 'manageUser')->name('manageUser');
+    Route::get('manage-election', 'manageElection')->name('manageElection');
+    Route::get('election-agenda/{id}', 'manageElectionAgenda')->name('manageElectionAgenda');
 
     Route::post('upload-user', 'uploadUser')->name('uploadUser');
     Route::post('verify', 'verify')->name('verify');
     Route::post('unverify', 'unverify')->name('unverify');
+
+    Route::post('sync-agenda', 'syncAgenda')->name('syncAgenda');
+
+    Route::post('change-election-status', 'changeElectionStatus')->name('electionStatus');
+
     Route::delete('users', 'deleteUsers')->name('deleteUsers');
+    Route::delete('election', 'deleteElection')->name('deleteElection');
 });
 
 Route::middleware('auth')->controller(ElectionController::class)->name('election.')->group(function () {
@@ -56,8 +65,11 @@ Route::middleware('auth')->controller(ElectionController::class)->name('election
 
     Route::get('result', 'result')->name('result.index');
     Route::get('result/1', 'showResult')->name('result.show');
+
     Route::get('election', 'index')->name('index');
     Route::get('election/{id}', 'show')->name('show');
+
+    Route::post('save-election', 'store')->name('store');
 });
 
 Route::middleware('auth')->controller(OrganizationController::class)->prefix('km')->name('km.')->group(function () {

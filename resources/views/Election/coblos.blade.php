@@ -33,19 +33,21 @@
                                     <div class="card-body">
                                         <h4 class="card-title">{{ $election->election_name }}</h4>
                                         <p class="card-text">
-                                            {{ $election->description }}
+                                            {!! $election->description !!}
                                         </p>
                                         <a href="{{ route('election.show', ['id' => $election->id]) }}"
                                             class="btn btn-info my-1 d-block">Detail</a>
-                                        @if (now() < $election->voteTime[0]->agenda->start_event)
-                                            <div class="d-grid gap-2">
-                                                <button class="btn btn-purple text-white" disabled>Belum periode
-                                                    coblos</button>
-                                            </div>
-                                        @else
-                                            <a href="{{ route('election.votePage') }}"
-                                                class="btn btn-primary d-block">Coblos
-                                                sekarang</a>
+                                        @if (!$election->voteTime->isEmpty())
+                                            @if (now() < $election->voteTime->first()->agenda->start_event)
+                                                <div class="d-grid gap-2">
+                                                    <button class="btn btn-purple text-white" disabled>Belum periode
+                                                        coblos</button>
+                                                </div>
+                                            @else
+                                                <a href="{{ route('election.votePage', ['id' => $election->id]) }}"
+                                                    class="btn btn-primary d-block">Coblos
+                                                    sekarang</a>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>

@@ -625,7 +625,7 @@
                                 <div class="message-center message-body position-relative" style="height: 150px">
 
                                     <div class="mt-1">
-                                        <a href="javascript:void(0)"
+                                        <a href="{{ route('profile') }}"
                                             class="text-dark fs-3 font-weight-medium hover-primary">
                                             Pengaturan Akun
                                         </a>

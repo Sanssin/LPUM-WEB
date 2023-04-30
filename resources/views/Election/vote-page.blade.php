@@ -32,8 +32,8 @@
                             <h6 class="card-subtitle mb-0 fs-2 fw-normal">
                                 Tidak melakukan pemilihan akan dihitung sebagai golput.
                             </h6>
-                            <span class="fs-2 mt-1 font-weight-medium">Pemilihan berakhir pada : 14 Mei 2023 - 14:00
-                                WIB</span>
+                            <span class="fs-2 mt-1 font-weight-medium">Pemilihan berakhir pada :
+                                {{ $endTime->isoFormat('dddd, D MMMM Y - HH:mm') }}</span>
                         </div>
                     </div>
                 </div>

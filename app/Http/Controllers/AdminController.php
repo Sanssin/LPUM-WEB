@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAgendaRequest;
 use App\Models\User;
 use App\Imports\UsersImport;
+use App\Models\Election;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -72,5 +74,63 @@ class AdminController extends Controller
         return response()->json([
             'data' => 'Sukses'
         ]);
+    }
+
+    public function manageElection()
+    {
+        $title = 'Kelola Pemilihan';
+
+        $elections = Election::all();
+
+        return view('Admin.manage-election', compact('title', 'elections'));
+    }
+
+    public function changeElectionStatus(Request $request)
+    {
+        try {
+            $election = Election::find($request->id);
+            $election->election_status = $request->status;
+            $election->save();
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+
+        return back()->with('success', 'success');
+    }
+
+    public function manageElectionAgenda(int $id)
+    {
+        $title = 'Kelola Agenda Pemilihan';
+
+        $election = Election::where('id', $id)->with('event')->firstOrFail();
+
+        return view('Admin.manage-election-agenda', compact('title', 'election'));
+    }
+
+    public function syncAgenda(StoreAgendaRequest $request)
+    {
+        $election = Election::find($request->election_id);
+
+        $validated = $request->validated();
+
+        $start_event = $validated['start_event'];
+        $end_event = $validated['end_event'];
+        $method = $validated['method'];
+        $location = $validated['location'];
+
+        $event = collect($validated['event']);
+
+        $data = $event->mapWithKeys(function ($item, $key) use ($start_event, $end_event, $method, $location) {
+            return [$item => [
+                'method' => $method[$key],
+                'start_event' => $start_event[$key],
+                'end_event' => $end_event[$key],
+                'location' => $location[$key]
+            ]];
+        })->toArray();
+
+        $election->event()->sync($data);
+
+        return back()->with('success', 'success');
     }
 }

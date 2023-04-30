@@ -19,4 +19,10 @@ class DashboardController extends Controller
 
         return view('Dashboard.agenda', compact('title'));
     }
+
+    public function profile()
+    {
+        $title = 'Profil';
+        return view('Dashboard.profile', compact('title'));
+    }
 }

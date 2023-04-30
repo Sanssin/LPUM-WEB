@@ -18,7 +18,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index2.html"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('profile') }}"
                         aria-expanded="false">
                         <i class="mdi mdi-home-account"></i><span class="hide-menu">Profil</span>
                     </a>
@@ -43,7 +43,8 @@
                                 </span></a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="app-calendar.html"><i class="mdi mdi-vote"></i><span
+                            <a class="sidebar-link" href="{{ route('admin.manageElection') }}"><i
+                                    class="mdi mdi-vote"></i><span
                                     class="hide-menu text-primary font-weight-medium">Kelola
                                     pemilu </span></a>
                         </li>

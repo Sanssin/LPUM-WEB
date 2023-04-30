@@ -19,7 +19,8 @@
                         <div class="col-lg-8">
                             <p class="text-primary fw-bold">{{ $election->start_election->isoFormat('d MMMM Y') }} sampai
                                 {{ $election->end_election->isoFormat('d MMMM Y') }}</p>
-                            <p>{{ $election->description }} <br>Agenda yang dilaksanakan antara lain :</p>
+                            {!! $election->description !!}
+                            <p>Agenda yang dilaksanakan antara lain :</p>
                             <span class="mb-0 text-muted">Geser ke kanan untuk lebih detail</span>
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -37,7 +38,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $event->event_name }}</td>
-                                                <td>{{ $event->agenda->start_event->isoFormat('d MMMM Y') . ' s/d ' . $event->agenda->end_event->isoFormat('d MMMM Y') }}
+                                                <td>{{ $event->agenda->start_event->isoFormat('D MMMM Y') . ' s/d ' . $event->agenda->end_event->isoFormat('D MMMM Y') }}
                                                 </td>
                                                 <td>{{ $event->agenda->location }}</td>
                                                 <td>{{ $event->agenda->method }}</td>
