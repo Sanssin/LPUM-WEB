@@ -167,6 +167,7 @@
                             }).then((result) => {
                                 location.reload();
                             })
+
                         }
                     });
                 }

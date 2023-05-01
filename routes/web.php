@@ -60,18 +60,18 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
 });
 
 Route::middleware('auth')->controller(ElectionController::class)->name('election.')->group(function () {
-    Route::get('election', 'index')->name('index');
-    Route::get('election/{id}', 'show')->name('show');
-
     // Admin privileges
     Route::middleware('role:Admin')->group(function () {
+        Route::delete('election/delete', 'destroy')->name('delete');
         Route::get('add-election', 'create')->name('create');
-        Route::delete('election', 'destroy')->name('delete');
         Route::post('change-status', 'changeStatus')->name('changeStatus');
         Route::post('save-election', 'store')->name('store');
         Route::post('end-election', 'end')->name('end');
         Route::post('open-result', 'openResult')->name('openResult');
     });
+
+    Route::get('election', 'index')->name('index');
+    Route::get('election/{id}', 'show')->name('show');
 
     // Vote
     Route::get('coblos', 'coblos')->name('coblos');

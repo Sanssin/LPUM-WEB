@@ -176,7 +176,7 @@
     </script>
 
 
-
+    {{-- Hapus kandidat --}}
     <script>
         function deleteButton(id) {
             Swal.fire({

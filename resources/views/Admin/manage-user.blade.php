@@ -96,6 +96,7 @@
                     <button class="btn btn-primary mt-2" id="verifyButton">Verifikasi</button>
                     <button class="btn btn-primary mt-2" id="unverifyButton">Hapus Verifikasi</button>
                     <button class="btn btn-danger mt-2" id="deleteButton">Hapus User</button>
+                    <button type="button" class="btn btn-purple" onclick="userToElection()">Test tombol</button>
                 </div>
             </div>
         </div>
@@ -346,8 +347,8 @@
                                 Swal.fire({
                                     title: 'Sukses!',
                                     icon: 'success',
-                                    text: 'Memverifikasi user yang dipilih',
-                                    html: 'Halaman akan diperbarui dalam <b></b> milliseconds.',
+                                    // text: 'Memverifikasi user yang dipilih',
+                                    html: `Memverifikasi ${response.message} user <br>Halaman akan diperbarui dalam <b></b> milliseconds.`,
                                     timer: 2500,
                                     timerProgressBar: true,
                                     didOpen: () => {
@@ -420,8 +421,7 @@
                                 Swal.fire({
                                     title: 'Sukses!',
                                     icon: 'success',
-                                    text: 'Menghapus verifikasi',
-                                    html: 'Halaman akan diperbarui dalam <b></b> milliseconds.',
+                                    html: `Hapus verifikasi ${response.message} user <br>Halaman akan diperbarui dalam <b></b> milliseconds.`,
                                     timer: 2500,
                                     timerProgressBar: true,
                                     didOpen: () => {
@@ -569,5 +569,124 @@
                 })
             }
         });
+    </script>
+
+    {{-- Send request --}}
+    <script>
+        function sendVerify(users, election_id) {
+            Swal.fire({
+                title: `Verifikasi ${users.length} user ?`,
+                text: `Akan ditautkan ke pemilihan ID-${election_id}`,
+                showCancelButton: true,
+                confirmButtonText: 'Lanjutkan',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "post",
+                        url: "{{ route('admin.verify') }}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            users: users,
+                            election: election_id
+                        },
+                        dataType: "json",
+                        beforeSend: () => {
+                            Swal.fire({
+                                title: 'Tunggu...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                showConfirmButton: false,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function(response) {
+                            let timerInterval
+                            Swal.fire({
+                                title: 'Sukses!',
+                                icon: 'success',
+                                // text: 'Memverifikasi user yang dipilih',
+                                html: `Memverifikasi ${response.message} user <br>Halaman akan diperbarui dalam <b></b> milliseconds.`,
+                                timer: 2500,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer()
+                                        .querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                        b.textContent = Swal
+                                            .getTimerLeft()
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                location.reload();
+                            })
+                        },
+                        error: function(response) {
+                            var message = JSON.parse(response.responseText);
+
+                            Swal.fire(
+                                'Gagal',
+                                `${message.message}`,
+                                'error'
+                            );
+
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+
+    {{-- Input ID Pemilihan --}}
+    <script>
+        async function userToElection() {
+            var arr = [];
+
+            $.each($("input[name='user_id']:checked"), function() {
+                arr.push($(this).val());
+            });
+
+            if (arr.length == 0) {
+                Swal.fire(
+                    'Error',
+                    'Anda belum memilih user untuk diverifikasi',
+                    'error'
+                );
+                return
+            }
+
+            const {
+                value: idElection
+            } = await Swal.fire({
+                title: 'Tautkan ke Pemilihan',
+                text: 'Masukkan ID Pemilihan yang ingin ditautkan untuk user yang dipilih',
+                icon: 'question',
+                input: 'text',
+                inputLabel: 'ID Pemilihan',
+                allowOutsideClick: false,
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Tidak boleh kosong!'
+                    } else {
+                        const number = Number(value);
+
+                        if (isNaN(number)) {
+                            return "Masukkan angka!";
+                        }
+                    }
+                }
+            });
+
+            if (idElection) {
+                sendVerify(arr, idElection);
+            }
+        };
     </script>
 @endpush

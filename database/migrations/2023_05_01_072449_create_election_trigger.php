@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,10 +14,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('election_trigger', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        DB::unprepared('
+            CREATE TRIGGER tr_Election_Vote_stats
+            AFTER INSERT ON `elections`
+            FOR EACH ROW
+            INSERT INTO vote_stats
+            
+            SET election_id = new.id
+        ');
     }
 
     /**
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('election_trigger');
+        DB::unprepared('DROP TRIGGER IF EXISTS tr_Election_Vote_stats');
     }
 };

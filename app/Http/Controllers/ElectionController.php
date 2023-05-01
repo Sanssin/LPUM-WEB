@@ -62,7 +62,7 @@ class ElectionController extends Controller
         if (!$request->ajax()) :
             return response()->json([
                 'message' => 'Method not allowed'
-            ], 404);
+            ], 403);
         endif;
 
         try {

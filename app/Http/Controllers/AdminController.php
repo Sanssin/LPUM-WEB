@@ -19,6 +19,7 @@ class AdminController extends Controller
 
         if ($request->all() == null) :
             $data = User::select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')->with('study_program')->get();
+
         else :
             $data = User::select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')
                 ->where('study_program_id', $request->prodi)
@@ -45,27 +46,74 @@ class AdminController extends Controller
 
     public function verify(Request $request)
     {
-        foreach ($request->data as $data) :
-            User::where('id', $data)->update([
-                'vote_status' => 1
+        // foreach ($request->data as $data) :
+        //     User::where('id', $data)->update([
+        //         'vote_status' => 1
+        //     ]);
+        // endforeach;
+
+        $data = User::select('id', 'vote_status', 'nim')->whereIn('id', $request->users)->get();
+
+        $not_voted = $data->reject(function ($item, $key) {
+            return $item['vote_status'] == 1;
+        })
+            ->map(function ($item, $key) {
+                return $item['id'];
+            })
+            ->toArray();
+
+        try {
+            Election::findOrFail($request->election);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'ID tidak ada.'
+            ], 400);
+        }
+
+        try {
+            $count = User::whereIn('id', $not_voted)->update([
+                'vote_status' => 1,
+                'election_id' => $request->election
             ]);
-        endforeach;
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 400);
+        }
 
         return response()->json([
-            'data' => 'Sukses'
+            'message' => $count
         ]);
     }
 
     public function unverify(Request $request)
     {
-        foreach ($request->data as $data) :
-            User::where('id', $data)->update([
-                'vote_status' => 0
-            ]);
-        endforeach;
+        // foreach ($request->data as $data) :
+        //     User::where('id', $data)->update([
+        //         'vote_status' => 0
+        //     ]);
+        // endforeach;
+
+        // return response()->json([
+        //     'data' => 'Sukses'
+        // ]);
+        $data = User::select('id', 'vote_status', 'nim')->whereIn('id', $request->data)->get();
+
+        $not_voted = $data->reject(function ($item, $key) {
+            return $item['vote_status'] == 0;
+        })
+            ->map(function ($item, $key) {
+                return $item['id'];
+            })
+            ->toArray();
+
+        $count = User::whereIn('id', $not_voted)->update([
+            'vote_status' => 0,
+            'election_id' => null
+        ]);
 
         return response()->json([
-            'data' => 'Sukses'
+            'message' => $count
         ]);
     }
 

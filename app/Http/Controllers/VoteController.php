@@ -6,6 +6,7 @@ use App\Models\Candidate;
 use App\Models\User;
 use App\Models\Vote;
 use App\Models\Election;
+use App\Models\VoteStat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -58,8 +59,8 @@ class VoteController extends Controller
         $title = 'Pemilu Ketua poster 2023';
 
         $election = Election::find($id);
-        $voters = Vote::where('election_id', $id)->count();
-        $votes = Vote::where('election_id', 4)->select(DB::raw('count(vote) as vote_number, vote'))
+        $stats = VoteStat::find($id);
+        $votes = Vote::where('election_id', $id)->select(DB::raw('count(vote) as vote_number, vote'))
             ->groupBy('vote')
             ->get()
             ->pluck('vote_number', 'vote');
@@ -82,7 +83,7 @@ class VoteController extends Controller
 
         return view('Election.showResult', compact(
             'title',
-            'voters',
+            'stats',
             'election',
             'id',
             'candidatePairs',

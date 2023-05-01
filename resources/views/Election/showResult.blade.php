@@ -25,9 +25,9 @@
                                         </thead>
                                         <tbody class="text-center fw-bold">
                                             <tr style="font-size: 20px">
-                                                <td>40</td>
-                                                <td>{{ $voters }}</td>
-                                                <td>40</td>
+                                                <td>{{ $stats->total_voter }}</td>
+                                                <td>{{ $stats->voted }}</td>
+                                                <td>{{ $stats->golput }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
