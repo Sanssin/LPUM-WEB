@@ -49,9 +49,15 @@ class VoteController extends Controller
     public function result()
     {
         $title = 'Hasil pemilu';
+        $stats = VoteStat::select(DB::raw('COUNT(election_id) as elect_count, 
+        SUM(total_voter) as total, 
+        SUM(voted) as total_vote, 
+        SUM(golput) as total_golput'))
+            ->get()->first();
+
         $elections = Election::with('resultTime')->ofStatus('active')->get();
 
-        return view('Election.result', compact('title', 'elections'));
+        return view('Election.result', compact('title', 'elections', 'stats'));
     }
 
     public function showResult(int $id)

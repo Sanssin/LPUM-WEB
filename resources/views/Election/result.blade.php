@@ -67,11 +67,11 @@
                         <div class="d-flex flex-row">
                             <div class="p-3 bg-light-info d-flex align-items-center justify-content-center">
                                 <h3 class="text-info box mb-0 d-flex align-items-center">
-                                    <i class="mdi mdi-group display-8"></i>
+                                    <i class="mdi mdi-pin-outline display-8"></i>
                                 </h3>
                             </div>
                             <div class="p-3">
-                                <h3 class="text-info mb-0">12 x</h3>
+                                <h3 class="text-info mb-0">{{ $stats->elect_count }} x</h3>
                                 <span class="text-muted">Total Pemilu</span>
                             </div>
                         </div>
@@ -83,12 +83,27 @@
                         <div class="d-flex flex-row">
                             <div class="p-3 bg-light-purple d-flex align-items-center justify-content-center">
                                 <h3 class="text-purple box mb-0 d-flex align-items-center">
-                                    <i class="mdi mdi-group display-8"></i>
+                                    <i class="mdi mdi-account-circle display-8"></i>
                                 </h3>
                             </div>
                             <div class="p-3">
-                                <h3 class="text-purple mb-0">250 orang</h3>
-                                <span class="text-muted">Total Pemilih aktif</span>
+                                <h3 class="text-purple mb-0">{{ $stats->total }} orang</h3>
+                                <span class="text-muted">Total Calon Pemilih</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card overflow-hidden my-1">
+                        <div class="d-flex flex-row">
+                            <div class="p-3 bg-light-success d-flex align-items-center justify-content-center">
+                                <h3 class="text-success box mb-0 d-flex align-items-center">
+                                    <i class="mdi mdi-account-heart-outline display-8"></i>
+                                </h3>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="text-success mb-0">{{ $stats->total_vote }} orang</h3>
+                                <span class="text-muted">Total Pemilih</span>
                             </div>
                         </div>
                     </div>
@@ -97,28 +112,13 @@
                     <div class="card overflow-hidden my-1">
                         <div class="d-flex flex-row">
                             <div class="p-3 bg-light-purple d-flex align-items-center justify-content-center">
-                                <h3 class="text-purple box mb-0 d-flex align-items-center">
-                                    <i class="mdi mdi-group display-8"></i>
+                                <h3 class="text-danger box mb-0 d-flex align-items-center">
+                                    <i class="mdi mdi-skull display-8"></i>
                                 </h3>
                             </div>
                             <div class="p-3">
-                                <h3 class="text-purple mb-0">250 orang</h3>
-                                <span class="text-muted">Total Pemilih aktif</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card overflow-hidden my-1">
-                        <div class="d-flex flex-row">
-                            <div class="p-3 bg-light-purple d-flex align-items-center justify-content-center">
-                                <h3 class="text-purple box mb-0 d-flex align-items-center">
-                                    <i class="mdi mdi-group display-8"></i>
-                                </h3>
-                            </div>
-                            <div class="p-3">
-                                <h3 class="text-purple mb-0">250 orang</h3>
-                                <span class="text-muted">Total Pemilih aktif</span>
+                                <h3 class="text-danger mb-0">{{ $stats->total_golput }} orang</h3>
+                                <span class="text-muted">Total Golput</span>
                             </div>
                         </div>
                     </div>
@@ -137,10 +137,11 @@
         $(function() {
             // Basic Bar Chart -------> BAR CHART
             var options = {
-                series: [250, 420],
+                series: [{{ $stats->total_vote }}, {{ $stats->total_golput }}],
                 labels: ['Partisipan', 'Golput'],
                 chart: {
                     type: 'donut',
+                    fontFamily: '"DM Sans", sans-serif',
                 },
                 plotOptions: {
                     pie: {
@@ -154,6 +155,7 @@
                         bottom: -80
                     }
                 },
+                colors: ["#39cb7f", "#fc4b6c"],
                 responsive: [{
                     breakpoint: 480,
                     options: {

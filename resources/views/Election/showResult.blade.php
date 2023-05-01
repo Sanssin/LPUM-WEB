@@ -20,14 +20,18 @@
                                             <tr>
                                                 <th class="bg-primary">Total pemilih</th>
                                                 <th class="bg-success">Telah memilih</th>
-                                                <th class="bg-orange">Golput</th>
+                                                <th class="bg-orange">
+                                                    <div>Golput</div>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-center fw-bold">
                                             <tr style="font-size: 20px">
                                                 <td>{{ $stats->total_voter }}</td>
                                                 <td>{{ $stats->voted }}</td>
-                                                <td>{{ $stats->golput }}</td>
+                                                <td>
+                                                    {{ $stats->golput }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
