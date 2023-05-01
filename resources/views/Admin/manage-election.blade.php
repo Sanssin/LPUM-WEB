@@ -16,7 +16,7 @@
                     </div>
                     @if (session('success'))
                         <div class="alert alert-success">
-                            Sukses mengubah status pemilihan
+                            {{ session('success') }}
                         </div>
                     @endif
                     <p>Berikut adalah agenda pemilihan yang telah disimpan di sistem. Untuk mengatur pemilu lebih lengkap,
@@ -35,10 +35,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($elections as $election)
+                                @forelse ($elections as $election)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $election->election_name }}</td>
+                                        <td>{{ $election->election_name }} <br><span
+                                                class="badge bg-light-primary text-primary fw-bold">ID -
+                                                {{ $election->id }}</span></td>
                                         <td>{{ $election->start_election->isoFormat('dddd, D MMMM Y H:mm') }}</td>
                                         <td>{{ $election->end_election->isoFormat('dddd, D MMMM Y H:mm') }}</td>
                                         <td><span
@@ -93,7 +95,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center">Belum ada data</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

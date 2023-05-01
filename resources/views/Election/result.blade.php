@@ -2,6 +2,8 @@
 
 @section('main')
     <div class="row">
+
+        {{-- Card kiri --}}
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-success">
@@ -9,39 +11,44 @@
                 </div>
                 <div class="card-body">
                     <div class="row justify-content-center">
-                        @foreach ($elections as $election)
-                            <div class="col-12 col-lg-8">
-                                <div class="card">
-                                    <img class="card-img-top img-responsive mw-50"
-                                        src="{{ asset('storage/' . $election->election_image) }}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{ $election->election_name }}</h4>
-                                        <p class="card-text">
-                                            {!! $election->description !!}
-                                        </p>
-                                        <a href="{{ route('election.show', ['id' => $election->id]) }}"
-                                            class="btn btn-info my-1 d-block">Detail</a>
-                                        @if (!$election->resultTime->isEmpty())
-                                            @if (now() < $election->resultTime->first()->agenda->start_event)
-                                                <div class="d-grid gap-2">
-                                                    <button class="btn btn-purple text-white" disabled>Belum periode
-                                                        pengumuman</button>
-                                                </div>
-                                            @else
-                                                <a href="{{ route('vote.result.show', ['id' => $election->id]) }}"
-                                                    class="btn btn-primary d-block">Lihat
-                                                    hasil</a>
+                        @if ($elections->isEmpty())
+                            <h2 class="text-center">Belum ada data</h2>
+                        @else
+                            @foreach ($elections as $election)
+                                <div class="col-12 col-lg-8">
+                                    <div class="card">
+                                        <img class="card-img-top img-responsive mw-50"
+                                            src="{{ asset('storage/' . $election->election_image) }}" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ $election->election_name }}</h4>
+                                            <p class="card-text">
+                                                {!! $election->description !!}
+                                            </p>
+                                            <a href="{{ route('election.show', ['id' => $election->id]) }}"
+                                                class="btn btn-info my-1 d-block">Detail</a>
+                                            @if (!$election->resultTime->isEmpty())
+                                                @if (now() < $election->resultTime->first()->agenda->start_event)
+                                                    <div class="d-grid gap-2">
+                                                        <button class="btn btn-purple text-white" disabled>Belum periode
+                                                            pengumuman</button>
+                                                    </div>
+                                                @else
+                                                    <a href="{{ route('vote.result.show', ['id' => $election->id]) }}"
+                                                        class="btn btn-primary d-block">Lihat
+                                                        hasil</a>
+                                                @endif
                                             @endif
-                                        @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
 
+        {{-- Card kanan --}}
         <div class="col-md-6">
             <div class="row mb-1">
                 <div class="col">

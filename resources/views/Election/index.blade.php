@@ -9,9 +9,12 @@
                 </div>
                 <div class="card-body">
                     <p><span class="mdi mdi-information"></span> Klik pada judul pemilu.</p>
+
+                    {{-- Terbaru --}}
                     <h4 class="text-muted">Pemilu terbaru</h4>
+
                     <div class="row">
-                        @foreach ($latests as $latest)
+                        @forelse ($latests as $latest)
                             <div class="col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
                                 <div class="card w-100 border-success">
                                     <div class="p-3 d-flex align-items-stretch h-100">
@@ -36,8 +39,12 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <p>Belum ada data</p>
+                        @endforelse
                     </div>
+
+                    {{-- Terdahulu --}}
                     <h4 class="text-muted">Pemilu terdahulu</h4>
                     <div class="row">
                         @forelse ($oldests as $oldest)

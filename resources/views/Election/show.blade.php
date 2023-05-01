@@ -8,20 +8,39 @@
                     <h4 class="mb-0 text-white">Informasi Detail</h4>
                 </div>
                 <div class="card-body">
+                    {{-- Judul --}}
                     <h1 class="text-center">{{ $election->election_name . ' ' . $election->election_period }}</h1>
+
+                    {{-- Kolom utama --}}
                     <div class="row">
+                        {{-- Foto --}}
                         <div class="col-lg-4 d-flex justify-content-center">
                             <div style="width: 300px;height:400px;">
                                 <img src="{{ asset('storage/' . $election->election_image) }}" alt=""
                                     class="w-100 h-100 rounded-3" style="object-fit: cover; object-position:center center;">
                             </div>
                         </div>
+                        {{-- Artikel --}}
                         <div class="col-lg-8">
                             <p class="text-primary fw-bold">{{ $election->start_election->isoFormat('d MMMM Y') }} sampai
                                 {{ $election->end_election->isoFormat('d MMMM Y') }}</p>
+
+                            {{-- Candidate button --}}
                             <div>
-                                <a href="{{ route('candidate.show', ['id' => $election->id]) }}" class="btn btn-info">Lihat
-                                    kandidat</a>
+                                @if ($election->candidate->isNotEmpty())
+                                    <a href="{{ route('candidate.show', ['id' => $election->id]) }}"
+                                        class="btn btn-info">Lihat
+                                        kandidat</a>
+                                @else
+                                    <button class="btn btn-purple" disabled>Belum ada kandidat</button>
+                                @endif
+                                @if ($election->result_visibility)
+                                    <a href="{{ route('candidate.show', ['id' => $election->id]) }}"
+                                        class="btn btn-info">Lihat
+                                        kandidat</a>
+                                @else
+                                    <button class="btn btn-purple" disabled>Belum ada hasil</button>
+                                @endif
                             </div>
                             {!! $election->description !!}
 

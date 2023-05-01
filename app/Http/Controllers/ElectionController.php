@@ -54,7 +54,7 @@ class ElectionController extends Controller
             return $e->getMessage();
         }
 
-        return back()->with('success', 'success');
+        return to_route('admin.manageElection')->with('success', $validated['election_name'] . " telah ditambahkan!");
     }
 
     public function destroy(Request $request)
