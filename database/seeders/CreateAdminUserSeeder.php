@@ -21,7 +21,7 @@ class CreateAdminUserSeeder extends Seeder
         $user = User::create([
             'first_name' => 'Joko',
             'last_name' => 'Widodo',
-            'email' => 'admin@gmail.com',
+            'email' => 'bomsiwor@gmail.com',
             'nim' => fake()->numberBetween(1234, 9999),
             'study_program_id' => fake()->numberBetween(1, 3),
             'password' => Hash::make("password"),

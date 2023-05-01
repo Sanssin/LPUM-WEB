@@ -26,6 +26,11 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::post('authenticate', 'authenticate')->name('authenticate');
 
     Route::post('logout', 'logout')->name('logout')->withoutMiddleware('guest')->middleware('auth');
+
+    Route::get('forgot', 'forgot')->name('forgot');
+    Route::post('send-forgot-request', 'forgotRequest')->name('forgot.request');
+    Route::get('reset-password/{token}', 'resetPassword')->name('password.reset');
+    Route::post('reset-password-request', 'resetPasswordRequest')->name('password.request');
 });
 
 

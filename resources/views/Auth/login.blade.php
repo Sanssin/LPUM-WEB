@@ -10,7 +10,7 @@
                     <div class="col-md-7 col-lg-12 col-xl-9">
                         <div
                             class="d-flex align-items-center justify-content-center animate__animated animate__bounce animate__infinite">
-                            <span class="db"><img style="max-width: 60px" src="{{ asset('assets/images/logo-lpum.png') }}"
+                            <span class="db"><img style="max-width: 60px" src="{{ asset('assets/logo/logo-lpum.png') }}"
                                     alt="logo" /></span>
                             <span class="db"><img style="max-height:40px"
                                     src="{{ asset('assets/images/logo-text-lpum-light.png') }}" alt="logo" /></span>
@@ -19,14 +19,20 @@
                             Web App LPUM <br>
                             <span class="font-weight-medium">Poltek Nuklir - BRIN</span>
                         </h2>
-                        <p class="op-5 text-white fs-4 mt-4">
-                            Lembaga Pemilihan Umum Mahasiswa <br> Politeknik Teknologi Nuklir Indonesia <br> Badan
-                            Riset &
-                            Inovasi Nasional
-                        </p>
-                        <div>
-                            <img style="max-height: 60px" src="{{ asset('assets/images/logo-brin.png') }}" alt="logo"
-                                class="rounded rounded-sm" />
+                        <div class="d-none d-md-block">
+                            <p class="op-5 text-white fs-4 mt-4">
+                                Lembaga Pemilihan Umum Mahasiswa <br> Politeknik Teknologi Nuklir Indonesia <br> Badan
+                                Riset &
+                                Inovasi Nasional
+                            </p>
+                            <div>
+
+                                <img src="{{ asset('assets/logo/poltek-logo.svg') }}" style="max-height: 60px"
+                                    alt="poltek" class="bg-white p-2 rounded-2">
+
+                                <img style="max-height: 60px" src="{{ asset('assets/images/logo-brin.png') }}"
+                                    alt="logo" class="rounded rounded-sm" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -49,6 +55,12 @@
                                     <button type="button" class="btn-close btn-close-danger" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                     Email / Kata sandi salah!
+                                </div>
+                            @endif
+
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
                                 </div>
                             @endif
                             <form class="form-horizontal mt-2 pt-1 needs-validation" action="{{ route('authenticate') }}"
@@ -87,11 +99,33 @@
                                     </button>
                                 </div>
                             </form>
+                            <p class="text-small"><a href="{{ route('forgot') }}">Lupa password ?</a> </p>
                         </div>
                     </div>
                 </div>
             </div>
 
+        </div>
+    </div>
+    <div class="row bg-primary d-md-none">
+        <div class="col text-center">
+
+            <p class="op-5 text-white fs-4 mt-4">
+                LPUM-Poltek - {{ date('Y') }}
+            </p>
+            <p class="op-5 text-white fs-4 mt-4">
+                Lembaga Pemilihan Umum Mahasiswa <br> Politeknik Teknologi Nuklir Indonesia <br> Badan
+                Riset &
+                Inovasi Nasional
+            </p>
+            <div>
+
+                <img src="{{ asset('assets/logo/poltek-logo.svg') }}" style="max-height: 60px" alt="poltek"
+                    class="bg-white p-2 rounded-2">
+
+                <img style="max-height: 60px" src="{{ asset('assets/images/logo-brin.png') }}" alt="logo"
+                    class="rounded rounded-sm" />
+            </div>
         </div>
     </div>
 @endsection

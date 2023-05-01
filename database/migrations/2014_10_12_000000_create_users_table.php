@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('election_id')->nullable()->constrained('elections')->restrictOnDelete()->cascadeOnUpdate();
             $table->string('phone')->nullable();
             $table->string('image')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
