@@ -46,6 +46,7 @@ Route::middleware('auth')->controller(DashboardController::class)->group(functio
     Route::get('profile', 'profile')->name('profile');
     Route::get('agenda', 'agenda')->name('agenda');
     Route::get('contact', 'contact')->name('contact');
+    Route::get('send-mail', 'testMail')->name('test-mail');
 });
 
 // Menu admin
@@ -57,6 +58,7 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
     Route::post('verify', 'verify')->name('verify');
     Route::post('unverify', 'unverify')->name('unverify');
     Route::delete('users', 'deleteUsers')->name('deleteUsers');
+    Route::post('send-activation', 'activate')->name('activate');
 
     // Manage Election
     Route::get('manage-election', 'manageElection')->name('manageElection');

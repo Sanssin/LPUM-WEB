@@ -1,6 +1,30 @@
 @extends('Template.Dashboard.layouts')
 
 @section('main')
+    <div class="page-titles">
+        <div class="row">
+            <div class="col-lg-8 col-md-6 col-12 align-self-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 d-flex align-items-center">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pagu') }}" class="link"><i class="mdi mdi-home fs-5"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">Admin</li>
+                        <li class="breadcrumb-item" aria-current="page">
+                            <a href="{{ route('admin.manageElection') }}" class="link">Manage Election</a>
+                        </li>
+                        <li class="breadcrumb-item active"> Add</li>
+                    </ol>
+                </nav>
+                <h1 class="mb-0 fw-bold">Tambah Pemilu</h1>
+                <div class="my-0">
+                    <a href="{{ route('admin.manageElection') }}" class="btn btn-primary"><span
+                            class="mdi mdi-arrow-left"></span> Kembali</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-12">
             <div class="card">

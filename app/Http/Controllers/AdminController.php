@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Election;
+use App\Models\Candidate;
+use Illuminate\Support\Str;
+use App\Imports\UsersImport;
+use Illuminate\Http\Request;
+use App\Mail\ActivateAccount;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreAgendaRequest;
 use App\Http\Requests\StoreCandidateRequest;
-use App\Models\User;
-use App\Imports\UsersImport;
-use App\Models\Candidate;
-use App\Models\Election;
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -17,6 +21,8 @@ class AdminController extends Controller
     {
         $title = 'Kelola User';
 
+        $prodi_count = User::select(DB::raw("study_program_id,count(study_program_id) as count"))->groupBy('study_program_id')->get();
+        $not_activate = DB::table('password_resets')->count();
         if ($request->all() == null) :
             $data = User::select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')->with('study_program')->get();
 
@@ -27,7 +33,7 @@ class AdminController extends Controller
                 ->with('study_program')->get();
         endif;
 
-        return view('Admin.manage-user', compact('title', 'data'));
+        return view('Admin.manage-user', compact('title', 'data', 'prodi_count', 'not_activate'));
     }
 
     public function uploadUser(Request $request)
@@ -169,5 +175,36 @@ class AdminController extends Controller
         $election->event()->sync($data);
 
         return back()->with('success', 'success');
+    }
+
+    public function activate(Request $request)
+    {
+        $data = User::whereIn('id', $request->data)->get();
+
+        $count = 0;
+
+        try {
+            foreach ($data as $user) {
+                $token = Str::random(40);
+                Mail::to($user->email)->send(new ActivateAccount($token, $user->full_name));
+                DB::table('password_resets')->insert([
+                    'email' => $user->email,
+                    'token' => $token,
+                    'created_at' => now()
+                ]);
+                $count++;
+            }
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 404);
+        }
+
+        return response()->json(
+            [
+                'message' => "Sukses!",
+                'count' => $count
+            ]
+        );
     }
 }

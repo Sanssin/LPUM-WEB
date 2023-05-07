@@ -45,7 +45,7 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                @include('Template.Dashboard.page-title')
+                {{-- @include('Template.Dashboard.page-title') --}}
                 @yield('main')
             </div>
             <!-- ============================================================== -->

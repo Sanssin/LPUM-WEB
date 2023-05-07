@@ -7,6 +7,25 @@
 
 
 @section('main')
+    <div class="page-titles">
+        <div class="row">
+            <div class="col-lg-8 col-md-6 col-12 align-self-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 d-flex align-items-center">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pagu') }}" class="link"><i class="mdi mdi-home fs-5"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">Admin</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Manage User
+                        </li>
+                    </ol>
+                </nav>
+                <h1 class="mb-0 fw-bold">Kelola User</h1>
+            </div>
+        </div>
+    </div>
+
     <!-- ============================================================= -->
     <!-- Start Page Content -->
     <!-- ============================================================= -->
@@ -93,27 +112,32 @@
                             </tbody>
                         </table>
                     </div>
-                    <button class="btn btn-primary mt-2" id="verifyButton">Verifikasi</button>
+                    <h4 class="mb-0">Menu Operasi</h4>
+                    <button class="btn btn-primary mt-2" id="verifyButton" onclick="userToElection()">Verifikasi</button>
                     <button class="btn btn-primary mt-2" id="unverifyButton">Hapus Verifikasi</button>
                     <button class="btn btn-danger mt-2" id="deleteButton">Hapus User</button>
-                    <button type="button" class="btn btn-purple" onclick="userToElection()">Test tombol</button>
+                    <button type="button" class="btn btn-orange text-white mt-2" onclick="sendActivation()">Kirim email
+                        aktivasi
+                        akun</button>
                 </div>
             </div>
         </div>
 
-
+        </form>
         <!-- Column -->
         <!-- Column -->
         <div class="col-lg-4 col-xl-3 col-md-3">
             <div class="card">
                 <div class="border-bottom p-3">
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Sharemodel"
-                        style="width: 100%">
-                        <i data-feather="share-2" class="feather-sm fill-white me-2"></i>
-                        Share With
-                    </button>
+                    <h4 class="mb-0">Filter Data</h4>
                 </div>
+
                 <div class="card-body">
+                    @if ($not_activate)
+                        <div class="alert alert-danger">
+                            jumlah user belum melakukan aktivasi akun / perubahan password.
+                        </div>
+                    @endif
                     <div class="list-group mt-1">
                         <a href="{{ route('admin.manageUser') }}" class="list-group-item text-center"><i data-feather="list"
                                 class="feather-sm fill-white me-2"></i>
@@ -133,13 +157,14 @@
                             class="list-group-item d-flex align-items-center"><i data-feather="flag"
                                 class="feather-sm fill-white me-2"></i>
                             Teknokimia Nuklir
-                            <span class="badge bg-light-info text-info font-weight-medium rounded-pill ms-auto">20</span>
+                            <span
+                                class="badge bg-light-success text-success font-weight-medium rounded-pill ms-auto">{{ $prodi_count[0]->count }}</span>
                         </button>
                         <button type="submit" name="prodi" value="2"
                             class="list-group-item d-flex align-items-center"><i data-feather="file"
                                 class="feather-sm fill-white me-2"></i>
                             Elektronika Instrumentasi
-                            <span class="badge bg-success ms-auto">12</span>
+                            <span class="badge bg-warning ms-auto">{{ $prodi_count[1]->count }}</span>
                         </button>
 
                         <button type="submit" name="prodi" value="3"
@@ -147,12 +172,12 @@
                                 class="feather-sm fill-white me-2"></i>
                             Elektromekanika
                             <span
-                                class="badge bg-light-primary rounded-pill text-primary font-weight-medium ms-auto">22</span>
+                                class="badge bg-light-danger rounded-pill text-danger font-weight-medium ms-auto">{{ $prodi_count[2]->count }}</span>
                         </button>
                     </form>
-                    <h4 class="mt-4">More</h4>
+                    <h4 class="mt-4 text-muted">Dikembangkan</h4>
                     <div class="list-group">
-                        <a href="javascript:void(0)" class="list-group-item">
+                        <a href="javascript:void(0)" class="list-group-item" disabled>
                             <span class="badge bg-warning text-white me-2"><i data-feather="upload"
                                     class="feather-sm fill-white"></i></span>
                             Export
@@ -299,80 +324,6 @@
     <script>
         $(document).ready(function() {
             $("table").simpleCheckboxTable();
-        });
-
-        $("#verifyButton").click(function(e) {
-            e.preventDefault();
-            var arr = [];
-
-            $.each($("input[name='user_id']:checked"), function() {
-                arr.push($(this).val());
-            });
-
-            if (arr.length == 0) {
-                Swal.fire(
-                    'Error',
-                    'Anda belum memilih user untuk diverifikasi',
-                    'error'
-                );
-            } else {
-                Swal.fire({
-                    title: `Verifikasi ${arr.length} user ?`,
-                    showCancelButton: true,
-                    confirmButtonText: 'Lanjutkan',
-                }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: "post",
-                            url: "{{ route('admin.verify') }}",
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                data: arr
-                            },
-                            dataType: "json",
-                            beforeSend: () => {
-                                Swal.fire({
-                                    title: 'Tunggu...',
-                                    allowOutsideClick: false,
-                                    allowEscapeKey: false,
-                                    showConfirmButton: false,
-                                    didOpen: () => {
-                                        Swal.showLoading()
-                                    }
-                                })
-                            },
-                            success: function(response) {
-                                let timerInterval
-                                Swal.fire({
-                                    title: 'Sukses!',
-                                    icon: 'success',
-                                    // text: 'Memverifikasi user yang dipilih',
-                                    html: `Memverifikasi ${response.message} user <br>Halaman akan diperbarui dalam <b></b> milliseconds.`,
-                                    timer: 2500,
-                                    timerProgressBar: true,
-                                    didOpen: () => {
-                                        Swal.showLoading()
-                                        const b = Swal.getHtmlContainer()
-                                            .querySelector('b')
-                                        timerInterval = setInterval(() => {
-                                            b.textContent = Swal
-                                                .getTimerLeft()
-                                        }, 100)
-                                    },
-                                    willClose: () => {
-                                        clearInterval(timerInterval)
-                                    }
-                                }).then((result) => {
-                                    location.reload();
-                                })
-                            }
-                        });
-                    }
-                })
-            }
-
-
         });
 
         $("#unverifyButton").click(function(e) {
@@ -688,5 +639,83 @@
                 sendVerify(arr, idElection);
             }
         };
+    </script>
+
+    <script>
+        function sendActivation() {
+            let arr = [];
+
+            $.each($("input[name='user_id']:checked"), function() {
+                arr.push($(this).val());
+            });
+
+            if (arr.length == 0) {
+                Swal.fire(
+                    'Error',
+                    'Kamu belum memilih user',
+                    'error'
+                );
+            } else {
+                Swal.fire({
+                    title: `Kirim aktivasi kepada ${arr.length} user ?`,
+                    showCancelButton: true,
+                    confirmButtonText: 'Lanjutkan',
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "post",
+                            url: "{{ route('admin.activate') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                data: arr
+                            },
+                            dataType: "json",
+                            beforeSend: () => {
+                                Swal.fire({
+                                    title: 'Tunggu...',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false,
+                                    showConfirmButton: false,
+                                    didOpen: () => {
+                                        Swal.showLoading()
+                                    }
+                                })
+                            },
+                            success: function(response) {
+                                let timerInterval
+                                Swal.fire({
+                                    title: 'Sukses!',
+                                    icon: 'success',
+                                    // text: 'Memverifikasi user yang dipilih',
+                                    html: `Mengirim aktivasi kepada ${response.count} user <br>Halaman akan diperbarui dalam <b></b> milliseconds.`,
+                                    timer: 2500,
+                                    timerProgressBar: true,
+                                    didOpen: () => {
+                                        Swal.showLoading()
+                                        const b = Swal.getHtmlContainer()
+                                            .querySelector('b')
+                                        timerInterval = setInterval(() => {
+                                            b.textContent = Swal
+                                                .getTimerLeft()
+                                        }, 100)
+                                    },
+                                    willClose: () => {
+                                        clearInterval(timerInterval)
+                                    }
+                                }).then((result) => {
+                                    location.reload();
+                                })
+
+
+                            },
+                            error: (response) => {
+                                Swal.fire('Gagal!', `${response.responseJSON.message}`, 'error')
+                            }
+                        });
+                    }
+                })
+            }
+        }
     </script>
 @endpush

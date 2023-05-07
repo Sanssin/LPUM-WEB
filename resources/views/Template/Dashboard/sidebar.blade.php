@@ -93,7 +93,7 @@
                     <span class="hide-menu">Lainnya</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-taskboard.html"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('test-mail') }}"
                         aria-expanded="false"><i data-feather="check-square"></i><span class="hide-menu">Kontak
                             Kami</span></a>
                 </li>
