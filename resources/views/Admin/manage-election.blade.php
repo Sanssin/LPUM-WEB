@@ -187,7 +187,9 @@
                             }).then((result) => {
                                 location.reload();
                             })
-
+                        },
+                        error: (response) => {
+                            Swal.fire('Gagal!', `${response.responseJSON.message}`, 'error')
                         }
                     });
                 }

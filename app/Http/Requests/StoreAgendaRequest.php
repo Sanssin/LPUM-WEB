@@ -71,10 +71,9 @@ class StoreAgendaRequest extends FormRequest
             'method.pengumuman' => 'exclude_without:event.pengumuman|required',
             'location.pengumuman' => 'exclude_without:event.pengumuman|required|min:5',
 
-            'event.coblosan' => 'required',
             'start_event.coblosan' => 'exclude_without:event.coblosan|required',
             'end_event.coblosan' => 'exclude_without:event.coblosan|required|after:start_event.coblosan',
-            'method.coblosan' => 'required',
+            'method.coblosan' => 'exclude_without:event.coblosan|required',
             'location.coblosan' => 'exclude_without:event.coblosan|required|min:5',
         ];
     }

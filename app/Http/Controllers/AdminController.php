@@ -60,9 +60,10 @@ class AdminController extends Controller
 
         $data = User::select('id', 'vote_status', 'nim')->whereIn('id', $request->users)->get();
 
-        $not_voted = $data->reject(function ($item, $key) {
-            return $item['vote_status'] == 1;
-        })
+        $not_voted = $data
+            ->reject(function ($item, $key) {
+                return $item['vote_status'] == 1;
+            })
             ->map(function ($item, $key) {
                 return $item['id'];
             })
@@ -172,9 +173,19 @@ class AdminController extends Controller
             ]];
         })->toArray();
 
-        $election->event()->sync($data);
+        switch ($request->action) {
+            case 'sync':
+                $election->event()->sync($data);
+                $message = "mengisi ulang seluruh";
+                break;
 
-        return back()->with('success', 'success');
+            case 'update':
+                $election->event()->syncWithoutDetaching($data);
+                $message = "memperbarui";
+                break;
+        }
+
+        return back()->with('success', $message);
     }
 
     public function activate(Request $request)

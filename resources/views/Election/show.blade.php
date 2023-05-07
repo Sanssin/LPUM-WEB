@@ -22,8 +22,8 @@
                         </div>
                         {{-- Artikel --}}
                         <div class="col-lg-8">
-                            <p class="text-primary fw-bold">{{ $election->start_election->isoFormat('d MMMM Y') }} sampai
-                                {{ $election->end_election->isoFormat('d MMMM Y') }}</p>
+                            <p class="text-primary fw-bold">{{ $election->start_election->isoFormat('D MMMM Y') }} sampai
+                                {{ $election->end_election->isoFormat('D MMMM Y') }}</p>
 
                             {{-- Candidate button --}}
                             <div>

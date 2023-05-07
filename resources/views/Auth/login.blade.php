@@ -30,8 +30,8 @@
                                 <img src="{{ asset('assets/logo/poltek-logo.svg') }}" style="max-height: 60px"
                                     alt="poltek" class="bg-white p-2 rounded-2">
 
-                                <img style="max-height: 60px" src="{{ asset('assets/images/logo-brin.png') }}"
-                                    alt="logo" class="rounded rounded-sm" />
+                                <img style="max-height: 60px" src="{{ asset('assets/logo/logo-brin.png') }}" alt="logo"
+                                    class="rounded rounded-sm" />
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                 <img src="{{ asset('assets/logo/poltek-logo.svg') }}" style="max-height: 60px" alt="poltek"
                     class="bg-white p-2 rounded-2">
 
-                <img style="max-height: 60px" src="{{ asset('assets/images/logo-brin.png') }}" alt="logo"
+                <img style="max-height: 60px" src="{{ asset('assets/logo/logo-brin.png') }}" alt="logo"
                     class="rounded rounded-sm" />
             </div>
         </div>

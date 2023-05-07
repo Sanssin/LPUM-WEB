@@ -20,19 +20,19 @@ return new class extends Migration
             FOR EACH ROW
 
             BEGIN
-                IF new.vote_status <> old.vote_status THEN
+                IF NEW.vote_status <> OLD.vote_status THEN
                     IF NEW.vote_status = 1 THEN
                         UPDATE vote_stats 
                         SET 
                         total_voter = total_voter + 1 ,
                         golput = golput+1
                         WHERE election_id = NEW.election_id;
-                    ELSEIF NEW.vote_status = 0 THEN
-                        UPDATE vote_stats 
-                        SET 
-                        total_voter = total_voter - 1,
-                        golput = golput-1
-                        WHERE election_id = NEW.election_id;
+                    ELSEIF NEW.vote_status = 0 AND OLD.vote_status = 1 THEN
+                            UPDATE vote_stats 
+                            SET 
+                            total_voter = total_voter - 1,
+                            golput = golput-1
+                            WHERE election_id = OLD.election_id;
                     ELSEIF NEW.vote_status = 2 THEN
                         UPDATE vote_stats
                         SET 
@@ -40,6 +40,18 @@ return new class extends Migration
                         golput = golput - 1
                         WHERE election_id = NEW.election_id;
                     END IF;
+                ELSEIF NEW.vote_status = OLD.vote_status AND NEW.election_id <> OLD.election_id THEN
+                    UPDATE vote_stats
+                    SET 
+                        golput = golput - 1,
+                        total_voter = total_voter - 1
+                    WHERE election_id = OLD.election_id;
+                
+                    UPDATE vote_stats
+                    SET 
+                        golput = golput + 1,
+                        total_voter = total_voter + 1
+                    WHERE election_id = NEW.election_id;
                 END IF;
             END;
         ');

@@ -15,7 +15,7 @@
                             melihat detail pemilihan beserta calon-calon pejabat yang sedang bertarung dalam kontestasi
                             politik tersebut. Namun, hanya sebagian pengguna yang berhak memberikan suara di setiap
                             pemilihan. Informasi lebih lengkap tentang pemilu yang telah/sedang dilaksanakan dapat dilihat
-                            <span class="fw-bold"><a class="text-primary" href="#"> DI SINI <i
+                            <span class="fw-bold"><a class="text-primary" href="{{ route('election.index') }}"> DI SINI <i
                                         class="mdi mdi-arrow-right"></i></a></span>
                         </p>
                         <hr class="text-success">

@@ -22,9 +22,15 @@ return new class extends Migration
             $table->string('nim')->nullable();
             $table->foreignId('study_program_id')->constrained('study_programs')->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('vote_status')->default(false);
-            $table->foreignId('election_id')->nullable()->constrained('elections')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('election_id')->nullable()->constrained('elections')->nullOnDelete()->cascadeOnUpdate();
             $table->string('phone')->nullable();
+            $table->boolean('show_phone')->default(false);
+            $table->string('address')->nullable();
+            $table->boolean('show_address')->default(false);
+            $table->string('instagram')->nullable();
+            $table->string('linkedin')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('show_socmed')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

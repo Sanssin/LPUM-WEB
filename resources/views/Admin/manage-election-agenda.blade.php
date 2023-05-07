@@ -81,7 +81,7 @@
 
                             @if (session('success'))
                                 <div class="alert alert-success">
-                                    Sukses mengupdate agenda!
+                                    Sukses {{ session('success') }} agenda!
                                 </div>
                             @endif
                             <form action="{{ route('admin.syncAgenda') }}" method="post">
@@ -591,7 +591,11 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-sm btn-primary" name="action" value="sync">Isi
+                                    ulang</button>
+                                <button type="submit" class="btn btn-sm btn-purple text-white" name="action"
+                                    value="update">Update
+                                    agenda</button>
                             </form>
                         </div>
 

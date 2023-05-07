@@ -23,11 +23,19 @@
                         <div class="ms-4">
                             @switch(auth()->user()->vote_status)
                                 @case(1)
-                                    <h4 class="card-title text-danger">Belum memilih!</h4>
-                                    <h6 class="card-subtitle mb-0 fs-2 fw-normal text-danger">
-                                        Silakan memilih terlebih dahulu.
-                                    </h6>
-                                    <span class="fs-2 mt-1 font-weight-medium">Ini tidak akan memakan waktu lama</span>
+                                    @if ($id == auth()->user()->election_id)
+                                        <h4 class="card-title text-danger">Belum memilih!</h4>
+                                        <h6 class="card-subtitle mb-0 fs-2 fw-normal text-danger">
+                                            Silakan memilih terlebih dahulu.
+                                        </h6>
+                                        <span class="fs-2 mt-1 font-weight-medium">Ini tidak akan memakan waktu lama</span>
+                                    @else
+                                        <h4 class="card-title text-danger">Salah kamar!</h4>
+                                        <h6 class="card-subtitle mb-0 fs-2 fw-normal text-danger">
+                                            Kamu tidak boleh memilih di sini.
+                                        </h6>
+                                        <span class="fs-2 mt-1 font-weight-medium">Hanya dapat melihat calon kandidat saja</span>
+                                    @endif
                                 @break
 
                                 @case(2)
@@ -41,10 +49,9 @@
                                 @default
                                     <h4 class="card-title text-orange">Kamu tu gadiajak!</h4>
                                     <h6 class="card-subtitle mb-0 fs-2 fw-normal text-orange">
-                                        Kamu bukan pemilih pada pemilihan ini
+                                        Kamu bukan pemilih.
                                     </h6>
                             @endswitch
-
 
                         </div>
                     </div>
@@ -84,10 +91,11 @@
                             style="width: 240px; height:180px">
                         <div class="mt-n2">
                             <span class="badge bg-primary">No {{ $candidate->number }}</span>
-                            <h4 class="mt-3">{{ $candidate->leader->first_name . ' ' . $candidate->leader->last_name }}
+                            <h4 class="mt-3">{{ $candidate->leader->full_name }}
                             </h4>
                             @if ($candidate->coleader)
-                                <h6 class="card-subtitle">Basuki</h6>
+                                <h6 class="card-subtitle">
+                                    {{ $candidate->coleader->full_name }}</h6>
                             @endif
                         </div>
                         <div class="row mt-3 justify-content-between">
@@ -102,7 +110,7 @@
                                 </button>
                                 <span class="text-muted" style="font-size: 12px">Klik untuk lebih detail</span>
                             </div>
-                            @if (now() <= $endTime && auth()->user()->vote_status == 1)
+                            @if (now() <= $endTime && auth()->user()->vote_status == 1 && auth()->user()->election_id == $id)
                                 <div class="col-6">
                                     <button type="button" value="{{ $candidate->number }}"
                                         class="justify-content-center w-100 btn btn-rounded btn-primary font-weight-medium d-flex align-items-center coblos-button">
@@ -139,7 +147,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5>{{ $candidate->leader->first_name }} {{ $candidate->leader->last_name }}</h5>
+                        <h5>{{ $candidate->leader->full_name }}
+                            {{ $candidate->coleader ? '-' . $candidate->coleader->full_name : '' }}</h5>
                         <h5 class="mt-0">Visi</h5>
                         <p>
                             {!! $candidate->vision !!}

@@ -30,7 +30,10 @@ class CandidateController extends Controller
             $validated = $request->validated();
 
             $leader = User::select('id')->where('nim', $validated['leader_nim'])->first()->id;
-            $coleader = User::select('id')->where('nim', $validated['coleader_nim'])->first()->id;
+
+            if ($request->coleader_nim) :
+                $coleader = User::select('id')->where('nim', $validated['coleader_nim'])->first()->id;
+            endif;
 
             $file = $request->file('candidate_image');
             $fileName = $validated['leader_nim'] . $validated['coleader_nim'] . time() . '.' . $file->extension();
@@ -38,7 +41,7 @@ class CandidateController extends Controller
             unset($validated['leader_nim']);
             unset($validated['coleader_nim']);
             $validated['leader_id'] = $leader;
-            $validated['coleader_id'] = $coleader;
+            $validated['coleader_id'] = $coleader ?? null;
             $validated['election_id'] = $request->election;
 
             $file->storeAs("candidate", $fileName);

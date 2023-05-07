@@ -74,7 +74,9 @@ class ElectionController extends Controller
 
             $election->delete();
         } catch (\Throwable $e) {
-            abort(404);
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 404);
         }
 
         return response()->json([
