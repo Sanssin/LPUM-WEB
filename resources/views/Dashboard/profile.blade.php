@@ -1,5 +1,9 @@
 @extends('Template.Dashboard.layouts')
 
+@push('vendorStyle')
+    @livewireStyles
+@endpush
+
 @section('main')
     <!-- ============================================================= -->
     <!-- Start Page Content -->
@@ -105,56 +109,80 @@
                     <div class="tab-pane fade" id="update-profile" role="tabpanel" aria-labelledby="update-profile-tab">
                         <div class="card-body">
                             <form class="form-horizontal form-material">
+
+                                {{-- Nama depan --}}
                                 <div class="mb-3">
-                                    <label class="col-md-12">Full Name</label>
+                                    <label class="col-md-12">Nama Depan</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Johnathan Doe"
+                                        <input type="text" value="{{ auth()->user()->first_name }}"
                                             class="form-control form-control-line" />
                                     </div>
                                 </div>
+
+                                {{-- Nama belakang --}}
                                 <div class="mb-3">
-                                    <label for="example-email" class="col-md-12">Email</label>
+                                    <label class="col-md-12">Nama Belakang</label>
                                     <div class="col-md-12">
-                                        <input type="email" placeholder="johnathan@admin.com"
-                                            class="form-control form-control-line" name="example-email"
-                                            id="example-email" />
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="col-md-12">Password</label>
-                                    <div class="col-md-12">
-                                        <input type="password" value="password" class="form-control form-control-line" />
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="col-md-12">Phone No</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="123 456 7890"
+                                        <input type="text" value="{{ auth()->user()->last_name }}"
                                             class="form-control form-control-line" />
                                     </div>
                                 </div>
+
+                                {{-- Surel --}}
                                 <div class="mb-3">
-                                    <label class="col-md-12">Message</label>
+                                    <label for="email" class="col-md-12">Surel</label>
                                     <div class="col-md-12">
-                                        <textarea rows="5" class="form-control form-control-line"></textarea>
+                                        <input type="email" class="form-control form-control-line"
+                                            value="{{ auth()->user()->email }}" id="email" />
                                     </div>
                                 </div>
+
+                                {{-- NIM --}}
                                 <div class="mb-3">
-                                    <label class="col-sm-12">Select Country</label>
-                                    <div class="col-sm-12">
-                                        <select class="form-control form-control-line">
-                                            <option>London</option>
-                                            <option>India</option>
-                                            <option>Usa</option>
-                                            <option>Canada</option>
-                                            <option>Thailand</option>
-                                        </select>
+                                    <label for="nim" class="col-md-12">NIM</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control form-control-line"
+                                            value="{{ auth()->user()->nim }}" id="nim" />
                                     </div>
                                 </div>
+
+                                {{-- No HP --}}
+                                <div class="mb-3">
+                                    <label class="col-md-12">Nomor HP</label>
+                                    <div class="col-md-12">
+                                        <input type="text" value="{{ auth()->user()->phone }}"
+                                            class="form-control form-control-line" />
+                                    </div>
+                                </div>
+
+                                {{-- Instagram --}}
+                                <div class="mb-3">
+                                    <label class="col-md-12">Instagram</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control form-control-line" />
+                                    </div>
+                                </div>
+
+                                {{-- Twitter --}}
+                                <div class="mb-3">
+                                    <label class="col-md-12">Twitter</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control form-control-line" />
+                                    </div>
+                                </div>
+
+                                {{-- LinkedIn --}}
+                                <div class="mb-3">
+                                    <label class="col-md-12">LinkedIn</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control form-control-line" />
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                     <div class="col-sm-12">
                                         <button class="btn btn-success">
-                                            Update Profile
+                                            Update Profil
                                         </button>
                                     </div>
                                 </div>
@@ -165,63 +193,7 @@
                     {{-- Change Password --}}
                     <div class="tab-pane fade" id="change-password" role="tabpanel"
                         aria-labelledby="change-password-tab">
-                        <div class="card-body">
-                            <form class="form-horizontal form-material">
-                                <div class="mb-3">
-                                    <label class="col-md-12">Full Name</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="Johnathan Doe"
-                                            class="form-control form-control-line" />
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="example-email" class="col-md-12">Email</label>
-                                    <div class="col-md-12">
-                                        <input type="email" placeholder="johnathan@admin.com"
-                                            class="form-control form-control-line" name="example-email"
-                                            id="example-email" />
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="col-md-12">Password</label>
-                                    <div class="col-md-12">
-                                        <input type="password" value="password" class="form-control form-control-line" />
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="col-md-12">Phone No</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="123 456 7890"
-                                            class="form-control form-control-line" />
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="col-md-12">Message</label>
-                                    <div class="col-md-12">
-                                        <textarea rows="5" class="form-control form-control-line"></textarea>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="col-sm-12">Select Country</label>
-                                    <div class="col-sm-12">
-                                        <select class="form-control form-control-line">
-                                            <option>London</option>
-                                            <option>India</option>
-                                            <option>Usa</option>
-                                            <option>Canada</option>
-                                            <option>Thailand</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <button class="btn btn-success">
-                                            Update Profile
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        @livewire('change-password-component')
                     </div>
                 </div>
             </div>
@@ -233,3 +205,7 @@
     <!-- End PAge Content -->
     <!-- ============================================================= -->
 @endsection
+
+@push('vendorScript')
+    @livewireScripts
+@endpush

@@ -68,10 +68,10 @@
                                     <th><input type="checkbox" class="form-check-input" /></th>
                                     <th>Nama</th>
                                     <th>Prodi</th>
+                                    <th>NIM</th>
                                     <th>Angkatan</th>
-                                    <th>KM</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,7 +85,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="fw-normal">{{ $user->first_name . ' ' . $user->last_name }}</span>
+                                            <span class="fw-normal">{{ $user->full_name }}</span>
                                         </td>
                                         <td>{{ $user->study_program->study_program_name }}</td>
                                         <td class="text-center">{{ $user->nim }}</td>

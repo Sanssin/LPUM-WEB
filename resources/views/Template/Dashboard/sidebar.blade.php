@@ -34,13 +34,8 @@
                                         class="mdi mdi-table-account"></i><span class="hide-menu"> Kelola User</span></a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="inbox-email-detail.html" class="sidebar-link"><i
-                                        class="mdi mdi-account-group-outline"></i><span class="hide-menu"> Kelola Organisasi
-                                    </span></a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="inbox-email-detail.html" class="sidebar-link"><i
-                                        class="mdi mdi-account-group-outline"></i><span class="hide-menu"> Kelola Postingan
+                                <a href="#" class="sidebar-link"><i class="mdi mdi-account-group-outline"></i><span
+                                        class="hide-menu"> Kelola Organisasi
                                     </span></a>
                             </li>
                             <li class="sidebar-item">
