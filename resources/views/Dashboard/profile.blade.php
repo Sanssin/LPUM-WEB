@@ -107,92 +107,11 @@
 
                     {{-- Update Profile --}}
                     <div class="tab-pane fade" id="update-profile" role="tabpanel" aria-labelledby="update-profile-tab">
-                        <div class="card-body">
-                            <form class="form-horizontal form-material">
-
-                                {{-- Nama depan --}}
-                                <div class="mb-3">
-                                    <label class="col-md-12">Nama Depan</label>
-                                    <div class="col-md-12">
-                                        <input type="text" value="{{ auth()->user()->first_name }}"
-                                            class="form-control form-control-line" />
-                                    </div>
-                                </div>
-
-                                {{-- Nama belakang --}}
-                                <div class="mb-3">
-                                    <label class="col-md-12">Nama Belakang</label>
-                                    <div class="col-md-12">
-                                        <input type="text" value="{{ auth()->user()->last_name }}"
-                                            class="form-control form-control-line" />
-                                    </div>
-                                </div>
-
-                                {{-- Surel --}}
-                                <div class="mb-3">
-                                    <label for="email" class="col-md-12">Surel</label>
-                                    <div class="col-md-12">
-                                        <input type="email" class="form-control form-control-line"
-                                            value="{{ auth()->user()->email }}" id="email" />
-                                    </div>
-                                </div>
-
-                                {{-- NIM --}}
-                                <div class="mb-3">
-                                    <label for="nim" class="col-md-12">NIM</label>
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-line"
-                                            value="{{ auth()->user()->nim }}" id="nim" />
-                                    </div>
-                                </div>
-
-                                {{-- No HP --}}
-                                <div class="mb-3">
-                                    <label class="col-md-12">Nomor HP</label>
-                                    <div class="col-md-12">
-                                        <input type="text" value="{{ auth()->user()->phone }}"
-                                            class="form-control form-control-line" />
-                                    </div>
-                                </div>
-
-                                {{-- Instagram --}}
-                                <div class="mb-3">
-                                    <label class="col-md-12">Instagram</label>
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-line" />
-                                    </div>
-                                </div>
-
-                                {{-- Twitter --}}
-                                <div class="mb-3">
-                                    <label class="col-md-12">Twitter</label>
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-line" />
-                                    </div>
-                                </div>
-
-                                {{-- LinkedIn --}}
-                                <div class="mb-3">
-                                    <label class="col-md-12">LinkedIn</label>
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-line" />
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <button class="btn btn-success">
-                                            Update Profil
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        @livewire('update-profile-component')
                     </div>
 
                     {{-- Change Password --}}
-                    <div class="tab-pane fade" id="change-password" role="tabpanel"
-                        aria-labelledby="change-password-tab">
+                    <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="change-password-tab">
                         @livewire('change-password-component')
                     </div>
                 </div>
@@ -208,4 +127,13 @@
 
 @push('vendorScript')
     @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
+
+@section('scripts')
+    <script>
+        window.addEventListener('profile-updated', event => {
+            Swal.fire('Sukses', 'Memperbarui data profile', 'success');
+        })
+    </script>
+@endsection

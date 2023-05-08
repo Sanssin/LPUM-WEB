@@ -55,7 +55,11 @@
                     <div class="card mb-1">
                         <div class="card-body pb-1">
                             <h6 class="card-title">Statistik Partisipasi</h6>
-                            <div id="election-stats"></div>
+                            @if ($elections->isEmpty())
+                                <h2 class="text-center">Belum ada data</h2>
+                            @else
+                                <div id="election-stats"></div>
+                            @endif
                         </div>
                     </div>
                 </div>

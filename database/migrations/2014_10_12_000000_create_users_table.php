@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->boolean('show_address')->default(false);
             $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('image')->nullable();
             $table->boolean('show_socmed')->default(false);
