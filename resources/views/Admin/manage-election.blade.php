@@ -106,10 +106,12 @@
                                                         method="post">
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $election->id }}">
-                                                        <button type="submit" value="active" name="status"
-                                                            class="btn btn-sm btn-success my-1 @if ($election->election_status == 'active') d-none @endif">Aktifkan</button>
-                                                        <button type="submit" value="inactive" name="status"
-                                                            class="btn btn-sm btn-orange text-white my-1 @if ($election->election_status == 'inactive') d-none @endif">Non-aktifkan</button>
+                                                        @if ($election->election_status !== 'done')
+                                                            <button type="submit" value="active" name="status"
+                                                                class="btn btn-sm btn-success my-1 @if ($election->election_status == 'active') d-none @endif">Aktifkan</button>
+                                                            <button type="submit" value="inactive" name="status"
+                                                                class="btn btn-sm btn-orange text-white my-1 @if ($election->election_status == 'inactive') d-none @endif">Non-aktifkan</button>
+                                                        @endif
                                                     </form>
                                                 </div>
                                             </div>

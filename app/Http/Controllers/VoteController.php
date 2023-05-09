@@ -78,9 +78,10 @@ class VoteController extends Controller
             ->get();
 
         $candidatePairs = $candidates->map(function ($item, $key) {
-            $leaderName = $item['leader']['first_name'] . ' ' . $item['leader']['last_name'];
-            $coleaderName = $item['coleader']['first_name'] . ' ' . $item['coleader']['last_name'];
-            return $leaderName . ' - ' . $coleaderName;
+            $leaderName = $item['leader']->full_name;
+            $coleaderName = $item['coleader'] ? '-' . $item['coleader']->full_name : '';
+            return $leaderName . $coleaderName;
+            // return $leaderName;
         });
 
         $voteNumber = $candidates->map(function ($item, $key) use ($votes) {

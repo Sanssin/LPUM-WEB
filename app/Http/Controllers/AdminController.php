@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Admin\SendActivationAction;
+use App\Actions\Admin\UpdateUserAction;
 use App\Models\User;
 use App\Models\Election;
 use App\Models\Candidate;
@@ -15,6 +17,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreAgendaRequest;
 use App\Http\Requests\StoreCandidateRequest;
 use App\Http\Requests\UpdateUserViaAdminRequest;
+use App\Services\SyncAgendaService;
+use App\Services\VerifyUserService;
 
 class AdminController extends Controller
 {
@@ -22,21 +26,17 @@ class AdminController extends Controller
     {
         $title = 'Kelola User';
 
-        $prodi_count = User::select(DB::raw("study_program_id,count(study_program_id) as count"))->groupBy('study_program_id')->get();
-        $prodi_count = $prodi_count->mapWithKeys(function ($item, $key) {
-            return [$item['study_program_id'] => $item['count']];
-        })->toArray();
+        // Pencacah jumlah user per prodi
+        $prodi_count = $this->getProdiCount();
 
+        // Pencacah user belum mengaktifkan akun
         $not_activate = DB::table('password_resets')->count();
 
+        // Menampilkan data sesuai filter
         if ($request->all() == null) :
-            $data = User::select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')->with('study_program')->get();
-
+            $data = User::withoutAdminFilter();
         else :
-            $data = User::select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')
-                ->where('study_program_id', $request->prodi)
-                ->orWhere('vote_status', $request->active)
-                ->with('study_program')->get();
+            $data = User::withAdminFilter($request->prodi, $request->active);
         endif;
 
         return view('Admin.manage-user', compact('title', 'data', 'prodi_count', 'not_activate'));
@@ -62,85 +62,36 @@ class AdminController extends Controller
         return view('Admin.edit-user', compact('title', 'user'));
     }
 
-    public function updateUser(UpdateUserViaAdminRequest $request)
+    public function updateUser(UpdateUserViaAdminRequest $request, UpdateUserAction $action)
     {
-        $validated = $request->validated();
-
-        $user = User::find($request->id);
-
-        $user->first_name = $validated['first_name'];
-        $user->last_name = $validated['last_name'];
-        $user->email = $validated['email'];
-        $user->phone = $validated['phone'];
-        $user->study_program_id = $validated['study_program'];
-        $user->nim = $validated['nim'];
-
-        $user->save();
-
-        if (!$user->wasChanged()) :
-            return back()->with('error', 'error');
+        // Tangani semua proses update
+        if (!$action->handle($request)) :
+            return back()->with('error', 'error'); // Jika gagal kembalikan pesan error
         endif;
 
         return back()->with('success', 'success');
     }
 
-    public function verify(Request $request)
+    public function verify(Request $request, VerifyUserService $service)
     {
-        $data = User::select('id', 'vote_status', 'nim')->whereIn('id', $request->users)->get();
-
-        $not_voted = $data
-            ->reject(function ($item, $key) {
-                return $item['vote_status'] == 1;
-            })
-            ->map(function ($item, $key) {
-                return $item['id'];
-            })
-            ->toArray();
-
-        try {
-            Election::findOrFail($request->election);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'message' => 'ID tidak ada.'
-            ], 400);
-        }
-
-        try {
-            $count = User::whereIn('id', $not_voted)->update([
-                'vote_status' => 1,
-                'election_id' => $request->election
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 400);
-        }
+        // Tangani dengan servis
+        // Mengembalikan array respons dari service
+        $responseService = $service->handleVerify($request);
 
         return response()->json([
-            'message' => $count
-        ]);
+            'message' => $responseService['message']
+        ], $responseService['code']);
     }
 
-    public function unverify(Request $request)
+    public function unverify(Request $request, VerifyUserService $service)
     {
-        $data = User::select('id', 'vote_status', 'nim')->whereIn('id', $request->data)->get();
-
-        $not_voted = $data->reject(function ($item, $key) {
-            return $item['vote_status'] == 0;
-        })
-            ->map(function ($item, $key) {
-                return $item['id'];
-            })
-            ->toArray();
-
-        $count = User::whereIn('id', $not_voted)->update([
-            'vote_status' => 0,
-            'election_id' => null
-        ]);
+        // Tangani dengan service
+        // Mengembalikan response
+        $responseService = $service->handleUnverify($request);
 
         return response()->json([
-            'message' => $count
-        ]);
+            'message' => $responseService['message']
+        ], $responseService['code']);
     }
 
     public function deleteUsers(Request $request)
@@ -170,71 +121,31 @@ class AdminController extends Controller
         return view('Admin.manage-election-agenda', compact('title', 'election'));
     }
 
-    public function syncAgenda(StoreAgendaRequest $request)
+    public function syncAgenda(StoreAgendaRequest $request, SyncAgendaService $service)
     {
-        $election = Election::find($request->election_id);
+        $message = $service->handle($request->election_id, $request, $request->action);
 
-        $validated = $request->validated();
-
-        $start_event = $validated['start_event'];
-        $end_event = $validated['end_event'];
-        $method = $validated['method'];
-        $location = $validated['location'];
-
-        $event = collect($validated['event']);
-
-        $data = $event->mapWithKeys(function ($item, $key) use ($start_event, $end_event, $method, $location) {
-            return [$item => [
-                'method' => $method[$key],
-                'start_event' => $start_event[$key],
-                'end_event' => $end_event[$key],
-                'location' => $location[$key]
-            ]];
-        })->toArray();
-
-        switch ($request->action) {
-            case 'sync':
-                $election->event()->sync($data);
-                $message = "mengisi ulang seluruh";
-                break;
-
-            case 'update':
-                $election->event()->syncWithoutDetaching($data);
-                $message = "memperbarui";
-                break;
-        }
 
         return back()->with('success', $message);
     }
 
-    public function activate(Request $request)
+    public function activate(Request $request, SendActivationAction $action)
     {
-        $data = User::whereIn('id', $request->data)->get();
-
-        $count = 0;
-
-        try {
-            foreach ($data as $user) {
-                $token = Str::random(40);
-                Mail::to($user->email)->send(new ActivateAccount($token, $user->full_name));
-                DB::table('password_resets')->insert([
-                    'email' => $user->email,
-                    'token' => $token,
-                    'created_at' => now()
-                ]);
-                $count++;
-            }
-        } catch (\Throwable $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
-        }
+        $responseData = $action->handle($request->data);
 
         return response()->json(
-            [
-                'message' => "Sukses!",
-                'count' => $count
-            ]
+            $responseData,
+            $responseData['code']
         );
+    }
+
+    public function getProdiCount()
+    {
+        $data = User::select(DB::raw("study_program_id,count(study_program_id) as count"))->groupBy('study_program_id')->get();
+        $count = $data->mapWithKeys(function ($item, $key) {
+            return [$item['study_program_id'] => $item['count']];
+        })->toArray();
+
+        return $count;
     }
 }

@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\Permission\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasPermissions;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -71,6 +72,19 @@ class User extends Authenticatable
         return Attribute::make(
             set: fn ($value, $attribute) => ucwords($value)
         );
+    }
+
+    public function scopeWithAdminFilter(Builder $query, ?int $prodi, ?int $active_status)
+    {
+        return $query->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')
+            ->where('study_program_id', $prodi)
+            ->orWhere('vote_status', $active_status)
+            ->with('study_program')->get();
+    }
+
+    public function scopeWithoutAdminFilter(Builder $query)
+    {
+        return $query->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')->with('study_program')->get();
     }
 
     public function role()

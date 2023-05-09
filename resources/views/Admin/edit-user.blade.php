@@ -51,7 +51,7 @@
 
                     @if (session('error'))
                         <div class="alert alert-danger">
-                            Gagal mengupdate data!
+                            Data tidak diupdate!
                         </div>
                     @endif
                     <form action="{{ route('admin.updateUser') }}" id="editUserForm" method="post"
