@@ -59,6 +59,20 @@ class User extends Authenticatable
         );
     }
 
+    protected function firstName(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value, $attribute) => ucwords($value)
+        );
+    }
+
+    protected function lastName(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value, $attribute) => ucwords($value)
+        );
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

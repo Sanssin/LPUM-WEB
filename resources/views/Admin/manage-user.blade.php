@@ -2,6 +2,7 @@
 
 @push('vendorStyle')
     <link rel="stylesheet" href="{{ asset('dist/css/dataTables.bootstrap5.min.css') }}">
+    @livewireStyles
 @endpush
 
 
@@ -101,11 +102,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <button type="button"
-                                                class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn"
-                                                data-bs-toggle="tooltip" data-original-title="Delete">
-                                                <i class="mdi mdi-menu" aria-hidden="true"></i>
-                                            </button>
+                                            <a href="{{ route('admin.editUser', ['user' => $user->id]) }}"
+                                                class="btn btn-sm btn-orange text-white">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -135,44 +133,43 @@
                 <div class="card-body">
                     @if ($not_activate)
                         <div class="alert alert-danger">
-                            jumlah user belum melakukan aktivasi akun / perubahan password.
+                            {{ $not_activate }} belum melakukan aktivasi akun / perubahan password.
                         </div>
                     @endif
                     <div class="list-group mt-1">
-                        <a href="{{ route('admin.manageUser') }}" class="list-group-item text-center"><i data-feather="list"
-                                class="feather-sm fill-white me-2"></i>
+                        <a href="{{ route('admin.manageUser') }}" class="list-group-item text-center"><i
+                                data-feather="list" class="feather-sm fill-white me-2"></i>
                             Semua User</a>
                     </div>
                     <form action="" method="get" class="list-group">
-                        <button type="submit" name="active" value=1 class="list-group-item"><i data-feather="star"
-                                class="feather-sm fill-white me-2"></i>
+                        <button type="submit" name="active" value=1 class="list-group-item"><i
+                                class="mdi mdi-check-decagram me-2"></i>
                             Pemilih Aktif</button>
-                        <button type="submit" name="active" value=0 class="list-group-item"><i data-feather="bookmark"
-                                class="feather-sm fill-white me-2"></i>
+                        <button type="submit" name="active" value=0 class="list-group-item"><i
+                                class="mdi mdi-close-octagon-outline me-2"></i>
                             Bukan Pemilih</button>
                     </form>
                     <h4 class="mt-4">Program Studi</h4>
                     <form action="" method="get" class="list-group">
                         <button type="submit" name="prodi" value="1"
-                            class="list-group-item d-flex align-items-center"><i data-feather="flag"
-                                class="feather-sm fill-white me-2"></i>
+                            class="list-group-item d-flex align-items-center"><i class="mdi mdi-numeric-1-circle me-2"></i>
                             Teknokimia Nuklir
                             <span
-                                class="badge bg-light-success text-success font-weight-medium rounded-pill ms-auto">{{ $prodi_count[0]->count }}</span>
+                                class="badge bg-light-success text-success font-weight-medium rounded-pill ms-auto">{{ isset($prodi_count[1]) ? $prodi_count[1] : '0' }}</span>
                         </button>
                         <button type="submit" name="prodi" value="2"
-                            class="list-group-item d-flex align-items-center"><i data-feather="file"
-                                class="feather-sm fill-white me-2"></i>
+                            class="list-group-item d-flex align-items-center"><i class="mdi mdi-numeric-2-circle me-2"></i>
                             Elektronika Instrumentasi
-                            <span class="badge bg-warning ms-auto">{{ $prodi_count[1]->count }}</span>
+                            <span
+                                class="badge bg-warning ms-auto">{{ isset($prodi_count[2]) ? $prodi_count[2] : '0' }}</span>
                         </button>
 
                         <button type="submit" name="prodi" value="3"
-                            class="list-group-item d-flex align-items-center"><i data-feather="users"
-                                class="feather-sm fill-white me-2"></i>
+                            class="list-group-item d-flex align-items-center"><i
+                                class="mdi mdi-numeric-3-circle me-2"></i>
                             Elektromekanika
                             <span
-                                class="badge bg-light-danger rounded-pill text-danger font-weight-medium ms-auto">{{ $prodi_count[2]->count }}</span>
+                                class="badge bg-light-danger rounded-pill text-danger font-weight-medium ms-auto">{{ isset($prodi_count[3]) ? $prodi_count[3] : '0' }}</span>
                         </button>
                     </form>
                     <h4 class="mt-4 text-muted">Dikembangkan</h4>
@@ -215,7 +212,7 @@
                                 user) atau menambahkan manual (mengisi satu persatu)</p>
                         </div>
                         <button type="button" class="btn btn-light-primary text-primary btn-lg px-4 fs-4"
-                            data-bs-toggle="modal" data-bs-target="#bs-example-modal-md">
+                            data-bs-toggle="modal" data-bs-target="#add-user-manual-modal">
                             Tambah Manual
                         </button>
                         <button type="button" class="btn btn-light-info text-primary btn-lg px-4 fs-4"
@@ -236,41 +233,7 @@
     </div>
 
     <!-- sample modal content -->
-    <div id="bs-example-modal-md" class="modal fade" tabindex="-1" aria-labelledby="bs-example-modal-md"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header d-flex align-items-center">
-                    <h4 class="modal-title" id="myModalLabel">
-                        Medium Modal
-                    </h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h4>Overflowing text to show scroll behavior</h4>
-                    <p>
-                        Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Vivamus sagittis lacus vel
-                        augue laoreet rutrum faucibus dolor auctor.
-                    </p>
-                    <p>
-                        Aenean lacinia bibendum nulla sed consectetur.
-                        Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Donec sed odio dui. Donec
-                        ullamcorper nulla non metus auctor fringilla.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect"
-                        data-bs-dismiss="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
+    @livewire('add-user-component')
 
     <!-- sample modal content -->
     <div id="uploadFileModal" class="modal fade" tabindex="-1" aria-labelledby="uploadFileModal" aria-hidden="true">
@@ -296,7 +259,7 @@
                                 <i data-feather="upload" class="feather-sm fil-white"></i>
                             </button>
                             <div class="custom-file">
-                                <input type="file" class="form-control" id="inputGroupFile01" name="users" />
+                                <input type="file" class="form-control" id="inputGroupFile01" name="users_excel" />
                             </div>
                         </div>
                     </form>
@@ -316,6 +279,7 @@
 @endsection
 
 @push('vendorScript')
+    @livewireScripts
     <script src="{{ asset('dist/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dist/js/datatable-advanced.init.js') }}"></script>
     <script src="{{ asset('dist/js/jquery.simple-checkbox-table.js') }}"></script>
@@ -719,3 +683,32 @@
         }
     </script>
 @endpush
+
+@section('scripts')
+    <script>
+        window.addEventListener('user-saved', event => {
+            let timerInterval
+            Swal.fire({
+                title: 'Sukses!',
+                icon: 'success',
+                html: 'Halaman akan diperbarui dalam <b></b> milliseconds.',
+                timer: 2500,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer()
+                        .querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal
+                            .getTimerLeft()
+                    }, 100)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                location.reload();
+            })
+        })
+    </script>
+@endsection

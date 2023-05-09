@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreAgendaRequest;
 use App\Http\Requests\StoreCandidateRequest;
+use App\Http\Requests\UpdateUserViaAdminRequest;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,12 @@ class AdminController extends Controller
         $title = 'Kelola User';
 
         $prodi_count = User::select(DB::raw("study_program_id,count(study_program_id) as count"))->groupBy('study_program_id')->get();
+        $prodi_count = $prodi_count->mapWithKeys(function ($item, $key) {
+            return [$item['study_program_id'] => $item['count']];
+        })->toArray();
+
         $not_activate = DB::table('password_resets')->count();
+
         if ($request->all() == null) :
             $data = User::select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')->with('study_program')->get();
 
@@ -39,7 +45,7 @@ class AdminController extends Controller
     public function uploadUser(Request $request)
     {
         $request->validate([
-            'users' => 'required|file'
+            'users_excel' => 'required|file|mimes:xlsx,csv,xls'
         ]);
 
         $import = new UsersImport;
@@ -50,14 +56,36 @@ class AdminController extends Controller
         return back()->with("success", "Berhasil mengupdate $count user");
     }
 
+    public function editUser(User $user)
+    {
+        $title = 'Edit user';
+        return view('Admin.edit-user', compact('title', 'user'));
+    }
+
+    public function updateUser(UpdateUserViaAdminRequest $request)
+    {
+        $validated = $request->validated();
+
+        $user = User::find($request->id);
+
+        $user->first_name = $validated['first_name'];
+        $user->last_name = $validated['last_name'];
+        $user->email = $validated['email'];
+        $user->phone = $validated['phone'];
+        $user->study_program_id = $validated['study_program'];
+        $user->nim = $validated['nim'];
+
+        $user->save();
+
+        if (!$user->wasChanged()) :
+            return back()->with('error', 'error');
+        endif;
+
+        return back()->with('success', 'success');
+    }
+
     public function verify(Request $request)
     {
-        // foreach ($request->data as $data) :
-        //     User::where('id', $data)->update([
-        //         'vote_status' => 1
-        //     ]);
-        // endforeach;
-
         $data = User::select('id', 'vote_status', 'nim')->whereIn('id', $request->users)->get();
 
         $not_voted = $data
@@ -95,15 +123,6 @@ class AdminController extends Controller
 
     public function unverify(Request $request)
     {
-        // foreach ($request->data as $data) :
-        //     User::where('id', $data)->update([
-        //         'vote_status' => 0
-        //     ]);
-        // endforeach;
-
-        // return response()->json([
-        //     'data' => 'Sukses'
-        // ]);
         $data = User::select('id', 'vote_status', 'nim')->whereIn('id', $request->data)->get();
 
         $not_voted = $data->reject(function ($item, $key) {

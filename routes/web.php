@@ -54,6 +54,8 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
 
     // Manage User
     Route::get('manage-users', 'manageUser')->name('manageUser');
+    Route::get('edit-user/{user}', 'editUser')->name('editUser');
+    Route::post('update-user', 'updateUser')->name('updateUser');
     Route::post('upload-user', 'uploadUser')->name('uploadUser');
     Route::post('verify', 'verify')->name('verify');
     Route::post('unverify', 'unverify')->name('unverify');
