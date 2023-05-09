@@ -27,4 +27,14 @@ class ElectionEvent extends Pivot
     // protected $casts = [
     //     'method' => AgendaMethod::class
     // ];
+
+    public function election()
+    {
+        return $this->belongsTo(Election::class);
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Enums\VoteStatus;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Election extends Model
 {
@@ -28,6 +29,13 @@ class Election extends Model
     ];
 
     protected $dates = ['start_election', 'end_election'];
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attribute) => $attribute['election_name'] . ' - ' . $attribute['election_period']
+        );
+    }
 
     public function event()
     {

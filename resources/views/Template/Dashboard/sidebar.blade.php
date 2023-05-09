@@ -93,6 +93,12 @@
                             Kami</span></a>
                 </li>
             </ul>
+            <div class="text-center d-md-none">
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-purple">Logout!</button>
+                </form>
+            </div>
         </nav>
         <!-- End Sidebar navigation -->
     </div>

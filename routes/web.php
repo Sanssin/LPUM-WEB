@@ -73,6 +73,8 @@ Route::middleware('auth')->controller(ElectionController::class)->name('election
     Route::middleware('role:Admin')->group(function () {
         Route::delete('election/delete', 'destroy')->name('delete');
         Route::get('add-election', 'create')->name('create');
+        Route::get('edit-election/{election}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
         Route::post('change-status', 'changeStatus')->name('changeStatus');
         Route::post('save-election', 'store')->name('store');
         Route::post('end-election', 'end')->name('end');

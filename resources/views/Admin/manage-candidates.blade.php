@@ -18,8 +18,8 @@
                 </nav>
                 <h1 class="mb-0 fw-bold">Kandidat Pemilihan</h1>
                 <div class="my-0">
-                    <a href="{{ route('admin.manageElection') }}" class="btn btn-primary"><span
-                            class="mdi mdi-arrow-left"></span> Kembali</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-primary"><span class="mdi mdi-arrow-left"></span>
+                        Kembali</a>
                 </div>
             </div>
         </div>

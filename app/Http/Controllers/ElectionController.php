@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreElectionRequest;
-use App\Models\Candidate;
 use App\Models\Election;
+use App\Models\Candidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\StoreElectionRequest;
+use App\Http\Requests\UpdateElectionRequest;
 
 class ElectionController extends Controller
 {
@@ -14,7 +15,7 @@ class ElectionController extends Controller
     public function index()
     {
         $title = 'Informasi Pemilu';
-        $latests = Election::orderByDesc('end_election')->ofStatus('active')->limit(3)->get();
+        $latests = Election::orderByDesc('end_election')->limit(3)->get();
         $oldests = Election::orderByDesc('end_election')->offset(2)->limit(99)->get();
 
         return view('Election.index', compact('title', 'latests', 'oldests'));
@@ -55,6 +56,34 @@ class ElectionController extends Controller
         }
 
         return to_route('admin.manageElection')->with('success', $validated['election_name'] . " telah ditambahkan!");
+    }
+
+    public function edit(Election $election)
+    {
+        $title = 'Ubah data pemilihan';
+
+        return view('Election.edit', compact('title', 'election'));
+    }
+
+    public function update(UpdateElectionRequest $request)
+    {
+        try {
+            $validated = $request->validated();
+
+
+            $file = $request->file('election_image');
+            $fileName = $validated['election_name'] . $validated['election_period'] . time() . '.' . $file->extension();
+            $filePath = "election/$fileName";
+
+            $file->storeAs("election", $fileName);
+            $validated['election_image'] = $filePath;
+
+            Election::where('id', $request->id)->update($validated);
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+
+        return to_route('admin.manageElection')->with('success', $validated['election_name'] . " telah diubah");
     }
 
     public function destroy(Request $request)

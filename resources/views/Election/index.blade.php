@@ -16,7 +16,7 @@
                     <div class="row">
                         @forelse ($latests as $latest)
                             <div class="col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
-                                <div class="card w-100 border-success">
+                                <div class="card w-100" @class(['border-success' => $latest->election_status == 'active'])>
                                     <div class="p-3 d-flex align-items-stretch h-100">
                                         <div class="row">
                                             <div class="col-4 col-xl-2 col-md-3 d-flex align-items-center">
@@ -32,6 +32,8 @@
                                                     </h6>
                                                     @if ($latest->election_status == 'active')
                                                         <span class="badge bg-light-success text-success">Berlangsung</span>
+                                                    @else
+                                                        <span class="badge bg-light-info text-info">Selesai</span>
                                                     @endif
                                                 </div>
                                             </div>

@@ -35,9 +35,9 @@
                                     <button class="btn btn-purple" disabled>Belum ada kandidat</button>
                                 @endif
                                 @if ($election->result_visibility)
-                                    <a href="{{ route('candidate.show', ['id' => $election->id]) }}"
-                                        class="btn btn-info">Lihat
-                                        kandidat</a>
+                                    <a href="{{ route('vote.result.show', ['id' => $election->id]) }}"
+                                        class="btn btn-purple text-white">Lihat
+                                        Hasil</a>
                                 @else
                                     <button class="btn btn-purple" disabled>Belum ada hasil</button>
                                 @endif

@@ -34,7 +34,7 @@
             <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
                 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                    class="mdi mdi-menu fs-6"></i></a>
+                    class="mdi mdi-account-circle fs-6"></i></a>
         </div>
         <!-- ============================================================== -->
         <!-- End Logo -->

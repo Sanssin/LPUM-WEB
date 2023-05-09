@@ -85,7 +85,9 @@
                                                         Aksi
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">Edit data</a></li>
+                                                        <li><a class="dropdown-item"
+                                                                href="{{ route('election.edit', ['election' => $election->id]) }}">Edit
+                                                                data</a></li>
                                                         <li><a class="dropdown-item"
                                                                 href="{{ route('admin.manageElectionAgenda', ['id' => $election->id]) }}">Kelola
                                                                 Agenda</a></li>
