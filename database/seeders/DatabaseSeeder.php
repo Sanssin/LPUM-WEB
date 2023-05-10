@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             StudyProgramSeeder::class,
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
-            // OrganizationsSeeder::class,
+            OrganizationsSeeder::class,
             // ElectionsSeeder::class,
             EventsSeeder::class,
         ]);

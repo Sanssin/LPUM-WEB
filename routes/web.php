@@ -40,8 +40,6 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
 
 
 
-
-
 // Menu dashboard polos
 Route::middleware('auth')->controller(DashboardController::class)->group(function () {
     Route::get('dashboard', 'index')->name('pagu');

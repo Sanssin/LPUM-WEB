@@ -85,7 +85,7 @@
                           mdi mdi-skull">
                             </span>
                             <h3 class="mt-3 pt-1 mb-0 d-flex align-items-center">
-                                {{ $stats['votes']->total_golput }} orang
+                                {{ $stats['votes']->total_golput ?? '0' }} orang
                             </h3>
                             <h6 class="text-muted mb-0 fw-normal">Golput</h6>
                         </div>
@@ -103,7 +103,7 @@
                           mdi mdi-emoticon-excited-outline">
                             </span>
                             <h3 class="mt-3 pt-1 mb-0">
-                                {{ $stats['votes']->total_vote }} orang
+                                {{ $stats['votes']->total_vote ?? '0' }} orang
                             </h3>
                             <h6 class="text-muted mb-0 fw-normal">Partisipan</h6>
                         </div>
@@ -126,24 +126,28 @@
                     <h4 class="text-white mb-0">Terbaru!</h4>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-5 d-flex justify-content-center">
-                            <img src="{{ asset('storage/' . $latest_election->election->election_image) }}"
-                                style="max-width: 200px" alt="Poster pemilu" class="rounded rounded-lg">
+                    @if ($latest_election)
+                        <div class="row">
+                            <div class="col-md-5 d-flex justify-content-center">
+                                <img src="{{ asset('storage/' . $latest_election->election->election_image) }}"
+                                    style="max-width: 200px" alt="Poster pemilu" class="rounded rounded-lg">
+                            </div>
+                            <div class="col-md-7">
+                                <h3>{{ $latest_election->election->full_name }}</h3>
+                                <h3><small class="text-muted">{{ $latest_election->event->event_name }}</small> <span
+                                        class="badge bg-primary">{{ $latest_election->method }}</span></h3>
+                                <hr class="text-muted">
+                                <p><strong>Lokasi : {{ $latest_election->location }}</strong></p>
+                                <p>Mulai {{ $latest_election->start_event->isoFormat('dddd D MMMM Y - HH:mm') }} WIB sampai
+                                    dengan
+                                    {{ $latest_election->end_event->isoFormat('dddd D MMMM Y - HH:mm') }}</p>
+                                <a href="{{ route('election.show', ['id' => $latest_election->election->id]) }}"
+                                    class="btn btn-info btn-sm">Cek sekarang!</a>
+                            </div>
                         </div>
-                        <div class="col-md-7">
-                            <h3>{{ $latest_election->election->full_name }}</h3>
-                            <h3><small class="text-muted">{{ $latest_election->event->event_name }}</small> <span
-                                    class="badge bg-primary">{{ $latest_election->method }}</span></h3>
-                            <hr class="text-muted">
-                            <p><strong>Lokasi : {{ $latest_election->location }}</strong></p>
-                            <p>Mulai {{ $latest_election->start_event->isoFormat('dddd D MMMM Y - HH:mm') }} WIB sampai
-                                dengan
-                                {{ $latest_election->end_event->isoFormat('dddd D MMMM Y - HH:mm') }}</p>
-                            <a href="{{ route('election.show', ['id' => $latest_election->election->id]) }}"
-                                class="btn btn-info btn-sm">Cek sekarang!</a>
-                        </div>
-                    </div>
+                    @else
+                        <p>Belum ada data</p>
+                    @endif
                 </div>
             </div>
         </div>

@@ -117,12 +117,13 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                    <div class="col-lg-4 col-md-12 footer-contact text-center text-md-start">
                         <h4>Hubungi kami</h4>
                         <p>
                             <strong>Politeknik Teknologi Nuklir Indonesia</strong> <br />
-                            Jalan Babarsari PO BOx lupa berapa<br />
-                            Depok, Sleman <br />Daerah Istimewa Yogyakarta<br />
+                            Jl. Babarsari Kotak POB 6101/YKKB <br>
+                            Ngentak, Caturtunggal, Kec. Depok <br>
+                            Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281 <br>
                             <strong>No. Telepon:</strong> +1 5589 55488 55<br />
                             <strong>Email:</strong> info@example.com<br />
                         </p>

@@ -37,8 +37,8 @@ class ActivateAccount extends Mailable
     {
         return new Envelope(
             subject: 'Aktivasi Akun LPUM',
-            from: new Address('LPUM@mail.com', 'LPUM-Poltek Nuklir'),
-
+            // Tidak perlu from!
+            // Bikin crash emailnya
         );
     }
 
