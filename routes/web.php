@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Landing page
+Route::get('/', function () {
+    return view('Landing-page.index');
+});
+
 // Otentikasi
 Route::middleware('guest')->controller(AuthController::class)->group(function () {
     Route::get('login', 'login')->name('login');
@@ -34,10 +39,7 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
 });
 
 
-// Landing page
-Route::get('/', function () {
-    abort(404);
-});
+
 
 
 // Menu dashboard polos

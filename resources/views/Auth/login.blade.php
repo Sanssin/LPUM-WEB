@@ -82,7 +82,8 @@
 
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="r-me1" />
+                                        <input class="form-check-input" name="remember_me" type="checkbox" value="1"
+                                            id="r-me1" />
                                         <label class="form-check-label" for="r-me1">
                                             Ingat saya
                                         </label>

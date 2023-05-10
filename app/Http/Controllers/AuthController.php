@@ -30,7 +30,7 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->remember_me)) {
             $request->session()->regenerate();
             return redirect()->route('pagu');
         }
