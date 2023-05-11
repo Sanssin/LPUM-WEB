@@ -11,13 +11,24 @@
                 Organisasi Mahasiswa
             </h6>
         </div>
+        <div class="mb-2">
+            <p class="d-inline">Pilih angkatan</p>
+            <form action="" method="get">
+                @foreach ($periods as $period)
+                    <button type="submit" name="period" value="{{ $period }}"
+                        class="btn btn-light-primary  text-primary font-weight-medium">
+                        {{ $period }}
+                    </button>
+                @endforeach
+            </form>
+        </div>
         @foreach ($organizations as $org)
             <div class="col-lg-3 col-md-6">
                 <div class="card overflow-hidden">
                     <div class="el-card-item pb-3">
                         <div class="el-card-avatar mb-3 el-overlay-1 w-100 overflow-hidden position-relative text-center">
-                            <img src="{{ asset('storage/' . $org->organization_image) }}" alt="{{ $org->organization_name }}"
-                                class="d-block position-relative w-100" />
+                            <img src="{{ $org->organization_image ? asset('storage/' . $org->organization_image) : asset('assets/images/default_profile.png') }}"
+                                alt="{{ $org->organization_name }}" class="d-block position-relative w-100" />
                             <div class="el-overlay w-100 overflow-hidden">
                                 <ul class="list-style-none el-info text-white text-uppercase d-inline-block p-0">
                                     <li class="el-item d-inline-block my-0 mx-1">

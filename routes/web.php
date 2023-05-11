@@ -107,6 +107,11 @@ Route::middleware('auth')->prefix('candidate')->name('candidate.')->controller(C
 
 Route::middleware('auth')->controller(OrganizationController::class)->prefix('km')->name('km.')->group(function () {
     Route::get('/', 'index')->name('index');
+
+    Route::middleware('role:Admin')->group(function () {
+        Route::get('manage', 'admin')->name('manage');
+        Route::delete('organization', 'destroy')->name('delete');
+    });
 });
 
 Route::middleware('auth')->name('vote.')->controller(VoteController::class)->group(function () {

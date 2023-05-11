@@ -38,8 +38,8 @@
                                         class="hide-menu"> Kelola Privilege</span></a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link"><i class="mdi mdi-account-group-outline"></i><span
-                                        class="hide-menu"> Kelola Organisasi
+                                <a href="{{ route('km.manage') }}" class="sidebar-link"><i
+                                        class="mdi mdi-account-group-outline"></i><span class="hide-menu"> Kelola Organisasi
                                     </span></a>
                             </li>
                             <li class="sidebar-item">
@@ -79,11 +79,11 @@
                     <i class="nav-small-line"></i>
                     <span class="hide-menu">Penting</span>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('agenda') }}"
                         aria-expanded="false"><i class="mdi mdi-calendar-clock"></i><span
                             class="hide-menu">Agenda</span></a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('km.index') }}"
                         aria-expanded="false"><i class="mdi mdi-account-group"></i><span class="hide-menu">Info
