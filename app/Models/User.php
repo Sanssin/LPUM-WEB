@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public function scopeWithAdminFilter(Builder $query, ?int $prodi, ?int $active_status)
     {
-        return $query->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status', 'angkatan')
+        return $query->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status', 'angkatan', 'activation_status')
             ->where('study_program_id', $prodi)
             ->orWhere('vote_status', $active_status)
             ->with('study_program')->get();
@@ -86,7 +86,7 @@ class User extends Authenticatable
     public function scopeWithoutAdminFilter(Builder $query)
     {
         return $query
-            ->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status', 'angkatan')
+            ->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status', 'angkatan', 'activation_status')
             ->with('study_program')
             ->get();
     }

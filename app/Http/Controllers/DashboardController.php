@@ -46,7 +46,14 @@ class DashboardController extends Controller
     public function contact()
     {
         $title = 'Kontak';
-        return view('Dashboard.contact', compact('title'));
+
+        $data = DB::table('site_settings')->get();
+
+        $data = $data->mapWithKeys(function ($value, $key) {
+            return [$value->data => $value->value];
+        })->toArray();
+
+        return view('Dashboard.contact', compact('title', 'data'));
     }
 
     public function testMail()

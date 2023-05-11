@@ -44,8 +44,10 @@
                                     @foreach ($election->event as $event)
                                         <dt class="col-sm-4">{{ $event->event_name }}</dt>
                                         <dd class="col-sm-8">
-                                            <ul>
-                                                <li>{{ $event->agenda->method }}</li>
+                                            <ul class="list-unstyled">
+                                                <li><span
+                                                        class="badge {{ __('core.' . $event->agenda->method . '.class') }}">{{ __('core.' . $event->agenda->method . '.text') }}</span>
+                                                </li>
                                                 <li>{{ $event->agenda->location }}</li>
                                                 <li>{{ $event->agenda->start_event->isoFormat('dddd, D MMMM Y H:mm') }}
                                                     sampai

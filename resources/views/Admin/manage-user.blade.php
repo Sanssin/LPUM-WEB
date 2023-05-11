@@ -87,11 +87,10 @@
                                         </td>
                                         <td>
                                             <span class="fw-normal mb-0">{{ $user->full_name }}</span><br>
-                                            {{-- <span class="fs-1 text-danger mt-0">Aktivasi belum dikirim</span> --}}
-                                            {{-- <span class="fs-1 text-warning mt-0">Belum aktivasi</span> --}}
-                                            <span class="fs-1 text-success mt-0">Sudah aktivasi</span>
+                                            <span
+                                                class="fs-1 {{ __('core.' . $user->activation_status . '.class') }} mt-0">{{ __('core.' . $user->activation_status . '.text') }}</span>
                                         </td>
-                                        <td>{{ $user->study_program->study_program_name }}</td>
+                                        <td class="text-center">{{ $user->study_program->study_program_name }}</td>
                                         <td class="text-center">{{ $user->nim }}</td>
                                         <td>
                                             <span
@@ -165,7 +164,8 @@
                                 class="badge bg-light-success text-success font-weight-medium rounded-pill ms-auto">{{ isset($prodi_count[1]) ? $prodi_count[1] : '0' }}</span>
                         </button>
                         <button type="submit" name="prodi" value="2"
-                            class="list-group-item d-flex align-items-center"><i class="mdi mdi-numeric-2-circle me-2"></i>
+                            class="list-group-item d-flex align-items-center"><i
+                                class="mdi mdi-numeric-2-circle me-2"></i>
                             Elektronika Instrumentasi
                             <span
                                 class="badge bg-warning ms-auto">{{ isset($prodi_count[2]) ? $prodi_count[2] : '0' }}</span>

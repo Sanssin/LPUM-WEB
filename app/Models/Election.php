@@ -77,6 +77,6 @@ class Election extends Model
 
     public function scopeOfStatus(Builder $query, string $status)
     {
-        return $query->where('election_status', $status);
+        return $query->where('election_status', $status)->orWhere('election_status', 'done');
     }
 }

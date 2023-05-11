@@ -4,9 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Imports\UsersImport;
 use App\Models\Candidate;
+use App\Imports\UsersImport;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DatabaseSeeder extends Seeder
@@ -25,12 +26,23 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
             OrganizationsSeeder::class,
-            // ElectionsSeeder::class,
             EventsSeeder::class,
         ]);
 
         Excel::import(new UsersImport, 'laravel-lpum-test.csv');
 
-        // $this->call(CandidateSeeder::class);
+        $settings = [
+            'whatsapp',
+            'instagram',
+            'instagram_link',
+            'linkedin',
+            'linkedin_link',
+            'facebook',
+            'facebook_link',
+            'description'
+        ];
+        foreach ($settings as $setting) :
+            DB::table('site_settings')->insert(['data' => $setting]);
+        endforeach;
     }
 }

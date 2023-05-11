@@ -15,7 +15,7 @@ class ElectionController extends Controller
     public function index()
     {
         $title = 'Informasi Pemilu';
-        $latests = Election::orderByDesc('end_election')->limit(3)->get();
+        $latests = Election::orderByDesc('end_election')->ofStatus('active')->limit(3)->get();
         $oldests = Election::orderByDesc('end_election')->offset(2)->limit(99)->get();
 
         return view('Election.index', compact('title', 'latests', 'oldests'));

@@ -68,7 +68,7 @@
                                                     <td>{{ $event->agenda->start_event->isoFormat('D MMMM Y') . ' s/d ' . $event->agenda->end_event->isoFormat('D MMMM Y') }}
                                                     </td>
                                                     <td>{{ $event->agenda->location }}</td>
-                                                    <td>{{ $event->agenda->method }}</td>
+                                                    <td>{{ __('core.' . $event->agenda->method . '.text') }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

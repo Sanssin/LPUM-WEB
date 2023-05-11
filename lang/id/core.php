@@ -4,7 +4,21 @@ return [
     // Halaman response
     '404' => 'Tidak ditemukan!',
 
-    // Ini bagian peralatan
+    // Ini bagian metode event
+    'online' => [
+        'text' => 'Daring',
+        'class' => 'bg-light-warning text-warning'
+    ],
+    'offline' => [
+        'text' => 'Luring',
+        'class' => 'bg-light-success text-success'
+    ],
+    'hybrid' => [
+        'text' => 'Hybrid',
+        'class' => 'bg-light-primary text-primary'
+    ],
+
+    // Metode pemilu
     'active' => [
         'text' => 'Aktif',
         'class' => 'rounded-pill bg-success'
@@ -18,66 +32,18 @@ return [
         'class' => 'rounded-pill bg-purple'
     ],
 
-    // Bagian ketersediaan
-    'available' => [
-        'text' => 'Tersedia',
-        'symbol' => 'mdi-check-decagram text-success'
+    // Aktivasi
+    'not send' => [
+        'text' => 'Aktivasi belum dikirim',
+        'class' => 'text-warning'
     ],
-    'borrowed' => [
-        'text' => 'Dipinjam/Digunakan',
-        'symbol' => 'mdi-alert-box text-danger'
+    'sent' => [
+        'text' => 'Belum aktivasi',
+        'class' => 'text-danger'
     ],
-    'maintained' => [
-        'text' => 'Dirawat',
-        'symbol' => 'mdi-cog text-warning'
-    ],
-    'unavailable' => [
-        'text' => 'Tidak digunakan',
-        'symbol' => 'mdi-cog text-danger'
+    'activated' => [
+        'text' => 'Sudah aktivasi',
+        'class' => 'text-success'
     ],
 
-    // Role
-    'student' => [
-        'text' => 'Mahasiswa',
-        'class' => 'border-info border text-info'
-    ],
-    'lecturer' => [
-        'text' => 'Dosen',
-        'class' => 'border-success border text-success'
-    ],
-    'staff' => [
-        'text' => 'Staff',
-        'class' => 'border-warning border text-warning'
-    ],
-    'extern' => [
-        'text' => 'Eksternal',
-        'class' => 'border-danger border text-danger'
-    ],
-
-    // Identitas
-    'NIM' => 'Nomor Induk Mahasiswa',
-    'NIP' => 'Nomor Induk Pegawai',
-    'KTP' => 'Kartu Identitas Penduduk',
-
-    // Ini bagian peralatan
-    'accepted' => [
-        'text' => 'Disetujui',
-        'class' => 'border-success border text-success'
-    ],
-    'pending' => [
-        'text' => 'Menunggu',
-        'class' => 'border-warning border text-warning'
-    ],
-    'rejected' => [
-        'text' => 'Ditolak',
-        'class' => 'border-danger border text-danger'
-    ],
-
-    // Bagian kembali
-    'on time' => 'Tepat Waktu',
-    'not returned' => 'Belum Kembali',
-    'overdue' => 'Terlambat',
-
-    // Radioaktif
-    'sealed' => 'Terbungkus'
 ];

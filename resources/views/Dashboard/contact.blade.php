@@ -27,73 +27,82 @@
                         berkomunikasi dengan kami. Terima kasih atas dukunganmu!</p>
                     <div class="row">
                         {{-- Instagram --}}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card bg-purple text-white">
-                                <div class="card-body py-2">
-                                    <div class="d-flex no-block align-items-center">
-                                        <a href="JavaScript: void(0);"><i class="display-6 mdi mdi-instagram text-white"
-                                                title="Instagram"></i></a>
-                                        <div class="ms-3 mt-2">
-                                            <h4 class="font-weight-medium mb-0 text-white">
-                                                @ lpumpolteknuklir
-                                            </h4>
-                                            <h5 class="text-white">Instagram</h5>
+                        @if ($data['instagram'])
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-purple text-white">
+                                    <div class="card-body py-2">
+                                        <div class="d-flex no-block align-items-center">
+                                            <a href="{{ $data['instagram_link'] ?? 'JavaScript: void(0);' }}"><i
+                                                    class="display-6 mdi mdi-instagram text-white"
+                                                    title="Instagram"></i></a>
+                                            <div class="ms-3 mt-2">
+                                                <h4 class="font-weight-medium mb-0 text-white">
+                                                    @ {{ $data['instagram'] }}
+                                                </h4>
+                                                <h5 class="text-white">Instagram</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {{-- Instagram --}}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card bg-success text-white">
-                                <div class="card-body py-2">
-                                    <div class="d-flex no-block align-items-center">
-                                        <a href="JavaScript: void(0);"><i class="display-6 mdi mdi-whatsapp text-white"
-                                                title="Whatsapp"></i></a>
-                                        <div class="ms-3 mt-2">
-                                            <h4 class="font-weight-medium mb-0 text-white">
-                                                087733547844
-                                            </h4>
-                                            <h5 class="text-white">Whatsapp</h5>
+                        @endif
+                        {{-- whatsapp --}}
+                        @if ($data['whatsapp'])
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body py-2">
+                                        <div class="d-flex no-block align-items-center">
+                                            <a href="JavaScript: void(0);"><i class="display-6 mdi mdi-whatsapp text-white"
+                                                    title="Whatsapp"></i></a>
+                                            <div class="ms-3 mt-2">
+                                                <h4 class="font-weight-medium mb-0 text-white">
+                                                    {{ $data['whatsapp'] }}
+                                                </h4>
+                                                <h5 class="text-white">Whatsapp</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                         {{-- Linkedin --}}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card bg-inverse text-white">
-                                <div class="card-body py-2">
-                                    <div class="d-flex no-block align-items-center">
-                                        <a href="JavaScript: void(0);"><i class="display-6 mdi mdi-linkedin text-white"
-                                                title="LinkedIn"></i></a>
-                                        <div class="ms-3 mt-2">
-                                            <h4 class="font-weight-medium mb-0 text-white">
-                                                087733547844
-                                            </h4>
-                                            <h5 class="text-white">LinkedIn</h5>
+                        @if ($data['linkedin'])
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-inverse text-white">
+                                    <div class="card-body py-2">
+                                        <div class="d-flex no-block align-items-center">
+                                            <a href="{{ $data['linkedin_link'] ?? 'JavaScript: void(0);' }}"><i
+                                                    class="display-6 mdi mdi-linkedin text-white" title="LinkedIn"></i></a>
+                                            <div class="ms-3 mt-2">
+                                                <h4 class="font-weight-medium mb-0 text-white">
+                                                    {{ $data['linkedin'] }}
+                                                </h4>
+                                                <h5 class="text-white">LinkedIn</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                         {{-- Facebook --}}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card bg-primary text-white">
-                                <div class="card-body py-2">
-                                    <div class="d-flex no-block align-items-center">
-                                        <a href="JavaScript: void(0);"><i class="display-6 mdi mdi-facebook text-white"
-                                                title="Facebook"></i></a>
-                                        <div class="ms-3 mt-2">
-                                            <h4 class="font-weight-medium mb-0 text-white">
-                                                087733547844
-                                            </h4>
-                                            <h5 class="text-white">Facebook</h5>
+                        @if ($data['facebook'])
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body py-2">
+                                        <div class="d-flex no-block align-items-center">
+                                            <a href="{{ $data['facebook_link'] ?? 'JavaScript: void(0);' }}"><i
+                                                    class="display-6 mdi mdi-facebook text-white" title="Facebook"></i></a>
+                                            <div class="ms-3 mt-2">
+                                                <h4 class="font-weight-medium mb-0 text-white">
+                                                    {{ $data['facebook'] }}
+                                                </h4>
+                                                <h5 class="text-white">Facebook</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
