@@ -139,6 +139,13 @@ class AdminController extends Controller
         );
     }
 
+    public function truncateActivation(Request $request)
+    {
+        DB::table('password_resets')->truncate();
+
+        return back()->with('success', 'Mereset data aktivasi');
+    }
+
     public function getProdiCount()
     {
         $data = User::select(DB::raw("study_program_id,count(study_program_id) as count"))->groupBy('study_program_id')->get();
@@ -147,5 +154,12 @@ class AdminController extends Controller
         })->toArray();
 
         return $count;
+    }
+
+    public function manageSites()
+    {
+        $title = 'Kelola Situs';
+
+        return view('Admin.manage-site', compact('title'));
     }
 }

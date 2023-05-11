@@ -26,6 +26,7 @@ class UsersImport implements OnEachRow, WithHeadingRow, WithUpserts
             'email' => $row['email'],
             'password' => Hash::make("password"),
             'nim' => $row['nim'],
+            'angkatan' => $row['angkatan'],
             'study_program_id' => $row['study_program_id'],
             'vote_status' => false
         ], 'email');

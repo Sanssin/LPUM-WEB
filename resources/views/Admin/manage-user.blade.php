@@ -86,13 +86,16 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="fw-normal">{{ $user->full_name }}</span>
+                                            <span class="fw-normal mb-0">{{ $user->full_name }}</span><br>
+                                            {{-- <span class="fs-1 text-danger mt-0">Aktivasi belum dikirim</span> --}}
+                                            {{-- <span class="fs-1 text-warning mt-0">Belum aktivasi</span> --}}
+                                            <span class="fs-1 text-success mt-0">Sudah aktivasi</span>
                                         </td>
                                         <td>{{ $user->study_program->study_program_name }}</td>
                                         <td class="text-center">{{ $user->nim }}</td>
                                         <td>
                                             <span
-                                                class="badge bg-light-danger text-danger font-weight-medium">Designer</span>
+                                                class="badge bg-light-info text-info font-weight-medium">{{ $user->angkatan }}</span>
                                         </td>
                                         <td class="text-center">
                                             @if ($user->vote_status)
@@ -134,6 +137,10 @@
                     @if ($not_activate)
                         <div class="alert alert-danger">
                             {{ $not_activate }} belum melakukan aktivasi akun / perubahan password.
+                            <form action="{{ route('admin.truncateActivation') }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-warning">Reset data</button>
+                            </form>
                         </div>
                     @endif
                     <div class="list-group mt-1">

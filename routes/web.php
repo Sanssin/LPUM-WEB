@@ -61,11 +61,15 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
     Route::post('unverify', 'unverify')->name('unverify');
     Route::delete('users', 'deleteUsers')->name('deleteUsers');
     Route::post('send-activation', 'activate')->name('activate');
+    Route::post('truncate-activation', 'truncateActivation')->name('truncateActivation');
 
     // Manage Election
     Route::get('manage-election', 'manageElection')->name('manageElection');
     Route::get('election-agenda/{id}', 'manageElectionAgenda')->name('manageElectionAgenda');
     Route::post('sync-agenda', 'syncAgenda')->name('syncAgenda');
+
+    // Manage sites
+    Route::get('manage-sites', 'manageSites')->name('manageSites');
 });
 
 Route::middleware('auth')->controller(ElectionController::class)->name('election.')->group(function () {

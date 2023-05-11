@@ -58,12 +58,12 @@
                             <td>
                                 <b>Hai, {{ $nama }}!</b>
                                 <p>
-                                    Kami menginfokan, bahwa akun kamu telah dibuat sebagai
-                                    pengguna di aplikasi web LPUM. Untuk itu silakan lakukan
-                                    pengisian kata sandi untuk memfinalisasi pembuatan akun.
-                                    <br />
-                                    Setelah itu kamu dapat menggunakan semua fitur di aplikasi
-                                    ini!
+                                    Selamat datang di aplikasi web LPUM! <br> Kami senang memberitahu bahwa akun kamu
+                                    telah
+                                    berhasil dibuat. Mohon mengisi kata sandi kamu untuk memfinalisasi pembuatan akun
+                                    dan mengakses semua fitur yang tersedia di aplikasi kami. Terima kasih telah
+                                    berpartisipasi,
+                                    <br>Selamat berdinamika!
 
                                     <br />
                                     Bon Voyage!

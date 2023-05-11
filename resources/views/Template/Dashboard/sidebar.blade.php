@@ -34,15 +34,22 @@
                                         class="mdi mdi-table-account"></i><span class="hide-menu"> Kelola User</span></a>
                             </li>
                             <li class="sidebar-item">
+                                <a href="#" class="sidebar-link"><i class="mdi mdi-lock-alert-outline"></i><span
+                                        class="hide-menu"> Kelola Privilege</span></a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a href="#" class="sidebar-link"><i class="mdi mdi-account-group-outline"></i><span
                                         class="hide-menu"> Kelola Organisasi
                                     </span></a>
                             </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('admin.manageElection') }}"><i
-                                        class="mdi mdi-vote"></i><span
-                                        class="hide-menu text-primary font-weight-medium">Kelola
+                                        class="mdi mdi-vote"></i><span class="hide-menu">Kelola
                                         pemilu </span></a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('admin.manageSites') }}"><i
+                                        class="mdi mdi-web"></i><span class="hide-menu">Pengaturan Situs</span></a>
                             </li>
                         </ul>
                     </li>
@@ -88,7 +95,7 @@
                     <span class="hide-menu">Lainnya</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('test-mail') }}"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('contact') }}"
                         aria-expanded="false"><i data-feather="check-square"></i><span class="hide-menu">Kontak
                             Kami</span></a>
                 </li>

@@ -22,7 +22,8 @@ class CreateAdminUserSeeder extends Seeder
             'first_name' => 'Joko',
             'last_name' => 'Widodo',
             'email' => 'bomsiwor@gmail.com',
-            'nim' => fake()->numberBetween(1234, 9999),
+            'nim' => '021900009',
+            'angkatan' => '2019',
             'study_program_id' => fake()->numberBetween(1, 3),
             'password' => Hash::make("password"),
             'phone' => "087733547844"

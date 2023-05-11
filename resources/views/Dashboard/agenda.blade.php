@@ -29,8 +29,32 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="">
+                                        <label class="form-label">Pemilihan</label>
+                                        <input id="election-title" type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="">
                                         <label class="form-label">Judul Kegiatan</label>
                                         <input id="event-title" type="text" class="form-control" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <label class="form-label">Waktu Mulai</label>
+                                        <input id="event-start" type="datetime" class="form-control" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <label class="form-label">Waktu selesai</label>
+                                        <input id="event-end" type="datetime" class="form-control" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <label class="form-label">Lokasi</label>
+                                        <input id="location" type="text" class="form-control" disabled />
                                     </div>
                                 </div>
 

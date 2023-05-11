@@ -31,7 +31,8 @@ class User extends Authenticatable
         'study_program_id',
         'role',
         'vote_status',
-        'election_id'
+        'election_id',
+        'angkatan'
     ];
 
     /**
@@ -76,7 +77,7 @@ class User extends Authenticatable
 
     public function scopeWithAdminFilter(Builder $query, ?int $prodi, ?int $active_status)
     {
-        return $query->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')
+        return $query->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status', 'angkatan')
             ->where('study_program_id', $prodi)
             ->orWhere('vote_status', $active_status)
             ->with('study_program')->get();
@@ -84,7 +85,10 @@ class User extends Authenticatable
 
     public function scopeWithoutAdminFilter(Builder $query)
     {
-        return $query->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status')->with('study_program')->get();
+        return $query
+            ->select('id', 'first_name', 'last_name', 'study_program_id', 'nim', 'vote_status', 'angkatan')
+            ->with('study_program')
+            ->get();
     }
 
     public function role()

@@ -140,7 +140,9 @@
                                     <div class="ms-4">
                                         <h4 class="mb-0">
                                             {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h4>
-                                        <span class="text-muted">Administrator</span>
+                                        @role('Admin')
+                                            <span class="text-muted">Administrator</span>
+                                        @endrole
                                         <p class="text-muted mb-0 mt-1">
                                             <i data-feather="mail" class="feather-sm me-1"></i>
                                             {{ auth()->user()->email }}
@@ -155,10 +157,6 @@
                                         <a href="{{ route('profile') }}"
                                             class="text-dark fs-3 font-weight-medium hover-primary">
                                             Pengaturan Akun
-                                        </a>
-                                        <a href="javascript:void(0)"
-                                            class="text-dark fs-3 font-weight-medium hover-primary">
-                                            Bantuan
                                         </a>
                                         <a href="javascript:void(0)"
                                             class="text-dark fs-3 font-weight-medium hover-primary">

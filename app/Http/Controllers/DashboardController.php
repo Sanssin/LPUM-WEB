@@ -43,6 +43,12 @@ class DashboardController extends Controller
         return view('Dashboard.profile', compact('title'));
     }
 
+    public function contact()
+    {
+        $title = 'Kontak';
+        return view('Dashboard.contact', compact('title'));
+    }
+
     public function testMail()
     {
         Mail::to('zahrawibow@gmail.com')
