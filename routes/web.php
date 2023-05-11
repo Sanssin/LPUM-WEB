@@ -70,6 +70,7 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
 
     // Manage sites
     Route::get('manage-sites', 'manageSites')->name('manageSites');
+    Route::post('update-site', 'updateSite')->name('updateSite');
 });
 
 Route::middleware('auth')->controller(ElectionController::class)->name('election.')->group(function () {

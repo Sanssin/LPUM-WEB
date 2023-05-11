@@ -55,12 +55,4 @@ class DashboardController extends Controller
 
         return view('Dashboard.contact', compact('title', 'data'));
     }
-
-    public function testMail()
-    {
-        Mail::to('zahrawibow@gmail.com')
-            ->queue(new ActivateAccount(Str::random(10)));
-
-        return 'terkirim';
-    }
 }

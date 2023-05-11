@@ -159,7 +159,40 @@ class AdminController extends Controller
     public function manageSites()
     {
         $title = 'Kelola Situs';
+        $data = DB::table('site_settings')->get();
 
-        return view('Admin.manage-site', compact('title'));
+        $data = $data->mapWithKeys(function ($value, $key) {
+            return [$value->data => $value->value];
+        })->toArray();
+
+        return view('Admin.manage-site', compact('title', 'data'));
+    }
+
+    public function updateSite(Request $request)
+    {
+        $validated = $request->validate([
+            'instagram' => 'nullable',
+            'instagram_link' => 'required_with:instagram',
+            'linkedin' => 'nullable',
+            'linkedin_link' => 'required_with:linkedin',
+            'facebook' => 'nullable',
+            'facebook_link' => 'required_with:facebook',
+            'description' => 'required',
+            'whatsapp' => 'required'
+        ]);
+
+        $datas = collect($validated)
+            ->reject(function ($value, $key) {
+                return $value == null;
+            })
+            ->toArray();
+
+        foreach ($datas as $key => $value) :
+            DB::table('site_settings')->where('data', $key)->update([
+                'value' => $value
+            ]);
+        endforeach;
+
+        return back()->with('success', 'success');
     }
 }

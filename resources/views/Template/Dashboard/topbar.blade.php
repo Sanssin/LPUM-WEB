@@ -158,7 +158,7 @@
                                             class="text-dark fs-3 font-weight-medium hover-primary">
                                             Pengaturan Akun
                                         </a>
-                                        <a href="javascript:void(0)"
+                                        <a href="{{ route('contact') }}"
                                             class="text-dark fs-3 font-weight-medium hover-primary">
                                             Kontak LPUM
                                         </a>

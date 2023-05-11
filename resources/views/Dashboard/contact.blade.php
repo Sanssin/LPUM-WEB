@@ -56,7 +56,7 @@
                                                     title="Whatsapp"></i></a>
                                             <div class="ms-3 mt-2">
                                                 <h4 class="font-weight-medium mb-0 text-white">
-                                                    {{ $data['whatsapp'] }}
+                                                    +62 {{ $data['whatsapp'] }}
                                                 </h4>
                                                 <h5 class="text-white">Whatsapp</h5>
                                             </div>

@@ -31,7 +31,7 @@
                         </div>
                     @endif
 
-                    <form action="" method="post">
+                    <form action="{{ route('admin.updateSite') }}" method="post">
                         @csrf
                         <div class="alert alert-info">
                             Selain kolom deskripsi, boleh dikosongkan.
@@ -47,7 +47,8 @@
                                                 <span class="input-group-text bg-primary text-white"
                                                     id="basic-addon1">@</span>
                                                 <input type="text" class="form-control" placeholder="instagram"
-                                                    aria-label="instagram">
+                                                    name="instagram" aria-label="instagram"
+                                                    value="{{ $data['instagram'] }}">
                                             </div>
                                         </div>
 
@@ -55,7 +56,8 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="instagram_link">Link Instagram</label>
-                                            <input type="text" class="form-control" placeholder="instagram link">
+                                            <input type="text" class="form-control" placeholder="instagram link"
+                                                name="instagram_link" value="{{ $data['instagram_link'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +68,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon1">+62</span>
                                         <input type="text" class="form-control" placeholder="whatsapp"
-                                            aria-label="whatsapp">
+                                            aria-label="whatsapp" name="whatsapp" value="{{ $data['whatsapp'] }}">
                                     </div>
                                 </div>
 
@@ -79,7 +81,7 @@
                                                 <span class="input-group-text bg-primary text-white" id="basic-addon1">
                                                     Akun</span>
                                                 <input type="text" class="form-control" placeholder="linkedin"
-                                                    aria-label="linkedin">
+                                                    aria-label="linkedin" name="linkedin" value="{{ $data['linkedin'] }}">
                                             </div>
                                         </div>
 
@@ -87,7 +89,8 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="linkedin_link">Link Linkedin</label>
-                                            <input type="text" class="form-control" placeholder="linkedin link">
+                                            <input type="text" class="form-control" placeholder="linkedin link"
+                                                name="linkedin_link" value="{{ $data['linkedin'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +104,7 @@
                                                 <span class="input-group-text bg-primary text-white"
                                                     id="basic-addon1">Akun</span>
                                                 <input type="text" class="form-control" placeholder="facebook"
-                                                    aria-label="facebook">
+                                                    aria-label="facebook" name="facebook" value="{{ $data['facebook'] }}">
                                             </div>
                                         </div>
 
@@ -109,7 +112,8 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="facebook_link">Link Facebook</label>
-                                            <input type="text" class="form-control" placeholder="linkedin link">
+                                            <input type="text" class="form-control" placeholder="link"
+                                                name="facebook_link" value="{{ $data['facebook_link'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +123,7 @@
                             <div class="col-lg-6">
                                 <label for="description">Deskripsi LPUM</label>
                                 <div class="form-group">
-                                    <textarea class="form-control" rows="3" placeholder="Tulis disini..."></textarea>
+                                    <textarea class="form-control" rows="3" placeholder="Tulis disini..." name="description">{{ $data['description'] }}</textarea>
                                     <small id="textHelp" class="form-text text-muted">Akan ditampilkan di landing
                                         page</small>
                                     <small id="name1"
