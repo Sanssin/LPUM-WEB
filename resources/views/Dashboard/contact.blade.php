@@ -52,8 +52,9 @@
                                 <div class="card bg-success text-white">
                                     <div class="card-body py-2">
                                         <div class="d-flex no-block align-items-center">
-                                            <a href="JavaScript: void(0);"><i class="display-6 mdi mdi-whatsapp text-white"
-                                                    title="Whatsapp"></i></a>
+                                            <a
+                                                href="https://api.whatsapp.com/send?phone=62{{ $data['whatsapp'] }}&text=Permisi.%20Bolehkah%20saya%20meminta%20informasi%20terkait%20LPUM%3F%F0%9F%91%8B"><i
+                                                    class="display-6 mdi mdi-whatsapp text-white" title="Whatsapp"></i></a>
                                             <div class="ms-3 mt-2">
                                                 <h4 class="font-weight-medium mb-0 text-white">
                                                     +62 {{ $data['whatsapp'] }}

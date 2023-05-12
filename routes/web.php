@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VoteController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\VoteController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,14 @@ use Illuminate\Support\Facades\Route;
 
 // Landing page
 Route::get('/', function () {
-    return view('Landing-page.index');
-});
+    $data = DB::table('site_settings')->get();
+
+    $data = $data->mapWithKeys(function ($value, $key) {
+        return [$value->data => $value->value];
+    })->toArray();
+
+    return view('Landing-page.index', compact('data'));
+})->name('landing');
 
 // Otentikasi
 Route::middleware('guest')->controller(AuthController::class)->group(function () {

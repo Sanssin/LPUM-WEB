@@ -75,7 +75,7 @@
                     </div>
                     <div data-aos="fade-up" data-aos-delay="600">
                         <div class="text-center text-lg-start">
-                            <a href="{{ route('login') }}"
+                            <a href="{{ route('pagu') }}"
                                 class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                                 <span>Masuk</span>
                                 <i class="mdi mdi-arrow-right"></i>
@@ -107,13 +107,32 @@
                             <img src="{{ asset('assets/logo/Logo-lpum.png') }}" alt="" />
                             <img src="{{ asset('assets/logo/logo-text-lpum.png') }}" alt="" />
                         </a>
-                        <p>
-                            Cras fermentum odio eu feugiat lide par naso tierra. Justo eget
-                            nada terra videa magna derita valies darta donna mare fermentum
-                            iaculis eu non diam phasellus.
-                        </p>
+                        @if ($data['description'])
+                            <p>
+                                {{ $data['description'] }}
+                            </p>
+                        @endif
                         <div class="social-links mt-3">
-                            <a href="#" class="instagram"><i class="mdi mdi-instagram"></i></a>
+                            @if ($data['whatsapp'])
+                                <a href="https://api.whatsapp.com/send?phone=62{{ $data['whatsapp'] }}&text=Permisi.%20Bolehkah%20saya%20meminta%20informasi%20terkait%20LPUM%3F%F0%9F%91%8B"
+                                    class="instagram"><i class="mdi mdi-whatsapp"></i></a>
+                            @endif
+                            @if ($data['instagram'])
+                                <a href="{{ $data['instagram_link'] }}" class="instagram"><i
+                                        class="mdi mdi-instagram"></i></a>
+                            @endif
+                            @if ($data['email'])
+                                <a href="mailto:{{ $data['email'] }}" class="instagram"><i
+                                        class="mdi mdi-email-outline"></i></a>
+                            @endif
+                            @if ($data['linkedin'])
+                                <a href="{{ $data['linkedin_link'] }}" class="instagram"><i
+                                        class="mdi mdi-linkedin"></i></a>
+                            @endif
+                            @if ($data['facebook'])
+                                <a href="{{ $data['facebook_link'] }}" class="instagram"><i
+                                        class="mdi mdi-facebook"></i></a>
+                            @endif
                         </div>
                     </div>
 
@@ -124,8 +143,13 @@
                             Jl. Babarsari Kotak POB 6101/YKKB <br>
                             Ngentak, Caturtunggal, Kec. Depok <br>
                             Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281 <br>
-                            <strong>No. Telepon:</strong> +1 5589 55488 55<br />
-                            <strong>Email:</strong> info@example.com<br />
+                            @if ($data['whatsapp'])
+                                <strong>No. Telepon:</strong> +62{{ $data['whatsapp'] }}<br />
+                            @endif
+                            @if ($data['email'])
+                                <strong>Email:</strong> <a href="mailto:{{ $data['email'] }}">
+                                    {{ $data['email'] }}</a>
+                            @endif
                         </p>
                     </div>
                 </div>

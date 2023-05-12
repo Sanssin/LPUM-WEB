@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
 
         $settings = [
             'whatsapp',
+            'email',
             'instagram',
             'instagram_link',
             'linkedin',

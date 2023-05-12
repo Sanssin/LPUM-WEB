@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('landing');
     }
 
     public function forgot()
@@ -115,6 +115,6 @@ class AuthController extends Controller
 
         DB::table('password_resets')->where(['email' => $request->email])->delete();
 
-        return redirect('/login')->with('message', 'Your password has been changed!');
+        return redirect('/login')->with('status', 'Kata sandi sudah diubah');
     }
 }
