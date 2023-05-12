@@ -22,10 +22,14 @@ class SendActivationAction
 
         $count = 0;
 
+        $delay = 0;
         try {
             foreach ($data as $user) {
                 $token = Str::random(40);
-                Mail::to($user->email)->send(new ActivateAccount($token, $user->full_name));
+                $delay += 2;
+                // Mail::to($user->email)->send(new ActivateAccount($token, $user->full_name));
+                Mail::to($user->email)
+                    ->later(now()->addMinutes($delay), new ActivateAccount($token, $user->full_name));
 
                 DB::table('password_resets')->insert([
                     'email' => $user->email,
