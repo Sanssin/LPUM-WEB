@@ -32,7 +32,8 @@ class User extends Authenticatable
         'role',
         'vote_status',
         'election_id',
-        'angkatan'
+        'angkatan',
+        'activation_status'
     ];
 
     /**

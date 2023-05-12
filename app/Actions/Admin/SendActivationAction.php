@@ -26,11 +26,16 @@ class SendActivationAction
             foreach ($data as $user) {
                 $token = Str::random(40);
                 Mail::to($user->email)->send(new ActivateAccount($token, $user->full_name));
+
                 DB::table('password_resets')->insert([
                     'email' => $user->email,
                     'token' => $token,
                     'created_at' => now()
                 ]);
+
+                $user->activation_status = 'sent';
+                $user->save();
+
                 $count++;
             }
         } catch (\Throwable $e) {

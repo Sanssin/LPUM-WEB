@@ -13,6 +13,7 @@ class AddUserComponent extends Component
         $last_name,
         $email,
         $nim,
+        $angkatan,
         $study_program;
 
     protected $rules = [
@@ -20,6 +21,7 @@ class AddUserComponent extends Component
         'last_name' => 'nullable|min:3',
         'email' => 'required|email:dns|unique:users,email',
         'nim' => 'required|min:4|unique:users,nim',
+        'angkatan' => 'required|numeric|min:2019',
         'study_program' => 'required'
     ];
 
@@ -34,6 +36,7 @@ class AddUserComponent extends Component
             $user->email = $this->email;
             $user->nim = $this->nim;
             $user->study_program_id = $this->study_program;
+            $user->angkatan = $this->angkatan;
             $user->password = Hash::make(Str::random(8));
 
             $user->save();

@@ -72,14 +72,7 @@ class AuthController extends Controller
             'created_at' => now()
         ]);
 
-        // $status = Password::sendResetLink(
-        //     $request->only('email')
-        // );
-
-        // return $status === Password::RESET_LINK_SENT
-        //     ? back()->with(['status' => __($status)])
-        //     : back()->withErrors(['email' => __($status)]);
-        return back()->with('status', 'We have e-mailed your password reset link!');
+        return back()->with('status', 'Email reset password sudah dikirim!');
     }
 
     public function resetPassword(string $token)
@@ -95,28 +88,6 @@ class AuthController extends Controller
 
     public function resetPasswordRequest(Request $request)
     {
-        // $request->validate([
-        //     'token' => 'required',
-        //     'email' => 'required|email',
-        //     'password' => 'required|min:8|confirmed',
-        // ]);
-
-        // $status = Password::reset(
-        //     $request->only('email', 'password', 'password_confirmation', 'token'),
-        //     function (User $user, string $password) {
-        //         $user->forceFill([
-        //             'password' => Hash::make($password)
-        //         ])->setRememberToken(Str::random(60));
-
-        //         $user->save();
-
-        //         event(new PasswordReset($user));
-        //     }
-        // );
-
-        // return $status === Password::PASSWORD_RESET
-        //     ? redirect()->route('login')->with('status', __($status))
-        //     : back()->withErrors(['email' => [__($status)]]);
         $request->validate([
             'email' => 'required|email|exists:users',
             'password' => 'required|string|min:6|confirmed',
@@ -134,8 +105,13 @@ class AuthController extends Controller
             return back()->withInput()->with('error', 'Invalid token!');
         }
 
-        $user = User::where('email', $request->email)
-            ->update(['password' => Hash::make($request->password)]);
+        $user = User::where('email', $request->email)->first();
+        $user->update(
+            [
+                'password' => Hash::make($request->password),
+                'activation_status' => 'activated'
+            ]
+        );
 
         DB::table('password_resets')->where(['email' => $request->email])->delete();
 

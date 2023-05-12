@@ -73,6 +73,16 @@
                                 wire:model.defer='nim'>
                         </div>
                     </div>
+
+                    {{-- angkatan --}}
+                    <div class="row mb-2 align-items-center @error('angkatan') has-danger @enderror">
+                        <label for="angkatan" class="col-lg-4 control-label col-form-label">Angkatan</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="angkatan" id="angkatan"
+                                class="form-control form-control-sm @error('angkatan') form-control-danger @enderror"
+                                wire:model.defer='angkatan'>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
