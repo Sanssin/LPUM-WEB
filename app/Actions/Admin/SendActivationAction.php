@@ -26,7 +26,7 @@ class SendActivationAction
         try {
             foreach ($data as $user) {
                 $token = Str::random(40);
-                $delay += 2;
+                $delay += 4;
                 // Mail::to($user->email)->send(new ActivateAccount($token, $user->full_name));
                 Mail::to($user->email)
                     ->later(now()->addMinutes($delay), new ActivateAccount($token, $user->full_name));
