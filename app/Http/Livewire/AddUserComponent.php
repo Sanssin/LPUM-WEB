@@ -14,7 +14,8 @@ class AddUserComponent extends Component
         $email,
         $nim,
         $angkatan,
-        $study_program;
+        $study_program,
+        $is_admin;
 
     protected $rules = [
         'first_name' => 'required|min:3',
@@ -30,22 +31,37 @@ class AddUserComponent extends Component
         $this->validate();
 
         try {
-            $user = new User;
-            $user->first_name = $this->first_name;
-            $user->last_name = $this->last_name;
-            $user->email = $this->email;
-            $user->nim = $this->nim;
-            $user->study_program_id = $this->study_program;
-            $user->angkatan = $this->angkatan;
-            $user->password = Hash::make(Str::random(8));
+            $user = User::create($this->createUserArray());
 
-            $user->save();
+            $this->assignToAdmin($user);
         } catch (\Throwable $e) {
             $this->addError('savingError', $e->getMessage());
         }
 
         $this->dispatchBrowserEvent('user-saved');
         $this->reset();
+    }
+
+    public function createUserArray(): array
+    {
+        $array = [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+            'nim' => $this->nim,
+            'study_program_id' => $this->study_program,
+            'angkatan' => $this->angkatan,
+            'password' => Hash::make(Str::random(8))
+        ];
+
+        return $array;
+    }
+
+    public function assignToAdmin($user): void
+    {
+        if ($this->is_admin) :
+            $user->assignRole('Admin');
+        endif;
     }
 
     public function render()

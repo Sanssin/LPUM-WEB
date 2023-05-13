@@ -15,11 +15,19 @@
             <div class="card">
                 <div class="card-body">
                     <center class="mt-4">
-                        <img src="{{ auth()->user()->image ? auth()->user()->image : asset('assets/images/default_profile.png') }}"
-                            class="rounded-circle" width="150" />
+                        <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('assets/images/default_profile.png') }}"
+                            class="rounded-circle object-fit-cover" width="150" height="150" />
                         <h4 class="mt-2">{{ auth()->user()->full_name }}</h4>
                         <h6 class="card-subtitle">{{ auth()->user()->study_program->study_program_name }}</h6>
                         <h6 class="card-subtitle">{{ auth()->user()->nim }}</h6>
+                        <div class="d-flex justify-content-evenly">
+                            <button class="btn btn-sm btn-orange text-white" data-bs-toggle="modal"
+                                data-bs-target="#change-photo-modal">Ubah Foto profil</button>
+                            @if (auth()->user()->image)
+                                <button class="btn btn-sm btn-danger text-white" onclick="deletePicture()">Hapus Foto
+                                    profil</button>
+                            @endif
+                        </div>
                     </center>
                 </div>
                 <div class="card-body pt-0">
@@ -123,6 +131,7 @@
     <!-- ============================================================= -->
     <!-- End PAge Content -->
     <!-- ============================================================= -->
+    @livewire('change-profile-picture')
 @endsection
 
 @push('vendorScript')
@@ -135,5 +144,76 @@
         window.addEventListener('profile-updated', event => {
             Swal.fire('Sukses', 'Memperbarui data profile', 'success');
         })
+
+        window.addEventListener('photo-updated', event => {
+            Swal.fire({
+                title: "Sukses!",
+                icon: 'success',
+                text: "Mengubah foto profile",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload()
+                }
+            });
+        })
+    </script>
+
+    <script>
+        function deletePicture() {
+            Swal.fire({
+                title: `Hapus foto profil ?`,
+                showCancelButton: true,
+                confirmButtonText: 'Lanjutkan',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "delete",
+                        url: "{{ route('user.deletePicture') }}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        dataType: "json",
+                        beforeSend: () => {
+                            Swal.fire({
+                                title: 'Tunggu...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                showConfirmButton: false,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function(response) {
+                            let timerInterval
+                            Swal.fire({
+                                title: 'Sukses!',
+                                icon: 'success',
+                                html: `Hapus menghapus foto profil <br>Halaman akan diperbarui dalam <b></b> milliseconds.`,
+                                timer: 2500,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer()
+                                        .querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                        b.textContent = Swal
+                                            .getTimerLeft()
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                location.reload();
+                            })
+                        }
+                    });
+                }
+            })
+        }
     </script>
 @endsection

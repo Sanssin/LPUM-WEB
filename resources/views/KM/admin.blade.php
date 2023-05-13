@@ -94,7 +94,8 @@
                                                 class="badge bg-light-info text-info font-weight-medium">{{ $org->organization_period }}</span>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-sm btn-orange text-white">Edit</a>
+                                            <a href="{{ route('km.edit', ['organization' => $org->id]) }}"
+                                                class="btn btn-sm btn-orange text-white">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
