@@ -16,6 +16,12 @@ class SendActivationAction
         'message' => "Sukses!"
     ];
 
+    /**
+     * Menangani proses pengiriman email aktivasi user
+     *
+     * @param array $data
+     * @return array
+     */
     public function handle($data)
     {
         $data = User::whereIn('id', $data)->get();
@@ -27,7 +33,11 @@ class SendActivationAction
             foreach ($data as $user) {
                 $token = Str::random(40);
                 $delay += 4;
+                // Jika ingin process synchronous tanpa queue
                 // Mail::to($user->email)->send(new ActivateAccount($token, $user->full_name));
+
+                // Jika ingin menggunakan queue
+                // Di dukung dengan cron job dan laravel scheduler
                 Mail::to($user->email)
                     ->later(now()->addMinutes($delay), new ActivateAccount($token, $user->full_name));
 

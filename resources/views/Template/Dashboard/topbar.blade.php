@@ -108,8 +108,8 @@
                 <li class="nav-item dropdown profile-dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ asset('assets/images/default_profile.png') }}" alt="user" width="30"
-                            class="profile-pic rounded-circle" />
+                        <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('assets/images/default_profile.png') }}"
+                            alt="user" width="30" class="profile-pic rounded-circle object-fit-cover" />
                         <div class="d-none d-md-flex">
                             <span class="ms-2">Hai,
                                 <span class="text-dark fw-bold">{{ auth()->user()->first_name }}</span></span>
@@ -135,8 +135,8 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center mt-4 pt-3 pb-4 border-bottom">
-                                    <img src="{{ asset('assets/images/default_profile.png') }}" alt="user"
-                                        width="90" class="rounded-circle" />
+                                    <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('assets/images/default_profile.png') }}"
+                                        alt="user" width="90" class="rounded-circle object-fit-cover" />
                                     <div class="ms-4">
                                         <h4 class="mb-0">
                                             {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h4>

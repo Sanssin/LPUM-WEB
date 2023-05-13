@@ -9,6 +9,7 @@ use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,4 +128,8 @@ Route::middleware('auth')->name('vote.')->controller(VoteController::class)->gro
 
     Route::get('result', 'result')->name('result.index');
     Route::get('result/{id}', 'showResult')->name('result.show');
+});
+
+Route::middleware('auth')->name('user.')->prefix('user')->controller(UserController::class)->group(function () {
+    Route::delete('picture', 'deletePicture')->name('deletePicture');
 });
