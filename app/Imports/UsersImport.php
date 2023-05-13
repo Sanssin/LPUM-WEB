@@ -29,7 +29,7 @@ class UsersImport implements OnEachRow, WithHeadingRow, WithUpserts
             'angkatan' => $row['angkatan'],
             'study_program_id' => $row['study_program_id'],
             'vote_status' => false
-        ], 'email');
+        ], 'nim');
 
         if (!$user) :
             $user->assignRole('User');
@@ -39,7 +39,7 @@ class UsersImport implements OnEachRow, WithHeadingRow, WithUpserts
 
     public function uniqueBy()
     {
-        return 'email';
+        return 'nim';
     }
 
     public function getCountRow()

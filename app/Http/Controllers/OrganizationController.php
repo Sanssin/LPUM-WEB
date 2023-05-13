@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Admin\UpdateOrganizationAction;
+use App\Http\Requests\UpdateOrganizationRequest;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
@@ -19,6 +21,24 @@ class OrganizationController extends Controller
         endif;
 
         return view('KM.index', compact('title', 'organizations', 'periods'));
+    }
+
+    public function edit(Organization $organization)
+    {
+        $title = "Ubah data organisasi";
+
+        return view('KM.edit', compact('title', 'organization'));
+    }
+
+    public function update(UpdateOrganizationRequest $request, UpdateOrganizationAction $action)
+    {
+        try {
+            $action->handle($request);
+        } catch (\Throwable $e) {
+            return back()->with('error', 'errprs');
+        }
+
+        return back()->with('success', 'success');
     }
 
     public function admin(Request $request)

@@ -49,7 +49,7 @@ class AdminController extends Controller
         ]);
 
         $import = new UsersImport;
-        Excel::import($import, $request->file('users'));
+        Excel::import($import, $request->file('users_excel'));
 
         $count = $import->getCountRow();
 
@@ -96,7 +96,15 @@ class AdminController extends Controller
 
     public function deleteUsers(Request $request)
     {
-        User::destroy($request->data);
+        // Tidak boleh menghapus user sendiri
+        $data = collect($request->data);
+        $data = $data
+            ->reject(function ($item, $value) {
+                return $item == auth()->user()->id;
+            })
+            ->toArray();
+        // Hapus users
+        User::destroy($data);
 
         return response()->json([
             'data' => 'Sukses'

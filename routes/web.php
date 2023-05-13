@@ -120,6 +120,8 @@ Route::middleware('auth')->controller(OrganizationController::class)->prefix('km
     Route::middleware('role:Admin')->group(function () {
         Route::get('manage', 'admin')->name('manage');
         Route::delete('organization', 'destroy')->name('delete');
+        Route::get('edit/{organization}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
     });
 });
 
