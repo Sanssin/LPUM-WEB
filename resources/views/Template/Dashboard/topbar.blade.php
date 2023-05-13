@@ -60,44 +60,7 @@
                 <!-- ============================================================== -->
                 <!-- Comment -->
                 <!-- ============================================================== -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i data-feather="bell"></i>
-                        <div class="notify">
-                            <span class="point bg-primary"></span>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end mailbox dropdown-menu-animate-up">
-                        <ul class="list-style-none">
-                            <li>
-                                <div class="rounded-top p-30 pb-2 d-flex align-items-center">
-                                    <h3 class="card-title mb-0">Notifikasi</h3>
-                                    <span class="badge bg-warning ms-3">5 new</span>
-                                </div>
-                            </li>
-                            <li class="p-30 pt-0">
-                                <div class="message-center message-body position-relative">
-                                    <!-- Message -->
-                                    <a href="javascript:void(0)"
-                                        class="message-item px-2 d-flex align-items-center border-bottom py-3">
-                                        <span class="btn btn-light-info text-info btn-circle">
-                                            <i data-feather="dollar-sign" class="feather-sm fill-white"></i>
-                                        </span>
-                                        <div class="w-75 d-inline-block v-middle ps-3 ms-1">
-                                            <h5 class="message-title mb-0 mt-1 fs-4 font-weight-medium">
-                                                Roman Joined the Team!
-                                            </h5>
-                                            <span
-                                                class="fs-3 text-nowrap d-block time text-truncate fw-normal mt-1 text-muted">Congratulate
-                                                him</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                {{-- Dihilanhkan --}}
                 <!-- ============================================================== -->
                 <!-- End Comment -->
                 <!-- ============================================================== -->
