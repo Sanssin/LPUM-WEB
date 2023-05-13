@@ -83,6 +83,10 @@
                                 wire:model.defer='angkatan'>
                         </div>
                     </div>
+
+                    <input type="checkbox" id="admin" name="is_admin" value="1"
+                        class="material-inputs chk-col-teal" wire:model.defer='is_admin'>
+                    <label for="admin">Admin</label>
                 </form>
             </div>
             <div class="modal-footer">
