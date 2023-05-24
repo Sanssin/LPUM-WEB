@@ -14,7 +14,7 @@
             <a class="navbar-brand" href="{{ route('pagu') }}">
                 {{-- Loog icon --}}
                 <b class="logo-icon">
-                    <img src="{{ asset('assets/logo/logo-lpum.png') }}" style="max-width: 25px" alt="homepage"
+                    <img src="{{ asset('assets/logo/Logo-lpum.png') }}" style="max-width: 25px" alt="homepage"
                         class="dark-logo" />
                 </b>
 

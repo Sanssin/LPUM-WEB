@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ActivateAccount;
+use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -59,18 +60,24 @@ class AuthController extends Controller
 
     public function forgotRequest(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        $request->validate(
+            ['email' => 'required|email|exists:users']
+        );
 
         $token = Str::random(40);
 
-        Mail::to($request->email)
-            ->send(new ActivateAccount($token));
+        try {
+            DB::table('password_resets')->insert([
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => now()
+            ]);
+        } catch (\Exception $e) {
+            return back()->withErrors("Email sudah dikirim sebelumnya! Cek kembali sebelum mengajukan ulang!");
+        }
 
-        DB::table('password_resets')->insert([
-            'email' => $request->email,
-            'token' => $token,
-            'created_at' => now()
-        ]);
+        Mail::to($request->email)
+            ->send(new ResetPasswordMail($token));
 
         return back()->with('status', 'Email reset password sudah dikirim!');
     }
@@ -102,7 +109,7 @@ class AuthController extends Controller
             ->first();
 
         if (!$updatePassword) {
-            return back()->withInput()->with('error', 'Invalid token!');
+            return back()->withInput()->with('error', 'Token tidak valid');
         }
 
         $user = User::where('email', $request->email)->first();

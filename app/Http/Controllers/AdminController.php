@@ -3,20 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Admin\SendActivationAction;
-use App\Actions\Admin\UpdateUserAction;
+
 use App\Models\User;
 use App\Models\Election;
-use App\Models\Candidate;
-use Illuminate\Support\Str;
-use App\Imports\UsersImport;
 use Illuminate\Http\Request;
-use App\Mail\ActivateAccount;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreAgendaRequest;
-use App\Http\Requests\StoreCandidateRequest;
-use App\Http\Requests\UpdateUserViaAdminRequest;
 use App\Services\SyncAgendaService;
 use App\Services\VerifyUserService;
 
@@ -42,35 +34,6 @@ class AdminController extends Controller
         return view('Admin.manage-user', compact('title', 'data', 'prodi_count', 'not_activate'));
     }
 
-    public function uploadUser(Request $request)
-    {
-        $request->validate([
-            'users_excel' => 'required|file|mimes:xlsx,csv,xls'
-        ]);
-
-        $import = new UsersImport;
-        Excel::import($import, $request->file('users_excel'));
-
-        $count = $import->getCountRow();
-
-        return back()->with("success", "Berhasil mengupdate $count user");
-    }
-
-    public function editUser(User $user)
-    {
-        $title = 'Edit user';
-        return view('Admin.edit-user', compact('title', 'user'));
-    }
-
-    public function updateUser(UpdateUserViaAdminRequest $request, UpdateUserAction $action)
-    {
-        // Tangani semua proses update
-        if (!$action->handle($request)) :
-            return back()->with('error', 'error'); // Jika gagal kembalikan pesan error
-        endif;
-
-        return back()->with('success', 'success');
-    }
 
     public function verify(Request $request, VerifyUserService $service)
     {
@@ -94,22 +57,6 @@ class AdminController extends Controller
         ], $responseService['code']);
     }
 
-    public function deleteUsers(Request $request)
-    {
-        // Tidak boleh menghapus user sendiri
-        $data = collect($request->data);
-        $data = $data
-            ->reject(function ($item, $value) {
-                return $item == auth()->user()->id;
-            })
-            ->toArray();
-        // Hapus users
-        User::destroy($data);
-
-        return response()->json([
-            'data' => 'Sukses'
-        ]);
-    }
 
     public function manageElection()
     {

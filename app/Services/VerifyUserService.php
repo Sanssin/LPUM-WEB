@@ -29,7 +29,7 @@ class VerifyUserService
         try {
             $count = $this->changeVoteStatus($not_voted, $data->election);
         } catch (\Throwable $e) {
-            $this->response['message'] = $e->getMessage();
+            $this->response['message'] = "ID Pemilu # $data->election tidak ada!";
             $this->response['code'] = 400;
 
             return $this->response;

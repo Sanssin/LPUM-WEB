@@ -62,12 +62,8 @@ Route::middleware(['auth', 'role:Admin'])->controller(AdminController::class)->p
 
     // Manage User
     Route::get('manage-users', 'manageUser')->name('manageUser');
-    Route::get('edit-user/{user}', 'editUser')->name('editUser');
-    Route::post('update-user', 'updateUser')->name('updateUser');
-    Route::post('upload-user', 'uploadUser')->name('uploadUser');
     Route::post('verify', 'verify')->name('verify');
     Route::post('unverify', 'unverify')->name('unverify');
-    Route::delete('users', 'deleteUsers')->name('deleteUsers');
     Route::post('send-activation', 'activate')->name('activate');
     Route::post('truncate-activation', 'truncateActivation')->name('truncateActivation');
 
@@ -117,6 +113,7 @@ Route::middleware('auth')->prefix('candidate')->name('candidate.')->controller(C
 Route::middleware('auth')->controller(OrganizationController::class)->prefix('km')->name('km.')->group(function () {
     Route::get('/', 'index')->name('index');
 
+    // Admin Privileges
     Route::middleware('role:Admin')->group(function () {
         Route::get('manage', 'admin')->name('manage');
         Route::delete('organization', 'destroy')->name('delete');
@@ -133,5 +130,13 @@ Route::middleware('auth')->name('vote.')->controller(VoteController::class)->gro
 });
 
 Route::middleware('auth')->name('user.')->prefix('user')->controller(UserController::class)->group(function () {
+    // Admin privileges
+    Route::middleware('role:Admin')->group(function () {
+        Route::get('edit/{user}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+        Route::post('upload', 'upload')->name('upload');
+        Route::delete('chosen', 'delete')->name('delete');
+    });
+
     Route::delete('picture', 'deletePicture')->name('deletePicture');
 });

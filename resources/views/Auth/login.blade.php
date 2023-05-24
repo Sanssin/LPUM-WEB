@@ -10,7 +10,7 @@
                     <div class="col-md-7 col-lg-12 col-xl-9">
                         <div
                             class="d-flex align-items-center justify-content-center animate__animated animate__bounce animate__infinite">
-                            <span class="db"><img style="max-width: 60px" src="{{ asset('assets/logo/logo-lpum.png') }}"
+                            <span class="db"><img style="max-width: 60px" src="{{ asset('assets/logo/Logo-lpum.png') }}"
                                     alt="logo" /></span>
                             <span class="db"><img style="max-height:40px"
                                     src="{{ asset('assets/images/logo-text-lpum-light.png') }}" alt="logo" /></span>
@@ -92,8 +92,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p class="text-small">Kendala terkait login silakan tekan <a href="#">lini
-                                        ini</a> </p>
                                 <div class="d-flex align-items-stretch button-group">
                                     <button type="submit" class="btn btn-primary btn-lg px-4">
                                         Masuk
@@ -119,7 +117,7 @@
                 Riset &
                 Inovasi Nasional
             </p>
-            <div>
+            <div class="mb-4">
 
                 <img src="{{ asset('assets/logo/poltek-logo.svg') }}" style="max-height: 60px" alt="poltek"
                     class="bg-white p-2 rounded-2">

@@ -104,7 +104,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.editUser', ['user' => $user->id]) }}"
+                                            <a href="{{ route('user.edit', ['user' => $user->id]) }}"
                                                 class="btn btn-sm btn-orange text-white">Edit</a>
                                         </td>
                                     </tr>
@@ -257,7 +257,7 @@
                     <p>
                         File yang di dukung hanya yang berformat CSV, XLSX, XLS.
                     </p>
-                    <form method="post" action="{{ route('admin.uploadUser') }}" id="uploadUserForm"
+                    <form method="post" action="{{ route('user.upload') }}" id="uploadUserForm"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="input-group mb-3">
@@ -420,7 +420,7 @@
                                             if (result.isConfirmed) {
                                                 $.ajax({
                                                     type: "delete",
-                                                    url: "{{ route('admin.deleteUsers') }}",
+                                                    url: "{{ route('user.delete') }}",
                                                     data: {
                                                         _token: "{{ csrf_token() }}",
                                                         data: arr

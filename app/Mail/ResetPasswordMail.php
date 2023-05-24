@@ -5,27 +5,23 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ActivateAccount extends Mailable
+class ResetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $nama;
     public $token;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($token, $nama)
+    public function __construct($token)
     {
-        //
         $this->token = $token;
-        $this->nama = $nama;
     }
 
     /**
@@ -36,9 +32,7 @@ class ActivateAccount extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Aktivasi Akun LPUM',
-            // Tidak perlu from!
-            // Bikin crash emailnya
+            subject: 'Reset kata sandi',
         );
     }
 
@@ -50,7 +44,7 @@ class ActivateAccount extends Mailable
     public function content()
     {
         return new Content(
-            view: 'Email.activation',
+            view: 'Email.password-reset',
         );
     }
 

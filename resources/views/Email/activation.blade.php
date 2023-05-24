@@ -56,18 +56,22 @@
                     <tbody>
                         <tr>
                             <td>
-                                <b>Hai!</b>
+                                <b>Hai, {{ $nama }}!</b>
                                 <p>
-                                    Kami telah menerima permintaan reset kata sandi untuk akun kamu.
-                                    Jika kamu tidak meminta reset kata sandi, kamu dapat mengabaikan email ini. Namun,
-                                    jika kamu merasa ada aktivitas mencurigakan pada akun kamu, silakan hubungi kami
-                                    segera.
-                                    Silakan klik tautan di bawah ini untuk mengatur kata sandi baru:
+                                    Selamat datang di aplikasi web LPUM! <br> Kami senang memberitahu bahwa akun kamu
+                                    telah
+                                    berhasil dibuat. Mohon mengisi kata sandi kamu untuk memfinalisasi pembuatan akun
+                                    dan mengakses semua fitur yang tersedia di aplikasi kami. Terima kasih telah
+                                    berpartisipasi,
+                                    <br>Selamat berdinamika!
+
+                                    <br />
+                                    Bon Voyage!
                                 </p>
                                 <center>
                                     <a href="{{ route('password.reset', ['token' => $token]) }}"
                                         style="display: inline-block; padding: 11px 30px; margin: 20px 0px 30px; font-size: 15px; color: #fff; background: #157cca; border-radius: 60px; text-decoration: none;">
-                                        Reset kata sandi
+                                        Finalisasi Akun
                                     </a>
                                 </center>
                                 <p>

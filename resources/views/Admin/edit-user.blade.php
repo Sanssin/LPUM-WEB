@@ -54,7 +54,7 @@
                             Data tidak diupdate!
                         </div>
                     @endif
-                    <form action="{{ route('admin.updateUser') }}" id="editUserForm" method="post"
+                    <form action="{{ route('user.update') }}" id="editUserForm" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{ $user->id }}">

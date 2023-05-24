@@ -25,6 +25,10 @@
                 <!-- Form -->
                 <div class="row">
                     <div class="col-12">
+                        <div class="alert alert-warning">
+                            <p class="mb-0">Kata sandi minimal terdiri dari 6 karakter. Pastikan memilih kata sandi yang
+                                mudah diingat!</p>
+                        </div>
                         <form class="form-horizontal mt-3" action="{{ route('password.request') }}" method="post">
                             @csrf
                             <input type="hidden" name="token" value="{{ $token }}">
