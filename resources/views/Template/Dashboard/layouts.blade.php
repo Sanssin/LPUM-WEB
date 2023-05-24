@@ -106,6 +106,19 @@
     console.log("I am sorry, some error still remains here. But it won't affect the app performance!");
     console.log("If you want to speak up about this website, just contact me on :");
     console.log("Instagram : @bomsiwor");
+    $(document).keydown(function(e) {
+        // Disable Ctrl+U
+        if (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 117)) {
+            alert("Ctrl+U is disabled!");
+            return false;
+        }
+
+        // Disable Ctrl+S
+        if (e.ctrlKey && (e.keyCode == 83 || e.keyCode == 115)) {
+            alert("Ctrl+S is disabled!");
+            return false;
+        }
+    });
 </script>
 
 </html>

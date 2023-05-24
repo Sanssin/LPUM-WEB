@@ -52,6 +52,7 @@
                     @else
                         <div class="row">
                             <strong>Saat ini tersimpan</strong>
+
                             <div class="row justify-content-center justify-content-lg-start">
                                 @foreach ($candidates as $candidate)
                                     <div class="col-lg-4">
@@ -68,22 +69,33 @@
                                                 <div
                                                     class="d-flex d-lg-block flex-wrap justify-content-center justify-content-lg-start">
                                                     <h5 class="text-primary">{{ $candidate->lead_position }}</h5>
-                                                    <h6>{{ $candidate->leader->first_name . ' ' . $candidate->leader->last_name }}
-                                                    </h6>
+                                                    <div>
+                                                        <h6>{{ $candidate->leader->full_name }}
+                                                        </h6>
+
+                                                        <div>
+                                                            <a href="{{ route('user.show', ['user' => $candidate->leader->nim]) }}"
+                                                                class="badge bg-primary text-white">Detail Profil</a>
+                                                        </div>
+                                                    </div>
                                                     @if ($candidate->coleader_id)
                                                         <h5 class="text-primary">{{ $candidate->colead_position }}</h5>
-                                                        <h6>{{ $candidate->coleader->first_name . ' ' . $candidate->coleader->last_name }}
+                                                        <h6>{{ $candidate->coleader->full_name }}
                                                         </h6>
+                                                        <div>
+                                                            <a href="{{ route('user.show', ['user' => $candidate->coleader->nim]) }}"
+                                                                class="badge bg-primary text-white">Detail Profil</a>
+                                                        </div>
                                                     @endif
                                                 </div>
                                                 <div>
                                                     <div>
                                                         <strong>Visi</strong>
-                                                        {!! $candidate->vision !!}
+                                                        {!! $candidate->vision ?? '-' !!}
                                                     </div>
                                                     <div>
                                                         <strong>Misi</strong>
-                                                        {!! $candidate->mission !!}
+                                                        {!! $candidate->mission ?? '-' !!}
                                                     </div>
                                                 </div>
                                             </div>

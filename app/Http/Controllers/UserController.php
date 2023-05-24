@@ -80,4 +80,11 @@ class UserController extends Controller
         $user->image = null;
         $user->save();
     }
+
+    public function show(User $user)
+    {
+        $title = 'Detail Pengguna';
+
+        return view('User.show', compact('title', 'user'));
+    }
 }

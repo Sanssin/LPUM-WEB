@@ -130,6 +130,8 @@ Route::middleware('auth')->name('vote.')->controller(VoteController::class)->gro
 });
 
 Route::middleware('auth')->name('user.')->prefix('user')->controller(UserController::class)->group(function () {
+    Route::get('/{user:nim}/detail', 'show')->name('show');
+
     // Admin privileges
     Route::middleware('role:Admin')->group(function () {
         Route::get('edit/{user}', 'edit')->name('edit');
