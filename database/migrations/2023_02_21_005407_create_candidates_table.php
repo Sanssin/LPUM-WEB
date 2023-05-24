@@ -21,8 +21,8 @@ return new class extends Migration
             $table->integer('number')->nullable();
             $table->string('lead_position');
             $table->string('colead_position')->nullable();
-            $table->text('vision');
-            $table->text('mission');
+            $table->text('vision')->nullable();
+            $table->text('mission')->nullable();
             $table->string('slogan')->nullable();
             $table->string('candidate_image')->nullable();
 

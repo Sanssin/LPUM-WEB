@@ -21,6 +21,11 @@
             <div class="col-md-12">
                 <input type="text" value="{{ auth()->user()->first_name }}" class="form-control form-control-line"
                     wire:model.defer='first_name' />
+                <div class="d-flex justify-content-start">
+                    <small id="name1"
+                        class="badge badge-default text-info font-weight-medium bg-light-info form-text">Wajib
+                        diisi</small>
+                </div>
             </div>
         </div>
 
@@ -30,6 +35,11 @@
             <div class="col-md-12">
                 <input type="text" value="{{ auth()->user()->last_name }}" class="form-control form-control-line"
                     wire:model.defer='last_name' />
+                <div class="d-flex justify-content-start">
+                    <small id="name1"
+                        class="badge badge-default text-info font-weight-medium bg-light-info form-text">Wajib
+                        diisi</small>
+                </div>
             </div>
         </div>
 
@@ -39,6 +49,11 @@
             <div class="col-md-12">
                 <input type="email" class="form-control form-control-line" value="{{ auth()->user()->email }}"
                     id="email" wire:model.defer='email' />
+                <div class="d-flex justify-content-start">
+                    <small id="name1"
+                        class="badge badge-default text-info font-weight-medium bg-light-info form-text">Wajib
+                        diisi</small>
+                </div>
             </div>
         </div>
 
@@ -48,6 +63,11 @@
             <div class="col-md-12">
                 <input type="text" class="form-control form-control-line" value="{{ auth()->user()->nim }}"
                     id="nim" wire:model.defer='nim' />
+                <div class="d-flex justify-content-start">
+                    <small id="name1"
+                        class="badge badge-default text-info font-weight-medium bg-light-info form-text">Wajib
+                        diisi</small>
+                </div>
             </div>
         </div>
 
@@ -115,6 +135,13 @@
                 class="material-inputs chk-col-orange" @if ($show_socmed) checked @endif
                 wire:model.defer='show_socmed'>
             <label for="show_socmed">Tampilkan Media sosial</label>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-md-12">Tentang</label>
+            <div class="form-group">
+                <textarea class="form-control" rows="3" style="height: 80px" wire:model.defer='description'></textarea>
+            </div>
         </div>
 
         <div class="mb-3">

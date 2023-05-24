@@ -33,8 +33,23 @@
                 <div class="card-body pt-0">
                     <small class="text-muted">Surat Elektronik</small>
                     <h6>{{ auth()->user()->email }}</h6>
-                    <small class="text-muted pt-4 db">Phone</small>
-                    <h6>{{ auth()->user()->phone }}</h6>
+                    @if (auth()->user()->show_phone)
+                        <small class="text-muted pt-4 db">No HP</small>
+                        <h6>{{ auth()->user()->phone }}</h6>
+                    @endif
+                    @if (auth()->user()->show_address)
+                        <small class="text-muted pt-4 db">Alamat</small>
+                        <h6>{{ auth()->user()->address }}</h6>
+                    @endif
+                    <hr class="text-secondary">
+                    @if (auth()->user()->show_socmed)
+                        <small class="text-muted pt-4 db">Instagram</small>
+                        <h6>{{ auth()->user()->instagram ?? '-' }}</h6>
+                        <small class="text-muted pt-4 db">linkedin</small>
+                        <h6>{{ auth()->user()->linkedin ?? '-' }}</h6>
+                        <small class="text-muted pt-4 db">Twitter</small>
+                        <h6>{{ auth()->user()->twitter ?? '-' }}</h6>
+                    @endif
                 </div>
             </div>
         </div>
@@ -86,30 +101,10 @@
                             </div>
                             <hr />
                             <p class="mt-4">
-                                Donec pede justo, fringilla vel, aliquet nec, vulputate
-                                eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                                venenatis vitae, justo. Nullam dictum felis eu pede
-                                mollis pretium. Integer tincidunt.Cras dapibus. Vivamus
-                                elementum semper nisi. Aenean vulputate eleifend tellus.
-                                Aenean leo ligula, porttitor eu, consequat vitae,
-                                eleifend ac, enim.
+                                {{ auth()->user()->description ?? '' }}
                             </p>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the
-                                industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and
-                                scrambled it to make a type specimen book. It has
-                                survived not only five centuries
-                            </p>
-                            <p>
-                                It was popularised in the 1960s with the release of
-                                Letraset sheets containing Lorem Ipsum passages, and
-                                more recently with desktop publishing software like
-                                Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
-                            <h4 class="font-weight-medium mt-4">Organisasi</h4>
-                            <hr />
+                            {{-- <h4 class="font-weight-medium mt-4">Organisasi</h4> --}}
+                            {{-- <hr /> --}}
                         </div>
                     </div>
 

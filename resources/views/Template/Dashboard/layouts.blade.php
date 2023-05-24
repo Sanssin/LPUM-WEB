@@ -101,4 +101,11 @@
 
 @yield('scripts')
 
+<script>
+    console.log('Hello!');
+    console.log("I am sorry, some error still remains here. But it won't affect the app performance!");
+    console.log("If you want to speak up about this website, just contact me on :");
+    console.log("Instagram : @bomsiwor");
+</script>
+
 </html>

@@ -14,7 +14,8 @@ class UpdateProfileComponent extends Component
         $address,
         $instagram,
         $twitter,
-        $linkedin;
+        $linkedin,
+        $description;
 
     public $show_phone,
         $show_address,
@@ -43,6 +44,7 @@ class UpdateProfileComponent extends Component
         $data->instagram = $this->instagram;
         $data->twitter = $this->twitter;
         $data->linkedin = $this->linkedin;
+        $data->description = $this->description;
 
         $data->show_phone = $this->show_phone;
         $data->show_address = $this->show_address;
