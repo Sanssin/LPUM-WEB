@@ -1,0 +1,10 @@
+first_name,last_name,email,password,nim,angkatan,study_program_id,phone
+John,Doe,john.doe@example.com,password123,022300002,2022,2,081234567890
+Jane,Smith,jane.smith@example.com,password123,022300003,2021,3,081345678901
+Ali,Khan,ali.khan@example.com,password123,022300004,2023,1,081956789012
+Sarah,Lee,sarah.lee@example.com,password123,022300005,2020,2,081567890123
+Ahmad,Rahman,ahmad.rahman@example.com,password123,022300006,2023,3,081678901234
+Emily,Clark,emily.clark@example.com,password123,022300007,2022,1,081789012345
+David,Taylor,david.taylor@example.com,password123,022300008,2021,2,081890123456
+Nina,Brown,nina.brown@example.com,password123,022300009,2020,3,081901234567
+Tom,Wilson,tom.wilson@example.com,password123,022300010,2023,1,082012345678

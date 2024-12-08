@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
-use App\Models\Candidate;
 use App\Imports\UsersImport;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
+        // Menjalankan seeders lainnya
         $this->call([
             StudyProgramSeeder::class,
             PermissionTableSeeder::class,
@@ -29,8 +25,10 @@ class DatabaseSeeder extends Seeder
             EventsSeeder::class,
         ]);
 
-        Excel::import(new UsersImport, 'laravel-lpum-test.csv');
+        // Mengimpor data dari file CSV atau Excel
+        Excel::import(new UsersImport, storage_path('app/Untitled spreadsheet - test_users.csv')); // Pastikan path file benar
 
+        // Menambahkan data ke tabel site_settings
         $settings = [
             'whatsapp',
             'email',
@@ -40,10 +38,12 @@ class DatabaseSeeder extends Seeder
             'linkedin_link',
             'facebook',
             'facebook_link',
-            'description'
+            'description',
         ];
-        foreach ($settings as $setting) :
+
+        // Memasukkan data ke tabel site_settings
+        foreach ($settings as $setting) {
             DB::table('site_settings')->insert(['data' => $setting]);
-        endforeach;
+        }
     }
 }

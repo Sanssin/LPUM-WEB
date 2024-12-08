@@ -1,6 +1,5 @@
 @extends('Template.Dashboard.layouts')
 
-
 @section('main')
     <div class="page-titles">
         <div class="row">
@@ -27,7 +26,7 @@
                         berkomunikasi dengan kami. Terima kasih atas dukunganmu!</p>
                     <div class="row">
                         {{-- Instagram --}}
-                        @if ($data['instagram'])
+                        @if (isset($data['instagram']) && $data['instagram'])
                             <div class="col-lg-4 col-md-6">
                                 <div class="card bg-purple text-white">
                                     <div class="card-body py-2">
@@ -46,28 +45,30 @@
                                 </div>
                             </div>
                         @endif
-                        {{-- whatsapp --}}
-                        @if ($data['whatsapp'])
+
+                        {{-- WhatsApp --}}
+                        @if (isset($data['whatsapp']) && $data['whatsapp'])
                             <div class="col-lg-4 col-md-6">
                                 <div class="card bg-success text-white">
                                     <div class="card-body py-2">
                                         <div class="d-flex no-block align-items-center">
                                             <a
                                                 href="https://api.whatsapp.com/send?phone=62{{ $data['whatsapp'] }}&text=Permisi.%20Bolehkah%20saya%20meminta%20informasi%20terkait%20LPUM%3F%F0%9F%91%8B"><i
-                                                    class="display-6 mdi mdi-whatsapp text-white" title="Whatsapp"></i></a>
+                                                    class="display-6 mdi mdi-whatsapp text-white" title="WhatsApp"></i></a>
                                             <div class="ms-3 mt-2">
                                                 <h4 class="font-weight-medium mb-0 text-white">
                                                     +62 {{ $data['whatsapp'] }}
                                                 </h4>
-                                                <h5 class="text-white">Whatsapp</h5>
+                                                <h5 class="text-white">WhatsApp</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @endif
-                        {{-- Linkedin --}}
-                        @if ($data['linkedin'])
+
+                        {{-- LinkedIn --}}
+                        @if (isset($data['linkedin']) && $data['linkedin'])
                             <div class="col-lg-4 col-md-6">
                                 <div class="card bg-inverse text-white">
                                     <div class="card-body py-2">
@@ -85,8 +86,9 @@
                                 </div>
                             </div>
                         @endif
+
                         {{-- Facebook --}}
-                        @if ($data['facebook'])
+                        @if (isset($data['facebook']) && $data['facebook'])
                             <div class="col-lg-4 col-md-6">
                                 <div class="card bg-primary text-white">
                                     <div class="card-body py-2">

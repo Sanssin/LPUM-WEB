@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CreateAdminUserSeeder extends Seeder
 {
@@ -18,25 +17,34 @@ class CreateAdminUserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
-            'first_name' => 'Joko',
-            'last_name' => 'Widodo',
-            'email' => 'bomsiwor.spam@gmail.com',
-            'nim' => '021900009',
-            'angkatan' => '2019',
-            'study_program_id' => fake()->numberBetween(1, 3),
-            'password' => Hash::make("password"),
-            'phone' => "087733547844"
-        ]);
+        // Cek dan buat pengguna admin jika belum ada
+        $user = User::firstOrCreate(
+            ['email' => 'udinihsan604@gmail.com'], // Kondisi unik
+            [ // Data yang akan dibuat jika belum ada
+                'first_name' => 'Nur',
+                'last_name' => 'Ihsanudin',
+                'nim' => '022300013',
+                'angkatan' => '2023',
+                'study_program_id' => 1, // Nilai tetap untuk contoh
+                'password' => Hash::make("password"),
+                'phone' => "087733547844",
+            ]
+        );
 
-        $role = Role::create(['name' => 'Admin'], ['name' => 'User']);
+        // Cek dan buat role Admin jika belum ada
+        $roleAdmin = Role::firstOrCreate(['name' => 'Admin']);
+        $roleUser = Role::firstOrCreate(['name' => 'User']);
 
-        $permissions = Permission::pluck('id', 'id')->all();
+        // Ambil semua permissions dan asosiasikan dengan role Admin
+        $permissions = Permission::all();
+        $roleAdmin->syncPermissions($permissions);
 
-        $role->syncPermissions($permissions);
+        // Tetapkan role Admin ke pengguna yang baru dibuat
+        if (!$user->hasRole('Admin')) {
+            $user->assignRole($roleAdmin);
+        }
 
-        $user->assignRole([$role->id]);
-
-        // $users = User::factory()->count(5)->create();
+        // Jika ingin membuat dummy users, gunakan factory
+        // User::factory()->count(5)->create();
     }
 }

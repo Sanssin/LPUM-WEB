@@ -27,13 +27,6 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('dist/css/landingpage.min.css') }}" rel="stylesheet" />
 
-    <!-- =======================================================
-  * Template Name: FlexStart
-  * Updated: Mar 10 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -107,30 +100,33 @@
                             <img src="{{ asset('assets/logo/Logo-lpum.png') }}" alt="" />
                             <img src="{{ asset('assets/logo/logo-text-lpum.png') }}" alt="" />
                         </a>
-                        @if ($data['description'])
-                            <p>
-                                {{ $data['description'] }}
-                            </p>
+                        @if (isset($data['description']) && $data['description'])
+                            <!-- Menampilkan konten jika description ada dan tidak kosong -->
+                            {{ $data['description'] }}
                         @endif
+
                         <div class="social-links mt-3">
-                            @if ($data['whatsapp'])
+                            @if (isset($data['whatsapp']) && $data['whatsapp'])
+                                <p>{{ $data['whatsapp'] }}</p>
                                 <a href="https://api.whatsapp.com/send?phone=62{{ $data['whatsapp'] }}&text=Permisi.%20Bolehkah%20saya%20meminta%20informasi%20terkait%20LPUM%3F%F0%9F%91%8B"
                                     class="instagram"><i class="mdi mdi-whatsapp"></i></a>
                             @endif
-                            @if ($data['instagram'])
-                                <a href="{{ $data['instagram_link'] }}" class="instagram"><i
+                            @if (isset($data['instagram']) && $data['instagram'])
+                                <p>{{ $data['instagram'] }}</p>
+                                <a href="{{ $data['instagram_link'] ?? '#' }}" class="instagram"><i
                                         class="mdi mdi-instagram"></i></a>
                             @endif
-                            @if ($data['email'])
+                            @if (isset($data['email']) && $data['email'])
+                                <p>{{ $data['email'] }}</p>
                                 <a href="mailto:{{ $data['email'] }}" class="instagram"><i
                                         class="mdi mdi-email-outline"></i></a>
                             @endif
-                            @if ($data['linkedin'])
-                                <a href="{{ $data['linkedin_link'] }}" class="instagram"><i
+                            @if (isset($data['linkedin']) && $data['linkedin'])
+                                <a href="{{ $data['linkedin_link'] ?? '#' }}" class="instagram"><i
                                         class="mdi mdi-linkedin"></i></a>
                             @endif
-                            @if ($data['facebook'])
-                                <a href="{{ $data['facebook_link'] }}" class="instagram"><i
+                            @if (isset($data['facebook']) && $data['facebook'])
+                                <a href="{{ $data['facebook_link'] ?? '#' }}" class="instagram"><i
                                         class="mdi mdi-facebook"></i></a>
                             @endif
                         </div>
@@ -143,10 +139,10 @@
                             Jl. Babarsari Kotak POB 6101/YKKB <br>
                             Ngentak, Caturtunggal, Kec. Depok <br>
                             Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281 <br>
-                            @if ($data['whatsapp'])
+                            @if (isset($data['whatsapp']) && $data['whatsapp'])
                                 <strong>No. Telepon:</strong> +62{{ $data['whatsapp'] }}<br />
                             @endif
-                            @if ($data['email'])
+                            @if (isset($data['email']) && $data['email'])
                                 <strong>Email:</strong> <a href="mailto:{{ $data['email'] }}">
                                     {{ $data['email'] }}</a>
                             @endif
@@ -162,10 +158,6 @@
                 Reserved
             </div>
             <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
                 Created by The Developers. <br />
                 Designed by
                 <a href="https://bootstrapmade.com/">BootstrapMade</a>
