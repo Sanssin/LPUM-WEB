@@ -81,7 +81,7 @@ class OrganizationsSeeder extends Seeder
         foreach ($organizations as $key => $value) :
             Organization::create([
                 'organization_name' => $value,
-                'organization_period' => 2023,
+                'organization_period' => 2024,
                 'organization_full_name' => $full_name[$key],
                 'organization_image' => 'organization/' . $image[$key]
             ]);

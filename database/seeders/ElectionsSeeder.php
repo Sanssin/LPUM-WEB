@@ -16,8 +16,8 @@ class ElectionsSeeder extends Seeder
     public function run()
     {
         $data = [
-            'election_name' => 'Pemira Ketua BEM',
-            'election_period' => 2023,
+            'election_name' => 'Pemilihan Ketua Hima Einsten.com',
+            'election_period' => 2024,
             'start_election' => now(),
             'end_election' => now()->addDays(29),
             'election_image' => 'election/contoh-poster.jpg',

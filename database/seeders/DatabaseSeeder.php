@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Mengimpor data dari file CSV atau Excel
-        Excel::import(new UsersImport, storage_path('app/Untitled spreadsheet - test_users.csv')); // Pastikan path file benar
+        Excel::import(new UsersImport, storage_path('/www/userPemilihanKahim.csv')); // Pastikan path file benar
 
         // Menambahkan data ke tabel site_settings
         $settings = [

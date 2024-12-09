@@ -25,9 +25,9 @@ class CreateAdminUserSeeder extends Seeder
                 'last_name' => 'Ihsanudin',
                 'nim' => '022300013',
                 'angkatan' => '2023',
-                'study_program_id' => 1, // Nilai tetap untuk contoh
+                'study_program_id' => 2, // Nilai tetap untuk contoh
                 'password' => Hash::make("password"),
-                'phone' => "087733547844",
+                'phone' => "088216253010",
             ]
         );
 
